@@ -1,0 +1,361 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}
+
+.grid-item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 7px;
+}
+
+.text {
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Modal Style */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.carousel-image {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.carousel-image.active {
+    display: block;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.carousel-controls button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.carousel-controls button:hover {
+    background-color: #0056b3;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+/* Grid Container and items remain unchanged */
+
+/* Style for the 'Click' button */
+.click-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-radius: 5px;
+    opacity: 0.8; /* Slightly transparent */
+    transition: opacity 0.3s ease;
+}
+
+.click-btn:hover {
+    opacity: 1; /* Full opacity on hover */
+}
+
+/* Ensuring the grid item has a relative position to position the button correctly */
+.grid-item {
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Other existing styles remain unchanged */
+
+
+</style>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Grid Layout with Carousel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="grid-container">
+    {% for x in x %}
+        <div class="grid-item" data-gallery="gallery1">
+            <img src="{{x.main_picture.url}}" alt="Image 1">
+            <button class="click-btn">More Photos</button> <!-- Add this button -->
+            <div class="text">{{x.name}}</div>
+            <div class="button-container">
+                <a href="/housebuy/{{x.id}}" class="btn bg-warning">Buy Now <i class="fa-solid fa-cart-shopping"></i></a>
+                <a href="/housedetails/{{x.id}}" class="btn btn-info">More Info</a>
+            </div>
+        </div>
+
+
+  <!-- Gallery Modal -->
+  <div class="modal" id="gallery-modal">
+    <span class="close">&times;</span>
+    <div class="modal-content">
+        <div class="carousel">
+             {% for picture in x.other_pictures.all %}
+            <img src="{{ picture.picture.url }}" class="carousel-image active" alt="other pictures">
+            {% endfor %}
+        <!-- Add more images to the carousel -->
+        </div>
+        <div class="carousel-controls">
+            <button class="prev">&lt;</button>
+            <button class="next">&gt;</button>
+        </div>
+    </div>
+</div>
+
+
+
+{% endfor %}
+        <div class="grid-item" data-gallery="gallery1">
+            <img src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/fe0d65472c208b975ab58abce49e3912-full.webp" alt="Image 1">
+            <button class="click-btn">more photos</button> <!-- Add this button -->
+            <div class="text">Image Description 1</div>
+            <div class="button-container">
+                <button class="btn bg-warning">Buy Now <i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="btn bg-info">More Info</button>
+            </div>
+        </div>
+        <div class="grid-item" data-gallery="gallery2">
+            <img src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/4bf95f2244b77ec623e05081212efe2e-full.webp" alt="Image 2">
+            <button class="click-btn">more photos</button> <!-- Add this button -->
+            <div class="text">Image Description 2</div>
+            <div class="button-container">
+                <button class="btn">Buy Now <i class="fa-solid fa-cart-shopping"></i></button>
+                <a href="/housedetails" class="btn">More Info</a>
+            </div>
+        </div>
+
+        <div class="grid-item" data-gallery="gallery2">
+            <img src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/feb454adb140b93829990a03df59d22a-full.webp" alt="Image 2">
+            <button class="click-btn">more photos</button> <!-- Add this button -->
+            <div class="text">Image Description 2</div>
+            <div class="button-container">
+                <button class="btn">Buy Now <i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="btn">More Info</button>
+            </div>
+        </div>
+
+        <div class="grid-item" data-gallery="gallery2">
+            <img src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/5131ccc349205bcfa2752dcb630a6b59-full.webp" alt="Image 2">
+            <button class="click-btn">more photos</button> <!-- Add this button -->
+            <div class="text">Image Description 2</div>
+            <div class="button-container">
+                <button class="btn">Buy Now <i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="btn">More Info</button>
+            </div>
+        </div>
+        <!-- Add more grid items as needed -->
+    </div>
+
+  
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<script>
+    // Get modal elements
+const modal = document.getElementById("gallery-modal");
+const closeModal = document.querySelector(".close");
+const carouselImages = document.querySelectorAll(".carousel-image");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+let currentImageIndex = 0;
+
+// Add click event for all grid items
+const gridItems = document.querySelectorAll('.grid-item');
+
+gridItems.forEach(item => {
+    item.addEventListener('click', function() {
+        openGallery();
+    });
+});
+
+function openGallery() {
+    modal.style.display = "block";
+    showImage(currentImageIndex);
+}
+
+// Close the modal when the 'x' is clicked
+closeModal.addEventListener('click', function() {
+    modal.style.display = "none";
+});
+
+// Close the modal when clicked outside the image
+window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+
+// Carousel functionality
+prevBtn.addEventListener('click', function() {
+    currentImageIndex = (currentImageIndex === 0) ? carouselImages.length - 1 : currentImageIndex - 1;
+    showImage(currentImageIndex);
+});
+
+nextBtn.addEventListener('click', function() {
+    currentImageIndex = (currentImageIndex === carouselImages.length - 1) ? 0 : currentImageIndex + 1;
+    showImage(currentImageIndex);
+});
+
+function showImage(index) {
+    carouselImages.forEach(image => image.classList.remove('active'));
+    carouselImages[index].classList.add('active');
+}
+
+// Optional: Auto-slide functionality
+let autoSlide = setInterval(function() {
+    nextBtn.click();
+}, 5000);
+
+// Stop auto-slide when modal is closed
+closeModal.addEventListener('click', function() {
+    clearInterval(autoSlide);
+});
+
+</script>
+{% endblock %}

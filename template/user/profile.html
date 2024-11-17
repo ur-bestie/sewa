@@ -1,0 +1,130 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="dashboard-wrapper">
+    <div class="col-xxl-8 col-lg-10 mx-auto">
+    <div class="breadcrumb-area"><h3 class="title">Profile Settings</h3></div>
+
+            <div class="account-settings-navbar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="https://waiz.bugfinder.app/user/profile">
+                            <i class="fa-light fa-user"></i>Profile</a>
+                    </li>
+                                                                </ul>
+            </div>
+
+            <div class="account-settings-profile-section">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="post" action="https://waiz.bugfinder.app/user/profile-update/image"
+                              enctype="multipart/form-data">
+                            <input type="hidden" name="_token" value="eiSEk0Omd1wNDxm5EDKUl2fL4uQXhgk4YJQ99H02" autocomplete="off">                                <h5 class="card-title">Profile Details</h5>
+                            <div class="profile-details-section">
+                                <div class="d-flex gap-3 align-items-center">
+                                    <div class="image-area">
+                                        <img id="profile" src="https://waiz.bugfinder.app/assets/admin/img/default.png"
+                                             alt="Demo User">
+                                    </div>
+                                    <div class="btn-area">
+                                        <div class="btn-area-inner d-flex">
+                                            <div class="cmn-file-input">
+                                                <label for="formFile"
+                                                       class="form-label"><i class="fal fa-camera-alt me-2"></i> choose photo</label>
+                                                <input name="image" class="form-control" type="file" id="formFile"
+                                                       onchange="previewImage('profile')">
+                                            </div>
+                                            <button type="submit"
+                                                    class="btn btn-outline-success mx-2 ">Update</button>
+                                        </div>
+
+                                        <small>Allowed JPG, JPEG or PNG. Max size of 4M</small>
+                                    </div>
+                                                                        </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-body pt-0">
+                        <div class="profile-form-section">
+                            <form action="https://waiz.bugfinder.app/user/profile-update" method="post"
+                                  enctype="multipart/form-data">
+                                <input type="hidden" name="_token" value="eiSEk0Omd1wNDxm5EDKUl2fL4uQXhgk4YJQ99H02" autocomplete="off">                                    <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="firstName">First Name</label>
+                                        <input type="text" id="firstName"
+                                               class="form-control "
+                                               name="first_name" placeholder="Jhon" autocomplete="off"
+                                               value="Demo"/>
+                                        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="lastName">Last Name</label>
+                                        <input type="text" id="lastName"
+                                               class="form-control "
+                                               name="last_name" placeholder="Doe" autocomplete="off"
+                                               value="User"/>
+                                                                                </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="username">username</label>
+                                        <input type="text"
+                                               class="form-control "
+                                               name="username" id="username"
+                                               value="demouser"
+                                               placeholder="jhondoe" autocomplete="off"/>
+                                                                                </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="email">email address</label>
+                                        <input type="email" class="form-control " name="email"
+                                               value="demouser@gmail.com" id="email"
+                                               placeholder="example@gmail.com" autocomplete="off" readonly />
+                                                                                </div>
+
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">phone number</label>
+                                        <input type="hidden" name="phone_code" id="phoneCode"/>
+                                        <input type="hidden" name="country_code" id="countryCode"/>
+                                        <input type="hidden" name="country" id="countryName"/>
+                                        <input id="telephone" class="form-control" name="phone" type="tel" onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')">
+                                                                                </div>
+
+                                    <div class=" col-md-6">
+                                        <label class="form-label" for="select">preferred language</label>
+                                        <select class="cmn-select2 " name="language_id" id="select">
+                                            <option value="" disabled>Select Language</option>
+                                                                                                <option value="1"
+                                                    selected>English</option>
+                                                                                                <option value="2"
+                                                    >Spanish</option>
+                                                                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label" for="address_one">Address One</label>
+                                        <textarea class="form-control "
+                                                  cols="30" rows="2"
+                                                  name="address_one" id="address_one"
+                                                  placeholder="Address">Dhaka, Bangladesh.</textarea>
+                                                                                </div>
+                                    <div class="col-12">
+                                        <label class="form-label" for="address_two">Address Two</label>
+                                        <textarea class="form-control "
+                                                  cols="30" rows="2"
+                                                  name="address_two" id="address_two"
+                                                  placeholder="Address">Dubai, UAE</textarea>
+                                                                                </div>
+                                </div>
+
+                                <div class="btn-area d-flex g-3">
+                                    <button class="cmn-btn">save changes</button>
+                                    <a  class="cmn-btn3" href="javascript:location.reload()">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock %}

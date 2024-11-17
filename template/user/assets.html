@@ -1,0 +1,203 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+        <div class="calculator" style="margin-top: 50px;">
+            <div class="calculator-header">
+                <h4>Which Asset are you buying today?</h4>
+                <p class="mb-0">Fast and reliable international money transfer app.</p>
+            </div>
+            <div class="calculator-body">
+                <div class="row g-4">
+                   
+                {% for x in x %}
+                   
+                    <div class="col-12">
+                        <div class="input-amount-box" id="inputAmountBox2">
+                            <span class="linear-gradient"></span>
+                            <div class="input-amount-wrapper">
+                                <label class="form-label mb-1">{{x.name}}</label>
+                                <div class="input-amount-box-inner" id="inputAmountBoxInner2">
+                                   
+                                        <img class="img" id="{{x.image.url}}" src="{{x.image.url}}" alt="" style="width: 30%;border-radius: 20%;">
+                                    
+                                    <div class="text-area w-100">
+                                        <div class="d-flex gap-3 justify-content-between">
+                                           
+                                            <input type="text"
+                                                   name="" readonly id="" placeholder="0.00"
+                                                   value="${{x.price}}"
+                                                   v-model="get_amount" @change="sendValue"
+                                                   @keypress="onlyNumber"
+                                                   onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')"
+                                                   @input="updateRecipientAmount">
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div id="receiverCurrName" v-cloak>{{ receiveFrom.name }}</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div
+                                        class="d-flex align-items-sm-center justify-content-between gap-3 mt-20 flex-column flex-sm-row">
+                                        <div class="left-side order-2 order-sm-1">
+                                            <a href="https://waiz.bugfinder.net/user/dashboard" class="cmn-btn4">Cancel</a>
+                                        </div>
+                                        <div class="right-side d-flex align-items-center gap-3  order-1 order-sm-2">
+                                            <a class="item showInfo btn btn-success" href="#"
+                               data-trx_type="+"
+                               data-remarks="Deposit"
+                               data-note="Pending Deposit"
+                               data-amount="{{x.name}} "
+                               data-charge="${{x.price}}"
+                               data-trxid="{{x.id}}"
+                               data-trx_date="0 USD"
+                               data-bs-toggle="modal"
+                               data-bs-target="#infoViewModal{{x.id}}"
+                            >
+                                            
+                                            <i class="fa-regular fa-angle-left"></i>Buy</a>
+
+
+
+                                            <a  class="cmn-btn2 bg-warning" href="/myassets">
+                                                Sell<i class="fa-regular fa-arrow-right"></i>
+                                            </button>
+                                        </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+               
+                
+        <!-- <div class="modal fade" id="infoViewModal" tabindex="-1" role="dialog" aria-hidden="true"
+        data-bs-backdrop="static">
+       <div class="modal-dialog modal-dialog-centered" role="document">
+           <div class="modal-content">
+               <div class="modal-body">
+                   <div class="text-center mb-5">
+                       <h4 class="mt-3 mb-1">Buy {{x.name}}</h4>
+                   </div>
+
+                   <div class="row mb-6">
+                       <div class="transaction-list mt-2">
+                           <div class="item">
+                               <div class="left-side">
+                                   <div class="icon">
+                                       <i class="fa-regular"></i>
+                                   </div>
+                                   <span class="remarks"></span>
+                               </div>
+                               <div class="d-flex gap-2">
+                                   <strong class="trxId"></strong>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="title mb-2 mt-4">Summary</div>
+                   <ul class="list-container mb-4 ">
+                       <li class="item py-2">
+                           <span>Amount</span>
+                           <span class=" fw-bold amount"></span>
+                       </li>
+                       <li class="item py-2">
+                           <span>Charge</span>
+                           <span class=" fw-semibold text-danger charge"></span>
+                       </li>
+                       <li class="item py-2">
+                           <span>Transaction Date</span>
+                           <span class=" fw-semibold trx_date"></span>
+                       </li>
+                       <li class="item py-2">
+                           <span>Note</span>
+                           <span class=" fw-semibold note"></span>
+                       </li>
+                   </ul>
+                   <div class="modal-footer-text mt-3">
+                       <div class="d-flex justify-content-end gap-3 status-buttons">
+                           <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div> -->
+
+
+<form action="" method="POST"> 
+    {% csrf_token %}
+   <div class="modal fade" id="infoViewModal{{x.id}}" tabindex="-1" role="dialog" aria-hidden="true"
+   data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-body">
+              <div class="text-center mb-5">
+                  <h4 class="mt-3 mb-1">Confirm your purchase</h4>
+              </div>
+
+              <div class="row mb-6">
+                  <div class="transaction-list mt-2" id="trxModal">
+                      <div class="item">
+                          <div class="left-side">
+                              <div class="icon">
+                                  <i class="fa-regular"></i>
+                              </div>
+                              <span class="remarks"></span>
+                          </div>
+                          <div class="d-flex gap-2">
+                              <strong class="trxId"></strong>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="title mb-2 mt-4">Summary</div>
+              <ul class="list-container mb-4 ">
+                  <li class="item py-2">
+                      <span>Asset name</span>
+                      <span class=" fw-bold amount"></span>
+                  </li>
+                  <li class="item py-2">
+                      <span>Price</span>
+                      <span class=" fw-semibold text-danger charge"></span>
+                  </li>
+                  <li class="item py-2">
+                      <span>Charge</span>
+                      <span class=" fw-semibold trx_date"></span>
+                  </li>
+                  <li class="item py-2">
+                  <input type="hidden" name="amount" value="{{x.price}}">
+                  <input type="hidden" name="a_id" value="{{x.id}}">
+                   <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                   <button type="submit" class="cmn-btn2">Continue to buy</button>
+                  </li>
+              </ul>
+              <!-- <div class="modal-footer-text mt-3">
+                  <div class="d-flex justify-content-end gap-3 status-buttons">
+                      <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                  </div>
+              </div> -->
+          </div>
+      </div>
+  </div>
+</div>
+</form>
+
+
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        
+  
+
+{% endblock %}

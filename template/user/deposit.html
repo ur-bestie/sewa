@@ -1,0 +1,52 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="dashboard-wrapper">
+
+    <div class="col-xxl-8 col-lg-10 mx-auto">
+    <div class="breadcrumb-area"><h3 class="title">Deposit</h3></div>
+
+                    
+    <div action="" method="post" enctype="multipart/form-data" id="form">
+        <input type="hidden" name="_token" value="mzObeI5Rhcn9qynUBZa5ei0p6cK94l4GzpqQiSgK" autocomplete="off">            <div class="row g-4">
+            <div class="col-lg-7 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="mb-15">Your preferred payment method?</h5>
+                        <div class="payment-section">
+                            <ul class="payment-container-list">
+
+{% for x in x %}
+<a href="/depositam/{{x.id}}">
+                                <li class="item">
+                                   
+                                    <label class="form-check-label" for="Stripe ">
+                                        <div class="image-area">
+                                            <img src="{{x.logo.url}}" alt="">
+                                        </div>
+                                        <div class="content-area">
+                                            <h5>{{x.name}} </h5>
+                                            <span>Send form your payment gateway. your bank may charge you a cash advance fee.</span>
+                                        </div>
+                                    </label>
+                                </li>
+                            </a>
+{% endfor %}
+                                                                </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+        </div>
+    </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}

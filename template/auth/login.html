@@ -1,0 +1,182 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .banner-area {
+        padding-top: 220px;
+        padding-bottom: 100px;
+        position: relative;
+        z-index: 1;
+        background-image: linear-gradient(rgba(2, 26, 46, 0.6), rgba(2, 25, 44, 0.6)),
+            url({% static 'assets/upload/AfFjRegC90gBbBDBI10qyOtOLVrGZw.avif' %});
+        background-size: cover;
+        background-position: 100% 75%;
+    }
+</style>
+<main id="main header-upper header-fixed">
+
+    <div class="banner-area">
+        <div class="container">
+            <div class="row ">
+                <div class="col">
+                    <div class="breadcrumb-area">
+                        <h3>
+                                                            Login                                                    </h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="fa-light fa-house"></i> Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                                                    Login                                                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for m in messages %}
+    {{m}}
+    {% endfor %}
+    <section class="login-signup-page">
+        <div class="container">
+            <div class="row g-lg-5 justify-content-between align-items-center">
+                <div class="col-xl-5 col-md-6 order-2 order-md-1">
+                    <div class="login-signup-form">
+                        <form action="" method="post" class="php-email-form" id="form">
+                            {% csrf_token %}
+                            <input type="hidden" name="_token" value="6UroOBws99u7PlyFPmRktBSPSmoNosUy9kpuY7Kt" autocomplete="off">                        <div class="login-signup-header">
+                                <h4>Welcome back!</h4>
+                                <div class="description">Hey Enter your details to get sign in to your account</div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <input type="email" name="email" class="form-control" value=""  placeholder="Email">
+                                                                </div>
+                                <div class="col-12">
+                                    <div class="password-box">
+                                        <input type="password" name="password" class="form-control password" value="" placeholder="Password">
+                                        <i class="password-icon fa-regular fa-eye"></i>
+                                    </div>
+                                </div>
+    
+                                
+                                
+                                <div class="col-12 mt-4">
+                                    <div class="form-check d-flex justify-content-between">
+                                        <div class="check">
+                                            <input class="form-check-input" type="checkbox" name="remember"
+                                                   id="remember" >
+    
+                                            <label class="form-check-label" for="remember">
+                                                Remember Me
+                                            </label>
+                                        </div>
+                                        <div class="forgot highlight">
+                                            <a class="btn btn-link" href="password/reset.html">
+                                                Forgot Your Password?
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <button type="submit" class="btn cmn-btn mt-20 w-100" id="submitBtn">Log In</button>
+    
+                                                        <hr class="divider">
+                            
+                            
+    
+    
+    
+                            <div class="pt-20 text-center">
+                                Don't have an account?                            <p class="mb-0 highlight"><a href="/register">Create a Account</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6 order-1 order-md-2 d-none d-md-block">
+                    <div class="login-signup-thums">
+                        <img src="{% static 'assets/upload/contents/1kFWgU3yeYscLgIn903G3O1sKL1HWe.webp' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+        <section class="footer-section pb-50">
+        <div class="container">
+            <div class="row gy-4 gy-sm-5">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="footer-widget">
+                        <div class="widget-logo mb-30">
+                            <a href="#"><img class="logo" src="{% static 'assets/upload/contents/SH7tu2fgGx3DwkuyXlWwu3cJ3DykN6.webp" alt=""></a>
+                        </div>
+                        <p>Waiz is dedicated to providing seamless digital banking solutions, including international money transfers, digital wallets, and virtual cards. Our goal is to simplify financial transactions with advanced technology and excellent customer support.</p>
+                        <div class="social-area mt-50">
+                            <ul class="d-flex">
+                                                                <li><a href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                                                                <li><a href="https://x.com/"><i class="fab fa-twitter"></i></a></li>
+                                                                <li><a href="https://linkedin.com/"><i class="fab fa-linkedin"></i></a></li>
+                                                                <li><a href="https://instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                                                        </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <div class="footer-widget">
+                        <h5 class="widget-title">Quick Links</h5>
+                        <ul>
+                                                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="index.html">Home</a></li>
+                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="about.html">About</a></li>
+                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="blogs.html">blogs</a></li>
+                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="faq.html">Faq</a></li>
+                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="contact.html">Contact</a></li>
+                                                                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 pt-sm-0 pt-3 ps-lg-5">
+                    <div class="footer-widget">
+                        <h5 class="widget-title">Support links</h5>
+                        <ul>
+                                                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="terms-conditions.html">Terms Conditions</a></li>
+                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="privacy-policy.html">Privacy Policy</a></li>
+                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="cookie-policy.html">Cookie Policy</a></li>
+                                                                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 pt-sm-0 pt-3">
+                    <div class="footer-widget">
+                        <h5 class="widget-title">Contact Us</h5>
+                        <p class="contact-item"><i class="fa-regular fa-location-dot"></i>
+                            49 Spruce RoadJamestown, NY 14701                    </p>
+                        <p class="contact-item"><i class="fa-regular fa-envelope"></i> support@example.com</p>
+                        <p class="contact-item"><i class="fa-regular fa-phone"></i> +185484655</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="cmn-hr">
+            <!-- Copyright-area-start -->
+            <div class="copyright-area">
+                <div class="row gy-4">
+                    <div class="col-sm-6">
+                        <p>All rights reserved &copy; 2024 by<a class="highlight" href="index.html"></a> </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="language">
+                                                        <a href="contact.html" class="active-language base-success">
+                                    <span class="flag-icon flag-icon-en"></span>
+                                    English                            </a>
+                                                        <a href="/login" class="">
+                                    <span class="flag-icon flag-icon-es"></span>
+                                    Spanish                            </a>
+                                                </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Copyright-area-end -->
+        </div>
+    </section>
+    
+    
+        </main>
+{% endblock %}

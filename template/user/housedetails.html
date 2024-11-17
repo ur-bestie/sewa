@@ -1,0 +1,175 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Rental Details</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS -->
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 6rem;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+    background-color: transparent;
+    gap: 2rem;
+}
+
+.image-gallery {
+    max-width: 500px;
+}
+
+.image-gallery img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.thumbnails img {
+    width: 100px;
+    cursor: pointer;
+    margin: 0.5rem;
+    border-radius: 5px;
+}
+
+.house-info {
+    max-width: 600px;
+}
+
+.features ul {
+    list-style: none;
+    padding: 0;
+}
+
+.features li {
+    padding: 0.5rem 0;
+}
+
+.booking {
+    margin-top: 2rem;
+}
+
+.booking form {
+    display: flex;
+    flex-direction: column;
+}
+
+.booking label {
+    margin-top: 1rem;
+}
+
+.booking input {
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+button {
+    margin-top: 1.5rem;
+    padding: 0.8rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width:930px){
+    main{
+        display:block;
+    }
+    .image-gallery {
+    max-width: 100%;
+}
+}
+</style>
+<body>
+    
+
+    <main class="product-details">
+        <!-- Image Gallery -->
+        <section class="image-gallery">
+            <img id="main-image" src="{{x.main_picture.url}}" alt="Main House Image">
+            <div class="thumbnails">
+                <h6 class="mt-3">Other pictures</h6>
+                <img src="{{x.main_picture.url}}" alt="other images" onclick="changeImage('{{x.main_picture.url}}')">
+                {% for picture in x.other_pictures.all %}
+                <img src="{{ picture.picture.url }}" alt="other images" onclick="changeImage('{{ picture.picture.url }}')">
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- House Information -->
+        <section class="house-info">
+            <h2>{{x.name}}</h2>
+            <p>{{x.description}}.</p>
+
+            <div class="features">
+                <ul>
+                    <li><strong>Price:</strong> ${{x.price}}</li>
+                    <li><strong>Location:</strong> {{x.location}}</li>
+                    <li></li><h5>Features</h5></li>
+                    {{x.features}}
+                </ul>
+            </div>
+
+            <!-- Booking Section -->
+            <!-- <div class="booking">
+                <h3>Book Now</h3>
+                <form id="booking-form">
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date" required>
+
+                    <label for="end-date">End Date:</label>
+                    <input type="date" id="end-date" required>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div> -->
+            <div class="buy" style="display: flex;justify-content: left;margin-bottom: 3rem;width: 100%;margin-top: 5px;">
+                <a href="/housebuy/{{x.id}}" class="btn bg-warning">Buy Now <i class="fa-solid fa-cart-shopping"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Script to change the main image when a thumbnail is clicked
+function changeImage(imageSrc) {
+    document.getElementById('main-image').src = imageSrc;
+}
+
+// Example form submission handling
+document.getElementById('booking-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Booking Submitted!');
+});
+
+    </script> <!-- Link to JavaScript -->
+</body>
+</html>
+
+
+
+{% endblock %}

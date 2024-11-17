@@ -1,0 +1,913 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+
+
+    
+    <main id="main header-upper header-fixed">
+            <style>
+    [v-cloak] {
+        display: none;
+    }
+</style>
+
+<div id="MoneyTransfer" v-cloak>
+    <div class="hero-section">
+        <div class="container">
+            <div class="row g-5 justify-content-between align-items-center">
+
+                <div class="col-xl-6 col-lg-6">
+                    <div class="hero-content">
+                        <div class="section-subtitle"><i class="fa-solid fa-fire"></i>Sewa Btc</div>
+                        <h1 class="hero-title">Easiest &amp; Simple Global Money Transfer.</h1>
+
+                        <p class="hero-description">Efficient, adaptable, and safe international money transfer worldwide. Save both time and funds when you make international transfers through us</p>
+                        <div class="cmn-list mt-30 mb-30">
+                                                            <div class="item"><img src="{% static 'assets/themes/light/img/icon/arrow-right.png' %}" alt="">
+                                    100% Safe Secure
+                                </div>
+                                                            <div class="item"><img src="{% static 'assets/themes/light/img/icon/arrow-right.png' %}" alt="">
+                                    Speedly Money Exchange
+                                </div>
+                                                            <div class="item"><img src="{% static 'assets/themes/light/img/icon/arrow-right.png' %}" alt="">
+                                    Payment Platform
+                                </div>
+                                                    </div>
+                        <div class="btn-area">
+                            <a href="/register" class="cmn-btn">
+                                Open An Account                            </a>
+                            <a href="https://www.youtube.com/watch?v=XIqDYTahqBs" class="video-play-btn">
+                                <i class="fa-regular fa-play"></i>
+                                Watch Video                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-5 col-lg-6">
+                    <div class="calculator-section">
+                        <img class="shape1" src="{% static 'assets/themes/light/img/arrow-right.png' %}" alt="">
+                        <div class="calculator" id="MoneyTransfer2">
+                            <div class="calculator-header">
+                                <h4>Send Your Mony Here!</h4>
+                                <p>Fast and reliable international money transfer app.</p>
+                            </div>
+                            <form action="#" method="post">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="input-amount-box" id="inputAmountBox">
+                                            <span class="linear-gradient"></span>
+                                            <div class="input-amount-wrapper">
+                                                <label class="form-label mb-2">You send exactly</label>
+                                                <div class="input-amount-box-inner" id="inputAmountBoxInner">
+                                                    <a href="#" class="icon-area" data-bs-toggle="modal"
+                                                       data-bs-target="#senderModal">
+                                                        <img class="img-flag" id="senderImage" :src="sendFrom.image" alt="">
+                                                    </a>
+                                                    <div class="text-area w-100">
+                                                        <div class="d-flex gap-3 justify-content-between">
+                                                            <a href="#" class="currency-name d-flex align-items-center gap-1"
+                                                               data-bs-toggle="modal" data-bs-target="#senderModal">
+                                                                <div class="title" id="senderCode">{{ sendFrom.code }}</div>
+                                                                <i class="fa-regular fa-angle-down"></i>
+                                                            </a>
+                                                            <input type="text" name="send_amount" id="send"
+                                                                   placeholder="0.00"
+                                                                   autocomplete="off"
+                                                                   v-model="send_amount"
+                                                                   @change="getValue" @keypress="onlyNumber"
+                                                                   @input="updateSenderAmount"
+                                                            >
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="sub-title" id="senderCurrName">{{ sendFrom.name }}</div>
+                                                            <div class="fw-500 text-danger" v-cloak
+                                                                 v-if="send_amount / senderCurrencyRate < minAmount">
+                                                                Amount must be at least  {{ sendFrom.code }}
+                                                            </div>
+                                                            <div class="fw-500 text-danger" v-cloak
+                                                                 v-else-if="send_amount / senderCurrencyRate > maxAmount">
+                                                                Amount must not exceed  {{ sendFrom.code }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-description">
+                                        <span class="single-description">
+                                            <i class="fa-regular fa-arrow-right-arrow-left"></i>
+                                            Transfer fee: <strong v-cloak> USD</strong>,
+                                            IN Local: <strong v-cloak> {{ sendFrom.code }}</strong>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="input-amount-box" id="inputAmountBox2">
+                                            <span class="linear-gradient"></span>
+                                            <div class="input-amount-wrapper">
+                                                <label class="form-label mb-2">Receiver Amount  (Without Fee)</label>
+                                                <div class="input-amount-box-inner" id="inputAmountBoxInner2">
+                                                    <a href="#" class="icon-area" data-bs-toggle="modal"
+                                                       data-bs-target="#receiverModal">
+                                                        <img class="img-flag" id="receiverImage" :src="receiveFrom.image" alt="">
+                                                    </a>
+                                                    <div class="text-area w-100">
+                                                        <div class="d-flex gap-3 justify-content-between">
+                                                            <a href="#" class="currency-name d-flex align-items-center gap-1"
+                                                               data-bs-toggle="modal" data-bs-target="#receiverModal">
+                                                                <div class="title" id="receiverCode">{{ receiveFrom.code }}</div>
+                                                                <i class="fa-regular fa-angle-down"></i>
+                                                            </a>
+                                                            <input type="text"
+                                                                   name="" id="" placeholder="0.00"
+                                                                   value="0.00"
+                                                                   v-model="get_amount" @change="sendValue"
+                                                                   @keypress="onlyNumber"
+                                                                   onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')"
+                                                                   @input="updateRecipientAmount">
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div id="receiverCurrName">{{ receiveFrom.name }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="btn-area">
+                                        <button type="button" @click="goNext" class="cmn-btn w-100" :disabled="send_amount / senderCurrencyRate < minAmount || send_amount / senderCurrencyRate > maxAmount">
+                                            continue                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Hero -->
+
+
+    <!-- Sender Modal -->
+    <div class="modal fade calculator-modal" id="senderModal"  data-bs-keyboard="false"
+         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="modal-title" id="staticBackdropLabel">Select a currency</h3>
+                        <button type="button" class="cmn-btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa-light fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="search-box mt-10">
+                        <input type="text" id="search-input" onkeyup="filterItems('search-input')" class="form-control"
+                               placeholder="Search here...">
+                        <button type="submit" class="search-btn"><i class="far fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div id="currency-list" class="currency-list">
+
+                        <div class="item" id="sendItem" v-for="item in senderCurrencies"  @click="changeSender(item.id)">
+                            <div class="left-side">
+                                <div class="img-area">
+                                    <img class="img-flag" :src="item.image" alt="" id="senderImgSrc">
+                                </div>
+                                <div class="text-area">
+                                    <div class="title" id="senderCode">{{ item.code }}</div>
+                                    <div class="sub-title">{{ item.name }}</div>
+                                </div>
+                            </div>
+
+                            <div class="right-side" id="checkCurrency">
+                                <i v-if="sendFrom.id === item.id" class="fa-sharp fas fa-circle-check"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Receiver Modal -->
+    <div class="modal fade calculator-modal" id="receiverModal" data-bs-keyboard="false"
+         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="modal-title" id="staticBackdropLabel">Select a currency</h3>
+                        <button type="button" class="cmn-btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa-light fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="search-box mt-10">
+                        <input type="text" id="search-input2" onkeyup="filterItems('search-input2')" class="form-control"
+                               placeholder="Search here...">
+                        <button type="submit" class="search-btn"><i class="far fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div id="currency-list" class="currency-list">
+                        <div class="item" v-for="item in receiverCurrencies" @click="changeReceive(item.id)">
+                            <div class="left-side">
+                                <div class="img-area">
+                                    <img class="img-flag" :src="item.image" alt="">
+                                </div>
+                                <div class="text-area">
+                                    <div class="title">{{ item.code }}</div>
+                                    <div class="sub-title">{{ item.name }}</div>
+                                </div>
+                            </div>
+                            <div class="right-side" id="checkCurrency">
+                                <i v-if="receiveFrom.id === item.id" class="fa-sharp fas fa-circle-check"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+                    
+                    <section class="feature-section">
+    <div class="container">
+        <div class="row">
+            <div class="section-header text-center">
+                <div class="section-subtitle">Features</div>
+                <h2 class="section-title text-center mx-auto">Our Special Features</h2>
+                <p class="cmn-para-text mx-auto">Waiz offers an array of unique features that set us apart in the world of digital banking and international money transfers</p>
+            </div>
+        </div>
+        <div class="row g-4 g-xxl-5">
+                        <div class="col-lg-3 col-sm-6">
+                <div class="cmn-box">
+                    <div class="icon-box">
+                        <img src="{% static 'assets/upload/contents/VkqU3tajjNnaHMZxaBjvoUQ2409I2R.webp' %}" alt="">
+                    </div>
+                    <div class="text-box">
+                        <h5>Global Money Transfers</h5>
+                        <span>Effortlessly send money to friends and family across the globe. With Waiz, international transfers are quick, secure, and cost-effective.</span>
+                    </div>
+                </div>
+            </div>
+                        <div class="col-lg-3 col-sm-6">
+                <div class="cmn-box">
+                    <div class="icon-box">
+                        <img src="{% static 'assets/upload/contents/UTOomvXAV0rQuql0NsIfQfs5BJCeH5.webp' %}" alt="">
+                    </div>
+                    <div class="text-box">
+                        <h5>Real-Time Exchange Rates</h5>
+                        <span>Benefit from real-time updates on currency exchange rates, ensuring you always get the best deal on your international transactions.</span>
+                    </div>
+                </div>
+            </div>
+                        <div class="col-lg-3 col-sm-6">
+                <div class="cmn-box">
+                    <div class="icon-box">
+                        <img src="{% static 'assets/upload/contents/wzxsPwjsZaaR2qhNGCTCgA2CyMPkUm.webp' %}" alt="">
+                    </div>
+                    <div class="text-box">
+                        <h5>Bank Transfer</h5>
+                        <span>With Waiz, sending money to bank accounts is quick and efficient, ensuring your funds reach their destination without delay.</span>
+                    </div>
+                </div>
+            </div>
+                        <div class="col-lg-3 col-sm-6">
+                <div class="cmn-box">
+                    <div class="icon-box">
+                        <img src="{% static 'assets/upload/contents/gF7QOmfCOHpZxpRHaybi1ySragm92J.webp' %}" alt="">
+                    </div>
+                    <div class="text-box">
+                        <h5>Low, Transparent Fees</h5>
+                        <span>Enjoy competitive, upfront pricing with no hidden charges. Our low fees ensure you get the most out of every transaction.</span>
+                    </div>
+                </div>
+            </div>
+                    </div>
+    </div>
+</section>
+
+                    
+                    
+                    <section id="about" class="about-section">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-md-6 justify-content-center d-flex">
+                <div class="about-thum">
+                    <img src="{% static 'assets/upload/contents/s3hPnfKUIZrqTE7j7R9mBZ8NXCIAEH.webp' %}" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="about-content mx-auto">
+                    <div class="section-subtitle">About Us</div>
+                    <h2 class="section-title">Transfer &amp; Deposite Money Anytime, Anywhere In The World</h2>
+                    <p class="cmn-para-text">At Waiz, we are dedicated to revolutionizing the way you manage your money. Our comprehensive digital platform offers seamless and secure financial solutions, from international money transfers to integrated digital wallets and virtual cards. With cutting-edge technology and a user-centric approach, we ensure that your financial transactions are fast, reliable, and cost-effective.</p>
+                    <p></p>
+                    <div class="btn-area">
+                        <a href="about.html" class="cmn-btn">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+                    
+                    
+                    <section class="how-it-work">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header text-center mb-50">
+                    <div class="section-subtitle">How It Works</div>
+                    <h2 class="section-title mx-auto">How Does Money Transfer Work?</h2>
+                    <p class="cmn-para-text mx-auto">Waiz makes managing your finances simple and intuitive. Follow these easy steps to get started</p>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4 g-xxl-5 align-items-center">
+                        <div class="col-md-4 col-sm-6">
+                <div class="cmn-box">
+                    <div class="icon-box">
+                        <img src="{% static 'assets/upload/contents/5m8UtGGfGkXUmF249sqcsQZkmUIJML.webp' %}" alt="">
+                        <div class="number">1</div>
+                    </div>
+                    <div class="text-box">
+                        <h5>Create a free account</h5>
+                        <span>Create your Waiz account by providing basic information and completing our secure verification process.</span>
+                    </div>
+                </div>
+            </div>
+                        <div class="col-md-4 col-sm-6">
+                <div class="cmn-box">
+                    <div class="icon-box">
+                        <img src="{% static 'assets/upload/contents/qwSEnMA3waNTZFxYCCJUAGqvicCHZx.webp' %}" alt="">
+                        <div class="number">2</div>
+                    </div>
+                    <div class="text-box">
+                        <h5>Send Money</h5>
+                        <span>Transfer money effortlessly to friends, family, or businesses worldwide. Simply select your recipient, enter the amount, and choose the currency.</span>
+                    </div>
+                </div>
+            </div>
+                        <div class="col-md-4 col-sm-6">
+                <div class="cmn-box">
+                    <div class="icon-box">
+                        <img src="{% static 'assets/upload/contents/ZSUFJ2JZrHIS1KXPcKdnWZZEN0z6WP.webp' %}" alt="">
+                        <div class="number">3</div>
+                    </div>
+                    <div class="text-box">
+                        <h5>Request Money</h5>
+                        <span>Use Waiz to send a money request to anyone. They’ll receive a notification with instructions on how to complete the transfer to your account.</span>
+                    </div>
+                </div>
+            </div>
+                    </div>
+    </div>
+</section>
+
+                    
+                    
+                    <section class="why-choose-us">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 order-2 order-md-1">
+                <div class="why-choose-us-content">
+                    <div class="section-subtitle">Why Choose Us</div>
+                    <h2 class="section-title">Low, Transparent Fees</h2>
+                    <p class="cmn-para-text">At <strong>Waiz</strong>, we strive to provide an unparalleled digital banking and money transfer experience. Here’s why you should choose us</p>
+                    <ul class="choose-us-list">
+                                                    <li class="item"><img src="{% static 'assets/themes/light/img/icon/checkmark.png' %}" alt="">
+                                <h6>Send money cheaper and easier than old-school banks</h6>
+                            </li>
+                                                    <li class="item"><img src="{% static 'assets/themes/light/img/icon/checkmark.png' %}" alt="">
+                                <h6>Spend abroad without the hidden fees.</h6>
+                            </li>
+                                                    <li class="item"><img src="{% static 'assets/themes/light/img/icon/checkmark.png' %}" alt="">
+                                <h6>Move money between countries for salary &amp; more.</h6>
+                            </li>
+                                            </ul>
+                </div>
+            </div>
+            <div class="col-md-6 order-1 order-md-2">
+                <div class="why-choose-us-thum">
+                    <img src="{% static 'assets/upload/contents/MBV5fERv2xpIRgEf2BNkGLYh7F0m20.webp' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+                    
+                    
+                    <section class="testimonial-section">
+    <div class="container">
+        <div class="row">
+            <div class="section-header mb-50 text-center">
+                <div class="section-subtitle">Testimonial</div>
+                <h2 class="">What Clients Say</h2>
+                <p class="cmn-para-text m-auto">Help agencies to define their new business objectives and then create professional software.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="owl-carousel owl-theme testimonial-carousel">
+                                <div class="item">
+                    <div class="testimonial-box">
+                        <div class="testimonial-header">
+                            <div class="testimonial-title-area">
+                                <div class="testimonial-thumbs">
+                                    <img src="{% static 'assets/upload/contents/KIcCLovQbKMVycMUjgScsbA86fM5cd.avif' %}" alt="">
+                                </div>
+                                <div class="testimonial-title">
+                                    <h5>John D.</h5>
+                                    <h6>New York, USA</h6>
+                                </div>
+                            </div>
+                            <div class="qoute-icon">
+                                <i class="fa-sharp fa-regular fa-quote-left"></i>
+                            </div>
+                        </div>
+                        <div class="quote-area">
+                            <p>Waiz has completely transformed the way I handle international transfers. The process is fast, reliable, and incredibly user-friendly. I highly recommend Waiz to anyone needing a trustworthy money transfer solution.</p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="item">
+                    <div class="testimonial-box">
+                        <div class="testimonial-header">
+                            <div class="testimonial-title-area">
+                                <div class="testimonial-thumbs">
+                                    <img src="{% static 'assets/upload/contents/BqfhKgU9XhOHXbCPn9OyC7Dh623BGP.avif' %}" alt="">
+                                </div>
+                                <div class="testimonial-title">
+                                    <h5>Maria S.</h5>
+                                    <h6>Madrid, Spain</h6>
+                                </div>
+                            </div>
+                            <div class="qoute-icon">
+                                <i class="fa-sharp fa-regular fa-quote-left"></i>
+                            </div>
+                        </div>
+                        <div class="quote-area">
+                            <p>I love the low fees and real-time exchange rates that Waiz offers. It’s so easy to send money to my family overseas. The app’s interface is intuitive, and the customer support is fantastic!</p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="item">
+                    <div class="testimonial-box">
+                        <div class="testimonial-header">
+                            <div class="testimonial-title-area">
+                                <div class="testimonial-thumbs">
+                                    <img src="{% static 'assets/upload/contents/oSlRUMU7zzzXCf3Ipfyj5CrlKepEfI.avif' %}" alt="">
+                                </div>
+                                <div class="testimonial-title">
+                                    <h5>Justine Pratt</h5>
+                                    <h6>Sydney, Australia.</h6>
+                                </div>
+                            </div>
+                            <div class="qoute-icon">
+                                <i class="fa-sharp fa-regular fa-quote-left"></i>
+                            </div>
+                        </div>
+                        <div class="quote-area">
+                            <p>Using Waiz for my business has been a game-changer. Transactions are smooth, and the notification system keeps me informed every step of the way. It also has the virtual card support.</p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="item">
+                    <div class="testimonial-box">
+                        <div class="testimonial-header">
+                            <div class="testimonial-title-area">
+                                <div class="testimonial-thumbs">
+                                    <img src="{% static 'assets/upload/contents/7imphCMnrAHzWV2AqByDLoJLLrzZF7.avif' %}" alt="">
+                                </div>
+                                <div class="testimonial-title">
+                                    <h5>Sophia R.</h5>
+                                    <h6>London, UK</h6>
+                                </div>
+                            </div>
+                            <div class="qoute-icon">
+                                <i class="fa-sharp fa-regular fa-quote-left"></i>
+                            </div>
+                        </div>
+                        <div class="quote-area">
+                            <p>The best part about Waiz is its transparency. There are no hidden fees, and the real-time exchange rates are always competitive. I feel secure using Waiz for all my financial transactions.</p>
+                        </div>
+                    </div>
+                </div>
+                            </div>
+
+</section>
+
+                    
+                    
+                    <section class="faq-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="faq-thum">
+                    <img src="{% static 'assets/upload/contents/4fBZKWPWGydBn2FdHNxGz5umCrTA13.webp' %}" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="faq-content">
+                    <div class="section-subtitle">F.A.Q</div>
+                    <h2>Still, Have Questions?</h2>
+                    <p class="cmn-para-text mx-auto">Waiz is a comprehensive digital platform offering international money transfers, digital wallet integration, and virtual card support.</p>
+                    <div class="accordion" id="accordionParent">
+                                                <div class="accordion-item">
+                            <h2 class="accordion-header" id="question0">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse0" aria-expanded="true"
+                                        aria-controls="collapse0">
+                                    How does the money transfer service work?                                </button>
+                            </h2>
+                            <div id="collapse0" class="accordion-collapse collapse"
+                                 aria-labelledby="question0"
+                                 data-bs-parent="#accordionParent">
+                                <div class="accordion-body">
+                                    <div class="table-responsive">
+                                        <p>Our money transfer service allows you to send and receive funds securely
+and conveniently. You can initiate a transfer by selecting the
+recipient, specifying the amount, and choosing the payment method. Once
+the transfer is confirmed, the funds will be sent to the recipient's
+account.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                                <div class="accordion-item">
+                            <h2 class="accordion-header" id="question1">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse1" aria-expanded="true"
+                                        aria-controls="collapse1">
+                                    How long does it take for a money transfer to be processed?                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse"
+                                 aria-labelledby="question1"
+                                 data-bs-parent="#accordionParent">
+                                <div class="accordion-body">
+                                    <div class="table-responsive">
+                                        <p>The processing time for money transfers can vary based on the payment method and the recipient's location. In most cases, transfers are completed within a few business days.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                                <div class="accordion-item">
+                            <h2 class="accordion-header" id="question2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse2" aria-expanded="true"
+                                        aria-controls="collapse2">
+                                    Can I track the status of my money transfer?                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse"
+                                 aria-labelledby="question2"
+                                 data-bs-parent="#accordionParent">
+                                <div class="accordion-body">
+                                    <div class="table-responsive">
+                                        <p>Yes, you can track the status of your money transfer through your account dashboard. We also provide email notifications for important updates during the transfer process.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                                <div class="accordion-item">
+                            <h2 class="accordion-header" id="question3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse3" aria-expanded="true"
+                                        aria-controls="collapse3">
+                                    Is my personal and financial information safe on your website?                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse"
+                                 aria-labelledby="question3"
+                                 data-bs-parent="#accordionParent">
+                                <div class="accordion-body">
+                                    <div class="table-responsive">
+                                        <p>Yes, we take the security of your personal and financial information seriously. Our website employs robust encryption protocols and follows industry best practices to safeguard your data from unauthorized access or misuse.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                                <div class="accordion-item">
+                            <h2 class="accordion-header" id="question4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse4" aria-expanded="true"
+                                        aria-controls="collapse4">
+                                    What payment methods do you support for money transfers?                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse"
+                                 aria-labelledby="question4"
+                                 data-bs-parent="#accordionParent">
+                                <div class="accordion-body">
+                                    <div class="table-responsive">
+                                        <p>We support various payment methods, including credit/debit cards and bank transfers. The available options will be displayed during the transfer process.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                                <div class="accordion-item">
+                            <h2 class="accordion-header" id="question5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse5" aria-expanded="true"
+                                        aria-controls="collapse5">
+                                    Are there any fees associated with sending or receiving money?                                </button>
+                            </h2>
+                            <div id="collapse5" class="accordion-collapse collapse"
+                                 aria-labelledby="question5"
+                                 data-bs-parent="#accordionParent">
+                                <div class="accordion-body">
+                                    <div class="table-responsive">
+                                        <p>Yes, there might be fees associated with money transfers. The applicable fees will be displayed before you confirm the transaction.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                            </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+                    
+                    
+                    <section class="blog-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header text-center mb-50">
+                    <div class="section-subtitle">Our Blog</div>
+                    <h2 class="section-title mx-auto">Latest Blogs &amp; Articles</h2>
+                    <p class="cmn-para-text mx-auto">Stay updated with the latest news, tips, and insights on digital banking, international money transfers, and more.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4">
+                        <div class="col-lg-4 col-md-6">
+                <div class="blog-box">
+                    <div class="img-box">
+                        <a href="blog/the-rise-of-contactless-payments-trends-and-adoption.html">
+                            <img src="{% static 'assets/upload/blog/oCM362MoF3PRuCOIz7rRUSyuWsug2r.webp' %}" alt="">
+                        </a>
+                        <div class="date">2 months ago</div>
+                    </div>
+                    <div class="content-box">
+                        <div class="blog-author">
+                            <div class="author-img">
+                                <img src="{% static 'assets/upload/blog/e2uuqrggnuEQfzld19NkARIkyohDwX.webp' %}" alt="">
+                            </div>
+                            <div class="author-info ">
+                                <h6><a href="#">Steven Strange</a></h6>
+                                <span>Doctor</span>
+                            </div>
+                        </div>
+                        <div class="blog-title">
+                            <h5><a href="blog/the-rise-of-contactless-payments-trends-and-adoption.html">
+                                    The Rise of Contactless Payments: Trends and Adoption</a></h5>
+                        </div>
+                        <div class="para-text">
+                            <p>Contactless payments have rapidly transformed the way we conduct transactions, offering speed, convenience, and enhanced security. This comprehensive guide explores the rise of contactless payments, highlighting key trends and adoption rates across various markets.As the world moves towards a cashless society, contactless payment methods have gained significant traction. This blog post delves into the driving factors behind this shift, including technological advancements, changing consumer behaviors, and the impact of global events such as the COVID-19 pandemic.Discover how contactless payment technologies, such as Near Field Communication (NFC) and Radio Frequency Identification (RFID), work to facilitate seamless transactions. Learn about the role of digital wallets, mobile payment apps, and contactless-enabled credit and debit cards in the growing ecosystem of contactless payments.Explore the benefits of contactless payments for consumers and businesses alike. From reduced transaction times and improved customer experiences to enhanced security measures that protect against fraud, the advantages are clear. Additionally, understand the challenges and considerations, such as data privacy concerns and the need for widespread merchant adoption.</p>
+                        </div>
+                        <a href="blog/the-rise-of-contactless-payments-trends-and-adoption.html" class="blog-btn">
+                            Read more</a>
+                    </div>
+                </div>
+            </div>
+                        <div class="col-lg-4 col-md-6">
+                <div class="blog-box">
+                    <div class="img-box">
+                        <a href="blog/understanding-the-future-of-digital-wallets.html">
+                            <img src="{% static 'assets/upload/blog/v3Wvs84fJMsK5jr5iF4yMLRQfnWCJH.webp' %}" alt="">
+                        </a>
+                        <div class="date">9 months ago</div>
+                    </div>
+                    <div class="content-box">
+                        <div class="blog-author">
+                            <div class="author-img">
+                                <img src="{% static 'assets/upload/blog/23d4ONFJ79hPdC3OSzqHPoSqsOxwac.avif' %}" alt="">
+                            </div>
+                            <div class="author-info ">
+                                <h6><a href="#">Tom Holand</a></h6>
+                                <span>Architechture</span>
+                            </div>
+                        </div>
+                        <div class="blog-title">
+                            <h5><a href="blog/understanding-the-future-of-digital-wallets.html">
+                                    Understanding the Future of Digital Wallets: A Look into Waiz</a></h5>
+                        </div>
+                        <div class="para-text">
+                            <p>In today’s rapidly evolving digital landscape, the demand for secure, efficient, and user-friendly financial solutions continues to grow. One such innovation making waves in the fintech industry is Waiz, a comprehensive digital wallet and global remittance platform designed to simplify financial transactions across borders.Why Choose Waiz?At its core, Waiz offers users a seamless experience for sending and receiving money internationally. Whether you're a business looking to streamline payroll processes or an individual sending funds to family abroad, Waiz provides robust features tailored to meet diverse financial needs:Global Reach: Waiz facilitates transfers to over 100 countries, leveraging a network of trusted financial partners to ensure reliable and swift transactions.Security: With advanced encryption and robust security measures, Waiz prioritizes the safety of user data and transactions, providing peace of mind in an increasingly digital world.User-Friendly Interface: Designed with simplicity in mind, Waiz’s intuitive interface makes it easy for users to navigate and manage their finances on the go, whether through the web platform or mobile app.</p>
+                        </div>
+                        <a href="blog/understanding-the-future-of-digital-wallets.html" class="blog-btn">
+                            Read more</a>
+                    </div>
+                </div>
+            </div>
+                        <div class="col-lg-4 col-md-6">
+                <div class="blog-box">
+                    <div class="img-box">
+                        <a href="blog/a.html">
+                            <img src="{% static 'assets/upload/blog/EQYAu302HpnO1lanlmCQG1lIYjiOUX.webp' %}" alt="">
+                        </a>
+                        <div class="date">9 months ago</div>
+                    </div>
+                    <div class="content-box">
+                        <div class="blog-author">
+                            <div class="author-img">
+                                <img src="{% static 'assets/upload/blog/n6Js856yTeFh0yImyImGqLZYajtMao.avif' %}" alt="">
+                            </div>
+                            <div class="author-info ">
+                                <h6><a href="#">Jaber Masud</a></h6>
+                                <span>Web Developer</span>
+                            </div>
+                        </div>
+                        <div class="blog-title">
+                            <h5><a href="blog/a.html">
+                                    A Comprehensive Guide to International Currency Transfers</a></h5>
+                        </div>
+                        <div class="para-text">
+                            <p>Embarking on international currency transfers involves navigating a myriad of factors, from exchange rates and transfer fees to regulatory requirements and transfer methods. Our comprehensive guide is your ultimate resource, offering in-depth insights and practical advice to master the art of moving money across borders seamlessly and efficiently.Whether you're a multinational corporation managing global payments or an individual supporting loved ones overseas, this guide covers it all. Discover how to optimize currency conversions, minimize transaction costs, and mitigate risks associated with fluctuating exchange rates. Learn about the various transfer options available, from traditional wire transfers to innovative fintech solutions, and gain a clear understanding of regulatory compliance and documentation essentials.Dive into real-world scenarios and case studies that illustrate best practices and common pitfalls to avoid. Explore the impact of digital transformation on international banking and how technologies like blockchain and mobile wallets are reshaping the landscape.Empower yourself with the knowledge to make informed decisions that align with your financial goals and operational needs. Whether you're seeking to streamline business operations or enhance personal financial management, our guide equips you with the tools and strategies to navigate the global economy confidently.Join us on this journey through the intricacies of international currency transfers, and unlock the possibilities of a connected world where borders are no longer barriers to financial prosperity.</p>
+                        </div>
+                        <a href="blog/a.html" class="blog-btn">
+                            Read more</a>
+                    </div>
+                </div>
+            </div>
+                    </div>
+    </div>
+</section>
+
+
+                    
+                    
+                    <section class="newsletter-section pt-50 pb-50">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-6 col-md-5">
+                <div class="content-area">
+                    <div class="subscribe-small-text">SUBSCRIBE TO OUR</div>
+                    <h1 class="subscribe-normal-text">NEWSLETTER</h1>
+                </div>
+
+            </div>
+            <div class="col-lg-6 col-md-7">
+                <form class="newsletter-form" action="https://waiz.bugfinder.net/admin/subscriber" method="post">
+                    <input type="hidden" name="_token" value="6UroOBws99u7PlyFPmRktBSPSmoNosUy9kpuY7Kt" autocomplete="off">                                        <input type="email" name="email" class="form-control" placeholder="Email Address"
+                        required />
+                    <button class="subscribe-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+                    
+                    
+                    <section class="country-support-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header text-center">
+                    <div class="section-subtitle">Country Supported </div>
+                    <h2 class="section-title mx-auto">Popular Countries To Send Money</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4 justify-content-center">
+                            <a href="/login"
+                   id="countryToSend" data-currency-code="BDT"
+                   class="col-xxl-2 col-lg-3 col-md-4 col-sm-5">
+                    <div class="country-box">
+                        <div class="thumb-area">
+                            <img src="{% static 'assets/upload/country/gVwxJ2I9WQnNdaJFIwI4mVM92RCxOp.webp' %}" alt="countries">
+                        </div>
+                        <div class="content-area">
+                            <h6>Bangladesh</h6>
+                        </div>
+                    </div>
+                </a>
+                            <a href="/login"
+                   id="countryToSend" data-currency-code="CNY"
+                   class="col-xxl-2 col-lg-3 col-md-4 col-sm-5">
+                    <div class="country-box">
+                        <div class="thumb-area">
+                            <img src="{% static 'assets/upload/country/tWv0j9txFB6UyyRlGgKor3xN6ewBU6.webp' %}" alt="countries">
+                        </div>
+                        <div class="content-area">
+                            <h6>China</h6>
+                        </div>
+                    </div>
+                </a>
+                            <a href="/login"
+                   id="countryToSend" data-currency-code="DKK"
+                   class="col-xxl-2 col-lg-3 col-md-4 col-sm-5">
+                    <div class="country-box">
+                        <div class="thumb-area">
+                            <img src="{% static 'assets/upload/country/2ZizwCPvdQPsKUu7QGsSGDXkuPQBHH.avif' %}" alt="countries">
+                        </div>
+                        <div class="content-area">
+                            <h6>Denmark</h6>
+                        </div>
+                    </div>
+                </a>
+                            <a href="/login"
+                   id="countryToSend" data-currency-code="EUR"
+                   class="col-xxl-2 col-lg-3 col-md-4 col-sm-5">
+                    <div class="country-box">
+                        <div class="thumb-area">
+                            <img src="{% static 'assets/upload/country/iXmfZagiCMu4eGWFOUmYwP0AR5G5rF.webp' %}" alt="countries">
+                        </div>
+                        <div class="content-area">
+                            <h6>Germany</h6>
+                        </div>
+                    </div>
+                </a>
+                            <a href="/login"
+                   id="countryToSend" data-currency-code="INR"
+                   class="col-xxl-2 col-lg-3 col-md-4 col-sm-5">
+                    <div class="country-box">
+                        <div class="thumb-area">
+                            <img src="{% static 'assets/upload/country/kbkA10KHZ6LTK4VpjYX7aG9yb7vUTr.webp' %}" alt="countries">
+                        </div>
+                        <div class="content-area">
+                            <h6>India</h6>
+                        </div>
+                    </div>
+                </a>
+                            <a href="/login"
+                   id="countryToSend" data-currency-code="JPY"
+                   class="col-xxl-2 col-lg-3 col-md-4 col-sm-5">
+                    <div class="country-box">
+                        <div class="thumb-area">
+                            <img src="{% static 'assets/upload/country/qUycsnCVExvt6z8xKRq6u7yfZI6dHy.webp' %}" alt="countries">
+                        </div>
+                        <div class="content-area">
+                            <h6>Japan</h6>
+                        </div>
+                    </div>
+                </a>
+                            <a href="/login"
+                   id="countryToSend" data-currency-code="UGX"
+                   class="col-xxl-2 col-lg-3 col-md-4 col-sm-5">
+                    <div class="country-box">
+                        <div class="thumb-area">
+                            <img src="{% static 'assets/upload/country/xGH2jNJd4aiHAbQyhnoxyMJcXlOXWm.avif' %}" alt="countries">
+                        </div>
+                        <div class="content-area">
+                            <h6>Uganda</h6>
+                        </div>
+                    </div>
+                </a>
+                            <a href="/login"
+                   id="countryToSend" data-currency-code="USD"
+                   class="col-xxl-2 col-lg-3 col-md-4 col-sm-5">
+                    <div class="country-box">
+                        <div class="thumb-area">
+                            <img src="{% static 'assets/upload/country/ESVoyREUF5RTvrSqSqMn8LgPwLQIyK.avif' %}" alt="countries">
+                        </div>
+                        <div class="content-area">
+                            <h6>United States</h6>
+                        </div>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+</section>
+
+{% endblock %}                  
+ 

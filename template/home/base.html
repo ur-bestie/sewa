@@ -1,0 +1,529 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en"  >
+
+
+<!-- Mirrored from waiz.bugfinder.net/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Sep 2024 20:24:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5956e9">
+    <title> Home    </title>
+    <meta name="csrf-token" content="6UroOBws99u7PlyFPmRktBSPSmoNosUy9kpuY7Kt">
+
+            <meta name="title" content="Coinshift Home Page">
+            <meta name="author" content="Waiz">
+            <meta name="description" content="Hello, this is home page meta description">
+                <meta name="keywords" content="wise, coinshift, money exchange">
+            <meta name="robots" content="">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Waiz">
+            <meta property="og:title" content="Coinshift Home Page">
+                    <meta property="og:image" content="{% static 'assets/upload/2tNaK13LZERjtOlUyKemSDlASWauwu.avif' %}">
+    
+
+    <link href="{% static 'assets/upload/logo/A0QhZokdpliGoja89gSVc9rXHDFomR.webp' %}" rel="icon">
+
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/slick-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/nouislider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/themes/light/css/flatpickr.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/themes/light/css/style.css' %}">
+    
+</head>
+
+<body onload=""  class="body">
+
+    <nav class="navbar fixed-top navbar-expand-lg header-upper">
+        <div class="container">
+            <a class="navbar-brand logo" href="index.html">
+                <img id="sitelogo" src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar">
+                <i class="fa-light fa-list"></i>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbar">
+                <div class="offcanvas-header">
+                    <a class="navbar-brand" href="index.html"><img class="logo" src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}" alt=""></a>
+                    <button type="button" class="cmn-btn-close btn-close" data-bs-dismiss="offcanvas"
+                            aria-label="Close"><i class="fa-light fa-arrow-right"></i></button>
+                </div>
+                <div class="offcanvas-body align-items-center justify-content-between">
+                    <ul class="navbar-nav ms-auto">
+    
+                        <li class="nav-item"><a class="nav-link text-capitalize " href="index.html">Home</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="about.html">About</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="blogs.html">blogs</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="/faq">Faq</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="/contact">Contact</a></li>
+    
+                        <li>{% if user.is_authenticated %}
+                            <a class="login-btn scrollto" href="/user" title="Login"><i class="fa-solid fa-right-to-bracket"></i>Dashboard</a>
+                            {% else %}
+                                                        <a class="login-btn scrollto" href="/login" title="Login"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
+                                               {% endif %}
+                                                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+
+
+
+
+
+
+
+{% block content %}
+
+{% endblock %}
+
+                   
+                    <section class="footer-section pb-50">
+                        <div class="container">
+                            <div class="row gy-4 gy-sm-5">
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="footer-widget">
+                                        <div class="widget-logo mb-30">
+                                            <a href="#"><img class="logo" src="{% static 'assets/upload/contents/SH7tu2fgGx3DwkuyXlWwu3cJ3DykN6.webp' %}" alt=""></a>
+                                        </div>
+                                        <p>Waiz is dedicated to providing seamless digital banking solutions, including international money transfers, digital wallets, and virtual cards. Our goal is to simplify financial transactions with advanced technology and excellent customer support.</p>
+                                        <div class="social-area mt-50">
+                                            <ul class="d-flex">
+                                                                                <li><a href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                                                                                <li><a href="https://x.com/"><i class="fab fa-twitter"></i></a></li>
+                                                                                <li><a href="https://linkedin.com/"><i class="fab fa-linkedin"></i></a></li>
+                                                                                <li><a href="https://instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                                                                        </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="footer-widget">
+                                        <h5 class="widget-title">Quick Links</h5>
+                                        <ul>
+                                                                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="index.html">Home</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="about.html">About</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="blogs.html">blogs</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="faq.html">Faq</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="contact.html">Contact</a></li>
+                                                                                            </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 pt-sm-0 pt-3 ps-lg-5">
+                                    <div class="footer-widget">
+                                        <h5 class="widget-title">Support links</h5>
+                                        <ul>
+                                                                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="terms-conditions.html">Terms Conditions</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="privacy-policy.html">Privacy Policy</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="cookie-policy.html">Cookie Policy</a></li>
+                                                                                            </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 pt-sm-0 pt-3">
+                                    <div class="footer-widget">
+                                        <h5 class="widget-title">Contact Us</h5>
+                                        <p class="contact-item"><i class="fa-regular fa-location-dot"></i>
+                                            49 Spruce RoadJamestown, NY 14701                    </p>
+                                        <p class="contact-item"><i class="fa-regular fa-envelope"></i> support@example.com</p>
+                                        <p class="contact-item"><i class="fa-regular fa-phone"></i> +185484655</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="cmn-hr">
+                            <!-- Copyright-area-start -->
+                            <div class="copyright-area">
+                                <div class="row gy-4">
+                                    <div class="col-sm-6">
+                                        <p>All rights reserved &copy; 2024 by<a class="highlight" href="index.html"></a> </p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="language">
+                                                                        <a href="index.html" class="active-language base-success">
+                                                    <span class="flag-icon flag-icon-en"></span>
+                                                    English                            </a>
+                                                                        <a href="index.html" class="">
+                                                    <span class="flag-icon flag-icon-es"></span>
+                                                    Spanish                            </a>
+                                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Copyright-area-end -->
+                        </div>
+                    </section>
+                    
+                    
+                                        
+                                        
+                                        
+                        </main>
+                    
+                        
+                        <!-- JS Global Compulsory  -->
+                        <script src="{% static 'assets/global/js/notiflix-aio-3.2.6.min.js' %}"></script>
+                        <script src="{% static 'assets/global/js/vue.min.js' %}"></script>
+                        <script src="{% static 'assets/global/js/axios.min.js' %}"></script>
+                        <script src="{% static 'assets/global/js/pusher.min.js' %}"></script>
+                    
+                        <!-- JS Library -->
+                        <script src="{% static 'assets/themes/light/js/jquery-3.6.1.min.js' %}"></script>
+                        <script src="{% static 'assets/themes/light/js/bootstrap.bundle.min.js' %}"></script>
+                        <script src="{% static 'assets/themes/light/js/owl.carousel.min.js' %}"></script>
+                        <script src="{% static 'assets/themes/light/js/swiper-bundle.min.js' %}"></script>
+                        <script src="{% static 'assets/themes/light/js/slick.min.js' %}"></script>
+                        <script src="{% static 'assets/themes/light/js/select2.min.js' %}"></script>
+                        <script src="{% static 'assets/themes/light/js/nouislider.min.js' %}"></script>
+                        <script src="{% static 'assets/themes/light/js/modernizr.custom.js' %}"></script>
+                        <script src="{% static 'assets/themes/light/js/flatpickr.js' %}"></script>
+                        <!-- Main Js link -->
+                        <script src="{% static 'assets/themes/light/js/main.js' %}"></script>
+                    
+                        
+                        <script>
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                        </script>
+                    
+                        
+                        
+                            <script>
+                            new Vue({
+                                el: "#MoneyTransfer",
+                                data: {
+                                    minTransferFee: 2.50,
+                                    maxTransferFee: 15.00,
+                                    minAmount: 15.00,
+                                    maxAmount: 10000.00,
+                                    transferFee: 0,
+                                    transferLocalFee: 0,
+                                    totalAmount: 0,
+                                    senderCurrencyRate: '',
+                                    senderCurrencies: [],
+                                    receiverCurrencies: [],
+                                    sendFrom: {},
+                                    receiveFrom: {},
+                                    send_amount: '',
+                                    get_amount: '',
+                                    rate: '',
+                                },
+                                beforeMount() {
+                                    this.currencyList();
+                                },
+                                mounted() {
+                                    let self = this;
+                                },
+                                methods: {
+                                    getCookie(name) {
+                                        const value = `; ${document.cookie}`;
+                                        const parts = value.split(`; ${name}=`);
+                                        if (parts.length === 2) return parts.pop().split(';').shift();
+                                    },
+                                    currencyList() {
+                                        axios.get('currency-list.json')
+                                            .then(res => {
+                                                this.senderCurrencies = res.data.senderCurrencies;
+                                                this.receiverCurrencies = res.data.receiverCurrencies;
+                    
+                                                const senderCurrency = this.getCookie('senderCurrency');
+                                                const receiverCurrency = this.getCookie('receiverCurrency');
+                    
+                                                this.sendFrom = this.senderCurrencies.find(item => item.code === senderCurrency) || this.senderCurrencies[0] || {};
+                                                this.receiveFrom = this.receiverCurrencies.find(item => item.code === receiverCurrency) || this.receiverCurrencies[0] || {};
+                    
+                                                this.getRate();
+                                            })
+                                            .catch(err => {
+                                                console.error(err);
+                                            });
+                                    },
+                    
+                                    changeSender(id) {
+                                        $("#senderModal").modal("hide");
+                    
+                                        let self = this;
+                                        let arr = self.senderCurrencies;
+                                        const result = arr.find((obj, index) => {
+                                            if (obj.id == id) {
+                                                return true
+                                            }
+                                        });
+                                        this.sendFrom = result
+                    
+                                        this.getRate();
+                                        this.getValue();
+                                    },
+                    
+                                    changeReceive(id) {
+                                        $("#receiverModal").modal("hide");
+                    
+                                        let self = this;
+                                        let arr = self.receiverCurrencies;
+                                        const result = arr.find((obj, index) => {
+                                            if (obj.id == id) {
+                                                return true
+                                            }
+                                        });
+                                        this.receiveFrom = result
+                    
+                                        this.getRate()
+                                        this.getValue();
+                                    },
+                                    onlyNumber(event) {
+                                        !/[\d.]/.test(event.key) && event.preventDefault();
+                                    },
+                                    updateSenderAmount() {
+                                        this.getRate();
+                                        this.getValue();
+                                        this.send_amount = this.send_amount.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');
+                                    },
+                                    updateRecipientAmount() {
+                                        this.getRate();
+                                        this.sendValue();
+                                        this.get_amount = this.get_amount.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');
+                                    },
+                                    getRate() {
+                                        if (this.receiveFrom.rate && this.sendFrom.rate) {
+                                            this.rate = (this.receiveFrom.rate / this.sendFrom.rate).toFixed(10);
+                    
+                                            const isSameCurrency = this.sendFrom.code === "USD";
+                                            const sendAmountInUSD = isSameCurrency
+                                                ? parseFloat(this.send_amount)
+                                                : parseFloat(this.send_amount) / this.sendFrom.rate;
+                    
+                                            let percentageIncrease = 0;
+                    
+                                            if (sendAmountInUSD > 5000) {
+                                                this.transferFee = this.maxTransferFee;
+                                            } else if (sendAmountInUSD > 2000) {
+                                                percentageIncrease = 1;
+                                                this.transferFee = this.minTransferFee * (1 + percentageIncrease);
+                                            } else {
+                                                this.transferFee = this.minTransferFee;
+                                            }
+                    
+                                            const transferFeeInTargetCurrency = isSameCurrency
+                                                ? this.transferFee
+                                                : this.transferFee * (this.sendFrom.rate);
+                    
+                                            const amount = parseFloat(this.send_amount) || 0;
+                    
+                                            this.transferLocalFee = transferFeeInTargetCurrency;
+                                            const sendLocalAmount = parseFloat((amount - this.transferLocalFee).toFixed(3));
+                    
+                                            this.totalAmount = parseFloat((sendLocalAmount * this.rate).toFixed(3));
+                                            if (this.totalAmount < 0 ) {
+                                                this.totalAmount = 0;
+                                            }
+                    
+                                            this.senderCurrencyRate = this.sendFrom.rate;
+                                        } else {
+                                            this.rate = 0;
+                                            this.transferLocalFee = 0;
+                                            this.totalAmount = 0;
+                                        }
+                                    },
+                                    getValue() {
+                                        this.get_amount = this.send_amount && this.rate ? Math.abs((this.send_amount * this.rate).toFixed(2)) : '';
+                                    },
+                                    sendValue() {
+                                        this.send_amount = this.get_amount && this.rate ? Math.abs((this.get_amount / this.rate).toFixed(2)) : '';
+                                    },
+                                    goNext() {
+                                        const sendAmountUSD = this.send_amount / this.senderCurrencyRate;
+                    
+                                        if (sendAmountUSD < this.minAmount || sendAmountUSD > this.maxAmount) {
+                                            Notiflix.Notify.failure('Send amount must be between ' + this.minAmount + ' USD and ' + this.maxAmount + ' USD');
+                                        } else {
+                                            axios.get('login.html');
+                    
+                                            let $url = 'login.html';
+                                            $url = $url.replace('country:name', this.receiveFrom.country.name);
+                    
+                                            localStorage.setItem('send_amount', this.send_amount);
+                                            localStorage.setItem('receiver_rate', this.rate);
+                                            localStorage.setItem('senderCurrency', this.sendFrom.code);
+                                            localStorage.setItem('receiverCurrency', this.receiveFrom.code);
+                                            localStorage.setItem('transferLocalFee', this.transferLocalFee);
+                                            localStorage.setItem('sendSelectId', this.sendFrom.id);
+                                            localStorage.setItem('sendSelectFlag', this.sendFrom.image);
+                                            localStorage.setItem('sendSelectName', this.sendFrom.name);
+                                            localStorage.setItem('sendSelectCode', this.sendFrom.code);
+                    
+                                            localStorage.setItem('sendFrom', JSON.stringify(this.sendFrom));
+                                            localStorage.setItem('receiveFrom', JSON.stringify(this.receiveFrom));
+                                            localStorage.setItem('resource', JSON.stringify(this.sendFrom));
+                    
+                                            const expirationDate = new Date();
+                                            expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+                                            document.cookie = `senderCurrency=${this.sendFrom.code}; expires=${expirationDate.toUTCString()}; path=/`;
+                                            document.cookie = `receiverCurrency=${this.receiveFrom.code}; expires=${expirationDate.toUTCString()}; path=/`;
+                    
+                                            window.location.href = $url
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+                    
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                function handleInput(inputAmountBox, inputAmountBoxInner) {
+                                    const inputField = inputAmountBoxInner.querySelector('input');
+                    
+                                    inputField.addEventListener("focus", function () {
+                                        inputAmountBox.classList.add("active");
+                                    });
+                    
+                                    inputField.addEventListener("blur", function () {
+                                        inputAmountBox.classList.remove("active");
+                                    });
+                    
+                                    inputField.addEventListener("click", function () {
+                                        inputField.setSelectionRange(inputField.value.length, inputField.value.length);
+                                    });
+                    
+                                    inputAmountBox.addEventListener("click", function (event) {
+                                        if (!event.target.closest('.icon-area') && !event.target.closest('.currency-name')) {
+                                            inputField.focus();
+                                            inputField.setSelectionRange(inputField.value.length, inputField.value.length);
+                                        }
+                                    });
+                                }
+                    
+                                const inputAmountBox = document.getElementById("inputAmountBox");
+                                const inputAmountBoxInner = document.getElementById("inputAmountBoxInner");
+                                handleInput(inputAmountBox, inputAmountBoxInner);
+                    
+                                const inputAmountBox2 = document.getElementById("inputAmountBox2");
+                                const inputAmountBoxInner2 = document.getElementById("inputAmountBoxInner2");
+                                handleInput(inputAmountBox2, inputAmountBoxInner2);
+                            });
+                    
+                            function filterItems(inputId) {
+                                var input, filter, items, title, subtitle, i, txtValue;
+                                input = document.getElementById(inputId);
+                                filter = input.value.toUpperCase();
+                                items = document.querySelectorAll("#currency-list .item");
+                    
+                                items.forEach(function (item) {
+                                    title = item.querySelector(".title");
+                                    subtitle = item.querySelector(".sub-title");
+                    
+                                    txtValue = title.textContent || title.innerText;
+                                    txtValue += " " + (subtitle.textContent || subtitle.innerText);
+                    
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        item.style.display = "";
+                                    } else {
+                                        item.style.display = "none";
+                                    }
+                                });
+                            }
+                        </script>
+                    
+                            <script>
+                                $(document).ready(function () {
+                                    let $title = $('.hero-title');
+                                    let words = $title.html().split(' ');
+                                    if (words.length >= 3) {
+                                        words[2] = '<span class="text-style highlight">' + words[2] + '</span>';
+                                        $title.html(words.join(' '));
+                                    }
+                                });
+                            </script>
+                    
+                    
+                            <script>
+                                $(document).on('click', '#countryToSend', function () {
+                                    let currencyCode = $(this).data('currency-code');
+                                    document.cookie = `receiverCurrency=${currencyCode}; path=/`;
+                                });
+                            </script>
+                        
+                    
+                        
+                        <!--Start of Google analytic Script-->
+                    <!--End of Google analytic Script-->
+                    
+                    
+                    <!--Start of Tawk.to Script-->
+                    
+                    
+                    <!--start of Facebook Messenger Script-->
+                    <!--End of Facebook Messenger Script-->
+                    
+                    
+                    
+                        <script>
+                            function setCookie(name, value, days) {
+                                var expires = "";
+                                if (days) {
+                                    var date = new Date();
+                                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                                    expires = "; expires=" + date.toUTCString();
+                                }
+                                document.cookie = name + "=" + value + expires + "; path=/";
+                            }
+                            function hasAcceptedCookiePolicy() {
+                                return document.cookie.indexOf("cookie_policy_accepted=true") !== -1;
+                            }
+                            function hasClosedCookiePolicy() {
+                                return document.cookie.indexOf("cookie_policy_rejected=true") !== -1;
+                            }
+                            function acceptCookiePolicy() {
+                                setCookie("cookie_policy_accepted", "true", 365);
+                                document.getElementById("cookiesAlert").style.display = "none";
+                            }
+                            function closeCookieBanner() {
+                                setCookie("cookie_policy_rejected", "true", 365);
+                                document.getElementById("cookiesAlert").style.display = "none";
+                            }
+                            document.addEventListener('DOMContentLoaded', function () {
+                                if (!hasAcceptedCookiePolicy() && !hasClosedCookiePolicy()) {
+                                    document.getElementById("cookiesAlert").style.display = "block";
+                                }
+                            });
+                        </script>
+                    
+                        <div class="cookies-alert" id="cookiesAlert">
+                            <img src="{% static 'assets/global/img/cookie.svg' %}" height="50" width="50"
+                                 alt="Waiz cookies">
+                            <h4 class="mt-2">We use cookies!</h4>
+                            <span class="d-block mt-2">We use cookies to ensure that give you the best experience on your website.
+                                <a href="http://localhost/CoinShift/cookie-policy" class="link">see more</a>
+                            </span>
+                            <a href="javascript:void(0);" class="mt-3 cmn-btn " type="button"
+                               onclick="acceptCookiePolicy()">Accept</a>
+                            <a href="javascript:void(0);" class="mt-2 cmn-btn3" type="button" onclick="closeCookieBanner()">Close</a>
+                        </div>
+                    
+                    
+                    <script>
+                        "use strict";
+                        var root = document.querySelector(':root');
+                        root.style.setProperty('--primary-color', '#085def');
+                        
+                    </script>
+                    
+                    </body>
+                    
+                    <!-- Mirrored from waiz.bugfinder.net/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Sep 2024 20:25:59 GMT -->
+                    </html>
+                    
+                    
+                    
+                    

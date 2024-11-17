@@ -1,0 +1,210 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<style>
+    .banner-area {
+        padding-top: 220px;
+        padding-bottom: 100px;
+        position: relative;
+        z-index: 1;
+        background-image: linear-gradient(rgba(2, 26, 46, 0.6), rgba(2, 25, 44, 0.6)),
+            url({% static 'assets/upload/pagesImage/baAjsFdWZkn8i5LRVWIja3CyzeFNoL.avif' %});
+        background-size: cover;
+        background-position: 100% 75%;
+    }
+</style>
+
+<div class="banner-area">
+    <div class="container">
+        <div class="row ">
+            <div class="col">
+                <div class="breadcrumb-area">
+                    <h3>
+                                                        Contact                                                    </h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="fa-light fa-house"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                                                                Contact                                                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main id="main header-upper header-fixed">
+        <section class="contact-section pt-0">
+<div class="contact-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Get in Touch</h3>
+                <p>Have questions or need assistance? We’re here to help!</p>
+            </div>
+            <div class="col-md-6 d-none d-md-block">
+                <div class="contact-top-thum">
+                    <img src="assets/upload/contents/DcxTXEZCJ6Pti4gzxVsHE9tNIB5YxD.webp" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="contact-inner">
+        <div class="row">
+            <div class="col-xl-4 col-lg-6">
+                <div class="contact-area">
+                    <div class="section-header mb-0">
+                        <h3>Contact Information</h3>
+                    </div>
+                    <p class="para_text">Whether you have questions about our services, need technical support, or want to share your thoughts with us, we’re here to ensure you have a smooth and enjoyable experience with Waiz.</p>
+
+                                                <h6 class="mt-30 mb-0">Phone:</h6>
+                        <p>+5462783552 <br> +1545644554</p>
+                                                <h6 class="mt-30 mb-0">Email:</h6>
+                        <p>support@example.com <br> </p>
+                                                <h6 class="mt-30 mb-0">Address:</h6>
+                        <p>49 Spruce RoadJamestown, NY 14701 <br> 40 Spruce RoadJamestown, NY 14701</p>
+                                        </div>
+            </div>
+            <div class="col-xl-8 col-lg-6">
+                <div class="contact-message-area">
+                    <form action="https://waiz.bugfinder.net/contact" method="post">
+                        <input type="hidden" name="_token" value="6UroOBws99u7PlyFPmRktBSPSmoNosUy9kpuY7Kt" autocomplete="off">                            <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <input type="text" name="name" class="form-control" placeholder="Your Name">
+                                                                </div>
+                            <div class="mb-3 col-md-6">
+                                <input type="email" name="email" class="form-control" placeholder="Email Address">
+                                                                </div>
+                            <div class="mb-3 col-md-12">
+                                <input type="text" name="subject" class="form-control" placeholder="Your Subject">
+                                                                </div>
+                            <div class="mb-3 col-12">
+                                <textarea name="message" class="form-control" rows="8" placeholder="Your Message"></textarea>
+                                                                </div>
+                        </div>
+                        <div class="btn-area d-flex justify-content-end">
+                            <button type="submit" class="cmn-btn mt-30">Send a massage</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</section>
+
+                
+                
+                <section class="newsletter-section pt-50 pb-50">
+<div class="container">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-6 col-md-5">
+            <div class="content-area">
+                <div class="subscribe-small-text">SUBSCRIBE TO OUR</div>
+                <h1 class="subscribe-normal-text">NEWSLETTER</h1>
+            </div>
+
+        </div>
+        <div class="col-lg-6 col-md-7">
+            <form class="newsletter-form" action="https://waiz.bugfinder.net/admin/subscriber" method="post">
+                <input type="hidden" name="_token" value="6UroOBws99u7PlyFPmRktBSPSmoNosUy9kpuY7Kt" autocomplete="off">                                        <input type="email" name="email" class="form-control" placeholder="Email Address"
+                    required />
+                <button class="subscribe-btn">Subscribe</button>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
+                
+                
+                <section class="footer-section pb-50">
+<div class="container">
+    <div class="row gy-4 gy-sm-5">
+        <div class="col-lg-4 col-sm-6">
+            <div class="footer-widget">
+                <div class="widget-logo mb-30">
+                    <a href="#"><img class="logo" src="assets/upload/contents/SH7tu2fgGx3DwkuyXlWwu3cJ3DykN6.webp" alt=""></a>
+                </div>
+                <p>Waiz is dedicated to providing seamless digital banking solutions, including international money transfers, digital wallets, and virtual cards. Our goal is to simplify financial transactions with advanced technology and excellent customer support.</p>
+                <div class="social-area mt-50">
+                    <ul class="d-flex">
+                                                        <li><a href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                                                        <li><a href="https://x.com/"><i class="fab fa-twitter"></i></a></li>
+                                                        <li><a href="https://linkedin.com/"><i class="fab fa-linkedin"></i></a></li>
+                                                        <li><a href="https://instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                                                </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+            <div class="footer-widget">
+                <h5 class="widget-title">Quick Links</h5>
+                <ul>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="index.html">Home</a></li>
+                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="about.html">About</a></li>
+                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="blogs.html">blogs</a></li>
+                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="faq.html">Faq</a></li>
+                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="contact.html">Contact</a></li>
+                                                                    </ul>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 pt-sm-0 pt-3 ps-lg-5">
+            <div class="footer-widget">
+                <h5 class="widget-title">Support links</h5>
+                <ul>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="terms-conditions.html">Terms Conditions</a></li>
+                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="privacy-policy.html">Privacy Policy</a></li>
+                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="cookie-policy.html">Cookie Policy</a></li>
+                                                                    </ul>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 pt-sm-0 pt-3">
+            <div class="footer-widget">
+                <h5 class="widget-title">Contact Us</h5>
+                <p class="contact-item"><i class="fa-regular fa-location-dot"></i>
+                    49 Spruce RoadJamestown, NY 14701                    </p>
+                <p class="contact-item"><i class="fa-regular fa-envelope"></i> support@example.com</p>
+                <p class="contact-item"><i class="fa-regular fa-phone"></i> +185484655</p>
+            </div>
+        </div>
+    </div>
+    <hr class="cmn-hr">
+    <!-- Copyright-area-start -->
+    <div class="copyright-area">
+        <div class="row gy-4">
+            <div class="col-sm-6">
+                <p>All rights reserved &copy; 2024 by<a class="highlight" href="index.html"></a> </p>
+            </div>
+            <div class="col-sm-6">
+                <div class="language">
+                                                <a href="contact.html" class="active-language base-success">
+                            <span class="flag-icon flag-icon-en"></span>
+                            English                            </a>
+                                                <a href="contact.html" class="">
+                            <span class="flag-icon flag-icon-es"></span>
+                            Spanish                            </a>
+                                        </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright-area-end -->
+</div>
+</section>
+
+
+                
+                
+                
+</main>
+
+{% endblock %}
