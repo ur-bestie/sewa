@@ -11,8 +11,23 @@ urlpatterns = [
     path('myassets',views.myassets, name='myassets'),
     path('housepurchase',views.housepurchase, name='housepurchase'),
     path('housedetails/<str:id>',views.housedetails, name='housedetails'),
-    path('housebuy/<str:id>',views.housebuy, name='housebuy'),
+    path('housebuy/<str:id>',views.housebuy_view, name='housebuy'),
     path('profilepage',views.profilepage, name='profilepage'),
+    path('house_cert/<str:id>',views.house_cert, name='house_cert'),
+    path('properties',views.properties, name='properties'),
+    path('houserent',views.houserentview, name='houserent'),
+    path('houserentinfo/<str:id>',views.houserentinfo, name='houserentinfo'),
+    path('houserentpay/<str:id>',views.houserentpay, name='houserentpay'),
+    path('rentedview/<str:id>',views.rentedview, name='rentedview'),
+    path('buyview/<str:id>',views.buyview, name='buyview'),
+    path('transfer',views.transfer, name='transfer'),
+    path('withdraw',views.withdraw, name='withdraw'),
+    path('withdrawam/<str:id>',views.withdrawam, name='withdrawam'),
+    path('withdrawconf',views.withdrawconf, name='withdrawconf'),
+    path('withdrawhis',views.withdrawhis, name='withdrawhis'),
+    path('transf_his',views.transf_his, name='transf_his'),
+    path('newslet',views.newslet, name='newslet'),
+
 
 
 

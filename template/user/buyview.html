@@ -1,0 +1,226 @@
+
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+  <style>
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .property-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .property-info {
+      flex: 1 1 400px;
+    }
+    .property-info h3 {
+      margin: 10px 0;
+      color: #555;
+    }
+    .property-info p {
+      margin: 5px 0;
+      line-height: 1.5;
+    }
+    .image-gallery {
+      flex: 1 1 400px;
+    }
+    .image-gallery img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .thumbnail-gallery {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .thumbnail-gallery img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .hero {
+            background: transparent;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 24px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-top: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero a {
+            display: inline-block;
+            background-color: #ff5722;
+            color: white;
+            padding: 12px 30px;
+            margin-top: 30px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .hero a:hover {
+            background-color: #e64a19;
+        }
+
+  </style>
+<!-- Hero Section -->
+<div class="hero" style="margin-top: 5rem;">
+    <h1> Your House Property Information</h1>
+    <p>Browse through your house property</p>
+    {% if p.status == 'bought' %}
+    {% else %}
+    <a href="/house_cert/{{p.id}}">View House Ownership Certificate</a>
+   
+    <a class="item showInfo" style="background-color: rgb(63, 174, 234);" href="#"
+    data-trx_type="+"
+    data-remarks="Deposit"
+    data-note="Pending Deposit"
+    data-amount="{{p.house.name}} "
+    data-charge="${{p.amount}}"
+    data-trxid="{{x.id}}"
+    data-trx_date="0 USD"
+    data-bs-toggle="modal"
+    data-bs-target="#infoViewModal{{x.id}}"
+ >
+             
+ Resale House <i class="fa-regular fa-arrow-right"></i>
+                 </button>
+             </a>
+             {% endif %}
+</div>
+  <div class="container">
+    
+    <div class="property-details">
+      <!-- Property Information -->
+      <div class="property-info">
+        <h3>Property Name:</h3>
+        <p>{{p.house.name}}</p>
+        <h3>Property Status:</h3>
+        <p>{{p.status}}</p>
+        <h3>Location:</h3>
+        <p>{{p.house.location}}</p>
+        <h3>My House Price:</h3>
+        <p>${{p.amount}}</p>
+        <h3>Tenant Name:</h3>
+        <p>{{user.first_name}} {{user.last_name}}</p>
+        <h3>Contact Information:</h3>
+        <p>Email: {{user.email}}</p>
+        
+        <h3>Description:</h3>
+        <p>{{p.house.description}}</p>
+      </div>
+      <!-- Image Gallery -->
+      <div class="image-gallery">
+        <img id="main-image" src="{{p.house.main_picture.url}}" alt="Main Property Image">
+        <div class="thumbnail-gallery">
+            <img id="main-image" src="{{p.house.main_picture.url}}" alt="Main Property Image" onclick="changeImage(this)">
+         {% for pic in p.house.other_pictures.all %}
+            <img src="{{pic.picture.url}}" alt="other pictures" onclick="changeImage(this)">
+         {% endfor %}
+        </div>
+      </div>
+    </div>
+   
+  </div>
+
+  <form action="" method="POST"> 
+    {% csrf_token %}
+   <div class="modal fade" id="infoViewModal{{x.id}}" tabindex="-1" role="dialog" aria-hidden="true"
+   data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-body">
+              <div class="text-center mb-5">
+                  <h4 class="mt-3 mb-1">Confirm Your sale</h4>
+              </div>
+
+              <div class="row mb-6">
+                  <div class="transaction-list mt-2" id="trxModal">
+                      <div class="item">
+                          <div class="left-side">
+                              <div class="icon">
+                                  <i class="fa-regular"></i>
+                              </div>
+                              <span class="remarks"></span>
+                          </div>
+                          <div class="d-flex gap-2">
+                              <strong class="trxId"></strong>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="title mb-2 mt-4">Summary</div>
+              <ul class="list-container mb-4 ">
+                  <li class="item py-2">
+                      <span>Type</span>
+                      <span class=" fw-bold amount"></span>
+                  </li>
+                  <li class="item py-2">
+                      <span>purchase amount</span>
+                      <span class=" fw-semibold text-danger charge"></span>
+                  </li>
+                  <li class="item py-2">
+                      <span>Charge</span>
+                      <span class=" fw-semibold trx_date"></span>
+                  </li>
+                  <li class="item py-2">
+                    <span>Enter your selling price</span>
+                   <div style="display: flex;" class="input-control">$<input type="number" name="amount" style="border-radius: 5px;"></div>
+                </li>
+                  <li class="item py-2">
+                  <!-- <input type="hidden" name="amount" value="{{x.amount}}"> -->
+                  <input type="hidden" name="a_id" value="{{p.id}}">
+                   <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                   <button type="submit" class="cmn-btn2">Continue to sell</button>
+                  </li>
+              </ul>
+              <!-- <div class="modal-footer-text mt-3">
+                  <div class="d-flex justify-content-end gap-3 status-buttons">
+                      <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                  </div>
+              </div> -->
+          </div>
+      </div>
+  </div>
+</div>
+</form>
+
+
+  <script>
+    function changeImage(thumbnail) {
+      const mainImage = document.getElementById('main-image');
+      mainImage.src = thumbnail.src;
+    }
+  </script>
+
+
+{% endblock %}

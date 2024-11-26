@@ -39,6 +39,24 @@ class deposit_his(models.Model):
     proof = models.FileField(upload_to='proof/')
     date = models.DateTimeField(blank=True,null=True,default=timezone.now)
 
+class withdraw_his(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    paymentm = models.ForeignKey(paymentmethod,on_delete=models.CASCADE)
+    amount = models.FloatField(default=0.00)
+    address = models.CharField(max_length=100)
+    status = models.BooleanField(default=False)
+    
+    date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+
+
+class trans_his(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    amount = models.IntegerField(default=0)
+    date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+
+    def __str__(self):
+        return self.name
 
 class asset(models.Model):
     name = models.CharField(max_length=100)
@@ -113,6 +131,63 @@ class housebuy(models.Model):
     status = models.CharField(max_length=100, default='Bought')
     date = models.DateTimeField(blank=True,null=True,default=timezone.now)
 
+    def __str__(self):
+        return self.user.username
 
 
+# renting properties
+
+class HouseforrentPictures(models.Model):
+    picture = models.FileField(upload_to='houseforrent/rentother_pictures/')  # Store multiple pictures
+
+    def __str__(self):
+        return f"Picture {self.id}"
     
+
+
+class Houseforrent(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    price = models.IntegerField(default=1000)
+    description = models.TextField(max_length=10000, default='mmml')
+    features = models.TextField(max_length=10000)
+    main_picture = models.FileField(upload_to='houseforrent/main_pictures/')  # Main display picture
+    rentother_pictures = models.ManyToManyField('HouseforrentPictures', related_name='houses')  # Fixed reference
+
+    def __str__(self):
+        return self.name
+    
+
+class RentalApplication(models.Model):
+    # Previous Rental Information
+    previous_rental_address = models.CharField(max_length=255)
+    landlord_name = models.CharField(max_length=100)
+    landlord_contact = models.CharField(max_length=50)
+    reason_for_moving = models.TextField()
+
+    # Employment Information
+    job_title = models.CharField(max_length=100)
+    employer_name = models.CharField(max_length=100)
+    employer_contact = models.CharField(max_length=50)
+    income = models.DecimalField(max_digits=12, decimal_places=2)
+
+    # Consent
+    consent = models.BooleanField(default=False)
+
+class newsletter(models.Model):
+    email = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.email
+
+
+class houserentconfir(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    Houseforrent = models.ForeignKey(Houseforrent, on_delete=models.CASCADE)
+    RentalApplication = models.ForeignKey(RentalApplication, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=0)
+    status = models.CharField(max_length=100, default='Bought')
+    date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+
+    def __str__(self):
+        return self.user.username

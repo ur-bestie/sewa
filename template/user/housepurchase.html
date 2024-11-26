@@ -10,10 +10,45 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
+
+        /* Hero Section */
+        .hero {
+            background: transparent;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 24px;
+            margin-top: 5rem;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-top: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero a {
+            display: inline-block;
+            background-color: #ff5722;
+            color: white;
+            padding: 12px 30px;
+            margin-top: 30px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .hero a:hover {
+            background-color: #e64a19;
+        }
 
 /* Grid Container */
 .grid-container {
@@ -26,8 +61,8 @@ body {
 }
 
 .grid-item {
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 15px;
     text-align: center;
     position: relative;
@@ -161,7 +196,7 @@ body {
 /* Style for the 'Click' button */
 .click-btn {
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 10px 20px;
@@ -182,8 +217,8 @@ body {
 /* Ensuring the grid item has a relative position to position the button correctly */
 .grid-item {
     position: relative;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: transparent;
+    box-shadow: 0 4px 10px gray;
     padding: 15px;
     text-align: center;
     cursor: pointer;
@@ -196,23 +231,22 @@ body {
 
 
 
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Buy Your Dream House</h1>
+        <p>Browse through our collection of premium Houses across the city. Your dream home is just a click away.</p>
+        <a href="#properties">Explore Properties</a>
+    </div>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Grid Layout with Carousel</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="grid-container">
+    <div class="grid-container" id="properties">
     {% for x in x %}
         <div class="grid-item" data-gallery="gallery1">
             <img src="{{x.main_picture.url}}" alt="Image 1">
-            <button class="click-btn">More Photos</button> <!-- Add this button -->
-            <div class="text">{{x.name}}</div>
+            <!-- <button>More Photos</button> Add this button -->
+            <div class="text"><h5>{{x.name}}</h5></div>
+            <div class="text">{{x.description}}</div>
+            <div class="text"><b>${{x.price}}</b></div>
             <div class="button-container">
                 <a href="/housebuy/{{x.id}}" class="btn bg-warning">Buy Now <i class="fa-solid fa-cart-shopping"></i></a>
                 <a href="/housedetails/{{x.id}}" class="btn btn-info">More Info</a>
@@ -240,44 +274,12 @@ body {
 
 
 {% endfor %}
-        <div class="grid-item" data-gallery="gallery1">
-            <img src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/fe0d65472c208b975ab58abce49e3912-full.webp" alt="Image 1">
-            <button class="click-btn">more photos</button> <!-- Add this button -->
-            <div class="text">Image Description 1</div>
-            <div class="button-container">
-                <button class="btn bg-warning">Buy Now <i class="fa-solid fa-cart-shopping"></i></button>
-                <button class="btn bg-info">More Info</button>
-            </div>
-        </div>
-        <div class="grid-item" data-gallery="gallery2">
-            <img src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/4bf95f2244b77ec623e05081212efe2e-full.webp" alt="Image 2">
-            <button class="click-btn">more photos</button> <!-- Add this button -->
-            <div class="text">Image Description 2</div>
-            <div class="button-container">
-                <button class="btn">Buy Now <i class="fa-solid fa-cart-shopping"></i></button>
-                <a href="/housedetails" class="btn">More Info</a>
-            </div>
-        </div>
+  
+   
 
-        <div class="grid-item" data-gallery="gallery2">
-            <img src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/feb454adb140b93829990a03df59d22a-full.webp" alt="Image 2">
-            <button class="click-btn">more photos</button> <!-- Add this button -->
-            <div class="text">Image Description 2</div>
-            <div class="button-container">
-                <button class="btn">Buy Now <i class="fa-solid fa-cart-shopping"></i></button>
-                <button class="btn">More Info</button>
-            </div>
-        </div>
+  
 
-        <div class="grid-item" data-gallery="gallery2">
-            <img src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/5131ccc349205bcfa2752dcb630a6b59-full.webp" alt="Image 2">
-            <button class="click-btn">more photos</button> <!-- Add this button -->
-            <div class="text">Image Description 2</div>
-            <div class="button-container">
-                <button class="btn">Buy Now <i class="fa-solid fa-cart-shopping"></i></button>
-                <button class="btn">More Info</button>
-            </div>
-        </div>
+  
         <!-- Add more grid items as needed -->
     </div>
 

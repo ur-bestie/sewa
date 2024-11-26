@@ -27,3 +27,27 @@ class HousePictureAdmin(admin.ModelAdmin):
     pass
 
 admin.site.register(housebuy)
+admin.site.register(HousePurchaseInfo)
+
+
+#house rent
+class HouseforrentPicturesInline(admin.TabularInline):  # You can also use StackedInline for a different layout
+    model = Houseforrent.rentother_pictures.through  # Use the through model for ManyToMany
+    extra = 3  # How many empty file upload forms to show (you can adjust this)
+    verbose_name = 'Other Picture'
+    verbose_name_plural = 'Other Pictures'
+
+# Admin class for House model
+@admin.register(Houseforrent)
+class HouseforrentAdmin(admin.ModelAdmin):
+    inlines = [HouseforrentPicturesInline]  # Use inline to allow adding multiple pictures directly
+    exclude = ('other_pictures',)  # Exclude the ManyToManyField since it's handled by the inline form
+
+# Admin class for HousePicture
+@admin.register(HouseforrentPictures)
+class HouseforrentPicturesAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(RentalApplication)
+admin.site.register(houserentconfir)
+admin.site.register(newsletter)

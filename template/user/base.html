@@ -34,6 +34,12 @@
     .box-card {
         background-image: url({% static 'img/card.png' %});
     }
+    .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #aaa;
+        }
 </style>
 <body onload="preloader_function()" class="">
 
@@ -67,7 +73,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link "
-                           href="https://waiz.bugfinder.net/user/transfer-amount"><i class="fa-solid fa-comments-dollar"></i>Send Money</a>
+                           href="/transfer"><i class="fa-solid fa-comments-dollar"></i>Send Money</a>
                     </li>
 
                     <li class="nav-item">
@@ -85,7 +91,8 @@
                            Real Estate                        </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item " href="/housepurchase">Buy</a></li>
-                            <li><a class="dropdown-item " href="/deposithis">Rent</a></li>
+                            <li><a class="dropdown-item " href="/houserent">Rent</a></li>
+                            <li><a class="dropdown-item " href="/properties">My properties</a></li>
                              </ul>
                     </li>
 
@@ -105,8 +112,8 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item " href="https://waiz.bugfinder.net/user/all-transaction-list">Transaction History</a></li>
                             <li><a class="dropdown-item " href="/deposithis">Deposit History</a></li>
-                            <li><a class="dropdown-item " href="https://waiz.bugfinder.net/user/transfer-list">Transfer History</a></li>
-                            <li><a class="dropdown-item " href="https://waiz.bugfinder.net/user/money-request-list">Request History</a></li>
+                            <li><a class="dropdown-item " href="/transf_his">Transfer History</a></li>
+                            <li><a class="dropdown-item " href="/withdrawhis">Request History</a></li>
                         </ul>
                     </li>
 
@@ -237,7 +244,7 @@
 
     <li class="nav-item">
         <a class="nav-link "
-           href="https://waiz.bugfinder.net/user/transfer-amount" title="Money Transfer">
+           href="/withdraw" title="Money Transfer">
            <i class="fa-light fa-money-bill-alt"></i></a>Withdraw</li>
 
     <li class="nav-item">
@@ -257,7 +264,7 @@
 
         <li class="nav-item">
             <a class="nav-link "
-               href="https://waiz.bugfinder.net/user/transfer-amount"><i class="fa-solid fa-comments-dollar"></i>Send Money</a>
+               href="/transfer"><i class="fa-solid fa-comments-dollar"></i>Send Money</a>
         </li>
 
         <li class="nav-item">
@@ -282,8 +289,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/deposithis" class="">
+                    <a href="/houserent" class="">
                         <i class="fa-regular fa-circle"></i><span>Rent</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/properties" class="">
+                        <i class="fa-regular fa-circle"></i><span>My properties</span>
                     </a>
                 </li>
                 
@@ -315,13 +328,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https://waiz.bugfinder.net/user/transfer-list" class="">
+                    <a href="/transf_his" class="">
                         <i class="fa-regular fa-circle"></i><span>Transfer History</span>
                     </a>
                 </li>
                 <li>
-                    <a href="https://waiz.bugfinder.net/user/money-request-list" class="">
-                        <i class="fa-regular fa-circle"></i><span>Request History</span>
+                    <a href="/withdrawhis" class="">
+                        <i class="fa-regular fa-circle"></i><span>Withdrawal History</span>
                     </a>
                 </li>
                 
@@ -754,6 +767,11 @@
             }
         });
     </script>
+
+
+<div class="footer">
+    © 2024 Fincapital Market. All rights reserved.
+</div>
 
 
 </body>

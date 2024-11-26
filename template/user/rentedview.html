@@ -1,0 +1,142 @@
+
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+  <style>
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .property-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .property-info {
+      flex: 1 1 400px;
+    }
+    .property-info h3 {
+      margin: 10px 0;
+      color: #555;
+    }
+    .property-info p {
+      margin: 5px 0;
+      line-height: 1.5;
+    }
+    .image-gallery {
+      flex: 1 1 400px;
+    }
+    .image-gallery img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .thumbnail-gallery {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .thumbnail-gallery img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .hero {
+            background: transparent;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 24px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-top: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero a {
+            display: inline-block;
+            background-color: #ff5722;
+            color: white;
+            padding: 12px 30px;
+            margin-top: 30px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .hero a:hover {
+            background-color: #e64a19;
+        }
+
+  </style>
+<!-- Hero Section -->
+<div class="hero" style="margin-top: 5rem;">
+    <h1> Your House Rental Property Information</h1>
+    <p>Browse through our collection of premium rental properties info the city</p>
+    <!-- <a href="#properties">Explore Properties</a> -->
+</div>
+  <div class="container">
+    
+    <div class="property-details">
+      <!-- Property Information -->
+      <div class="property-info">
+        <h3>Property Name:</h3>
+        <p>{{r.Houseforrent.name}}</p>
+        <h3>Location:</h3>
+        <p>{{r.Houseforrent.location}}</p>
+        <h3>Monthly Rent:</h3>
+        <p>${{r.Houseforrent.price}}</p>
+        <h3>Rent Period:</h3>
+        <p>${{r.amount}}</p>
+        <h3>Tenant Name:</h3>
+        <p>{{user.username}}</p>
+        <h3>Contact Information:</h3>
+        <p>Email: {{user.email}}</p>
+        
+        <h3>Description:</h3>
+        <p>{{r.Houseforrent.description}}</p>
+      </div>
+      <!-- Image Gallery -->
+      <div class="image-gallery">
+        <img id="main-image" src="{{r.Houseforrent.main_picture.url}}" alt="Main Property Image">
+        <div class="thumbnail-gallery">
+            <img id="main-image" src="{{r.Houseforrent.main_picture.url}}" alt="Main Property Image" onclick="changeImage(this)">
+         {% for p in r.Houseforrent.rentother_pictures.all %}
+            <img src="{{p.picture.url}}" alt="other pictures" onclick="changeImage(this)">
+         {% endfor %}
+        </div>
+      </div>
+    </div>
+   
+  </div>
+  <script>
+    function changeImage(thumbnail) {
+      const mainImage = document.getElementById('main-image');
+      mainImage.src = thumbnail.src;
+    }
+  </script>
+
+
+{% endblock %}

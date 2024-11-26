@@ -1,0 +1,299 @@
+
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <style>
+        /* General Styles */
+        
+
+        /* Hero Section */
+        .hero {
+            background: transparent;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 24px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-top: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero a {
+            display: inline-block;
+            background-color: #ff5722;
+            color: white;
+            padding: 12px 30px;
+            margin-top: 30px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .hero a:hover {
+            background-color: #e64a19;
+        }
+
+        /* Property Cards */
+        .container {
+            width: 90%;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .property-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .property-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .property-card-body {
+            padding: 20px;
+        }
+
+        .property-card h3 {
+            margin: 0;
+            font-size: 24px;
+            color: #004aad;
+        }
+
+        .property-card p {
+            color: #777;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .property-card .price {
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        
+            overflow: hidden;
+            margin-top: 6rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 900px;
+        }
+
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            justify-content: center;
+            position: relative;
+        }
+
+        .carousel-image {
+            width: 100%;
+            display: none;
+        }
+
+        .carousel-image.active {
+            display: block;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 95%;
+            display: flex;
+            /* justify-content: space-between; */
+            justify-content: center;
+            gap: 7rem;
+            transform: translateY(-50%);
+        }
+
+        .carousel-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .carousel-controls button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Close Button */
+        .close {
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            cursor: pointer;
+        }
+
+
+        
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero a {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+
+    <!-- Hero Section -->
+    <div class="hero" style="margin-top: 5rem;">
+        <h1>Find Your Perfect Rental Property</h1>
+        <p>Browse through our collection of premium rental properties across the city. Your dream home is just a click away.</p>
+        <a href="#properties">Explore Properties</a>
+    </div>
+
+    <!-- Property List -->
+    <div class="container" style="margin-bottom: 5rem;">
+        <h2>Available Rental Properties</h2>
+        <div class="property-list" id="properties">
+            <!-- Property Card 1 -->
+            <!-- Property Card with Clickable Image -->
+            {% for x in x %}
+    <div class="property-card">
+        <img src="{{x.main_picture.url}}" alt="Property 1" class="property-image" id="open-modal">
+        <a href="houserentpay/{{x.id}}">
+            <div class="property-card-body">
+                <h3>{{x.name}}</h3>
+                <p>{{x.description}}</p>
+                <div class="price">$1,200/month</div>  
+            </div>
+        </a>
+        <a href="houserentinfo/{{x.id}}" class="btn-info btn mb-2">More Info</a>
+    </div>
+
+    <!-- Modal with Carousel -->
+    <div class="modal" id="gallery-modal">
+        <span class="close" id="close-modal">&times;</span>
+        <div class="modal-content">
+            <div class="carousel">
+                {% for picture in x.rentother_pictures.all %}
+                    <img src="{{ picture.picture.url }}" class="carousel-image" alt="other pictures">
+                {% endfor %}
+                <!-- Additional images if necessary -->
+                 </div>
+            <div class="carousel-controls">
+                <button class="prev" id="prev">&#60;</button>
+                <button class="next" id="next">&#62;</button>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}        
+     
+
+            <!-- Add more property cards as needed -->
+        </div>
+    </div>
+
+
+
+    <script>
+        // Get modal and elements
+        const modal = document.getElementById('gallery-modal');
+        const closeBtn = document.getElementById('close-modal');
+        const images = document.querySelectorAll('.carousel-image');
+        let currentImageIndex = 0;
+
+        // Function to open modal
+        document.getElementById('open-modal').onclick = function() {
+            modal.style.display = 'block';
+            showImage(currentImageIndex);  // Show the first image
+        }
+
+        // Close modal when 'X' is clicked
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        // Close modal if clicked outside of modal content
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Show the current image in the carousel
+        function showImage(index) {
+            if (index < 0) index = images.length - 1; // Wrap to last image
+            if (index >= images.length) index = 0; // Wrap to first image
+
+            // Hide all images
+            images.forEach(img => img.classList.remove('active'));
+            // Show the current image
+            images[index].classList.add('active');
+        }
+
+        // Previous image
+        document.getElementById('prev').onclick = function() {
+            currentImageIndex--;
+            showImage(currentImageIndex);
+        }
+
+        // Next image
+        document.getElementById('next').onclick = function() {
+            currentImageIndex++;
+            showImage(currentImageIndex);
+        }
+    </script>
+
+
+{% endblock %}

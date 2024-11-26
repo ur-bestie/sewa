@@ -46,7 +46,7 @@
 
     <nav class="navbar fixed-top navbar-expand-lg header-upper">
         <div class="container">
-            <a class="navbar-brand logo" href="index.html">
+            <a class="navbar-brand logo" href="/">
                 <img id="sitelogo" src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -55,14 +55,14 @@
             </button>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbar">
                 <div class="offcanvas-header">
-                    <a class="navbar-brand" href="index.html"><img class="logo" src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}" alt=""></a>
+                    <a class="navbar-brand" href="/"><img class="logo" src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}" alt=""></a>
                     <button type="button" class="cmn-btn-close btn-close" data-bs-dismiss="offcanvas"
                             aria-label="Close"><i class="fa-light fa-arrow-right"></i></button>
                 </div>
                 <div class="offcanvas-body align-items-center justify-content-between">
                     <ul class="navbar-nav ms-auto">
     
-                        <li class="nav-item"><a class="nav-link text-capitalize " href="index.html">Home</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="about.html">About</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="blogs.html">blogs</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="/faq">Faq</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="/contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link text-capitalize " href="/">Home</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="#about">About</a></li>  <li class="nav-item"><a class="nav-link text-capitalize " href="#features">Features</a></li>  <li class="nav-item"><a class="nav-link text-capitalize " href="#blog">blogs</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="#faq">Faq</a></li><li class="nav-item"><a class="nav-link text-capitalize " href="#contact">Contact</a></li>
     
                         <li>{% if user.is_authenticated %}
                             <a class="login-btn scrollto" href="/user" title="Login"><i class="fa-solid fa-right-to-bracket"></i>Dashboard</a>
@@ -97,7 +97,9 @@
                                         <div class="widget-logo mb-30">
                                             <a href="#"><img class="logo" src="{% static 'assets/upload/contents/SH7tu2fgGx3DwkuyXlWwu3cJ3DykN6.webp' %}" alt=""></a>
                                         </div>
-                                        <p>Waiz is dedicated to providing seamless digital banking solutions, including international money transfers, digital wallets, and virtual cards. Our goal is to simplify financial transactions with advanced technology and excellent customer support.</p>
+                                        <h5>Join Us Today</h5>
+                                        <p>
+                                            Take the first step towards financial freedom with FinCapitalMarket. Whether you're investing in real estate, shares, or assets, we provide the tools, resources, and support you need to succeed. Sign up today and start building your wealth with confidence.</p>
                                         <div class="social-area mt-50">
                                             <ul class="d-flex">
                                                                                 <li><a href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
@@ -112,11 +114,11 @@
                                     <div class="footer-widget">
                                         <h5 class="widget-title">Quick Links</h5>
                                         <ul>
-                                                                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="index.html">Home</a></li>
-                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="about.html">About</a></li>
-                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="blogs.html">blogs</a></li>
-                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="faq.html">Faq</a></li>
-                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="contact.html">Contact</a></li>
+                                                                                                        <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="/">Home</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="/#about">About</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="/#blog">blogs</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="/#faq">Faq</a></li>
+                                                                                <li><i class="bi bi-chevron-right"></i><a class="widget-link" href="/#contact">Contact</a></li>
                                                                                             </ul>
                                     </div>
                                 </div>
@@ -131,7 +133,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 pt-sm-0 pt-3">
-                                    <div class="footer-widget">
+                                    <div class="footer-widget" id="contact">
                                         <h5 class="widget-title">Contact Us</h5>
                                         <p class="contact-item"><i class="fa-regular fa-location-dot"></i>
                                             49 Spruce RoadJamestown, NY 14701                    </p>
@@ -145,14 +147,14 @@
                             <div class="copyright-area">
                                 <div class="row gy-4">
                                     <div class="col-sm-6">
-                                        <p>All rights reserved &copy; 2024 by<a class="highlight" href="index.html"></a> </p>
+                                        <p>All rights reserved &copy; 2024 by<a class="highlight" href="/"></a> </p>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="language">
-                                                                        <a href="index.html" class="active-language base-success">
+                                                                        <a href="/" class="active-language base-success">
                                                     <span class="flag-icon flag-icon-en"></span>
                                                     English                            </a>
-                                                                        <a href="index.html" class="">
+                                                                        <a href="/" class="">
                                                     <span class="flag-icon flag-icon-es"></span>
                                                     Spanish                            </a>
                                                                 </div>

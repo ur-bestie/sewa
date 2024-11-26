@@ -1,0 +1,53 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+<form action="" method="POST" style="padding-top: 50px;">
+    {% csrf_token %}
+<div>
+    <div class="card">
+        <div class="card-body">
+<input type="hidden" name="p_id" value="{{x.id}}">
+
+            <div class="mt-3 add-select-field mb-2"></div>
+
+            <label class="form-label mt-0 " for="">Enter Amount</label>
+            <input class=" mb-2 form-control "
+                   name="amount" type="text" id="amount"
+                   placeholder="Enter Amount" autocomplete="off"
+                   onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')"
+            />
+            <label class="form-label mt-0 " for="">Enter User wallet id</label>
+            <input class=" mb-2 form-control "
+                   name="walletID" type="text" id="amount"
+                   placeholder="Enter User wallet id" autocomplete="off"
+                   onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')"
+            />
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+
+            <div class="side-box mt-3 mb-3">
+                <div class="showCharge">
+
+                </div>
+            </div>
+
+            <div class="input-box mb-3">
+                <div class="form-check">
+                    <input checked class="form-check-input" type="checkbox" value="" id="tandc"/>
+                    <label class="form-check-label" for="tandc">
+                        I agree to Terms &amp; Conditions.
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="cmn-btn w-100 check submitBtn">Make Transfer</button>
+
+            <a href="/user" class="delete-btn mt-20 w-100">cancel this transfer</a>
+
+        </div>
+    </div>
+</div>
+</div>
+</form>
+{% endblock %}

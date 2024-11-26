@@ -18,6 +18,7 @@ from django.utils.safestring import mark_safe
 from django.views import View
 from django.conf import settings
 import json
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.templatetags.static import static
 from .forms import *
@@ -109,10 +110,12 @@ def depositconf(request):
    else:
     return render(request,'user/depositconf.html', locals())
 
+@login_required
 def deposithis(request):
    x = deposit_his.objects.filter(user=request.user)
    return render(request,'user/deposithis.html', locals())
 
+@login_required
 def assets(request):
    user = request.user
    x = asset.objects.all()
@@ -136,7 +139,7 @@ def assets(request):
     return render(request,'user/assets.html', locals())
 
 
-
+@login_required
 def myassets(request):
    user = request.user
    x = assetbuy.objects.filter(user=user)
@@ -153,53 +156,224 @@ def myassets(request):
    else:
     return render(request,'user/myassets.html', locals())
 
-
+@login_required
 def housepurchase(request):
    x = House.objects.all()
    return render(request,'user/housepurchase.html', locals())
 
-
+@login_required
 def housedetails(request, id):
    x = House.objects.get(id=id)
    return render(request,'user/housedetails.html', locals())
 
 
-
-def housebuy(request, id):
+@login_required
+def housebuy_view(request, id):
    user = request.user
    x = House.objects.get(id=id)
-   # if request.method == 'POST':
-   #    amount = x.price
-   #    ba = userwallet.objects.get(user=user)
-   #    if float(amount) > ba.amount:
-   #       messages.error(request,'insuficiant funds')
-   #       return redirect('/assets')
-   #    else:
-   #     x.save()
-   #    messages.success(request, 'asset bought successfully')
-   #    return redirect('/housecert')
-
-   if request.method == 'POST':
-        form = HousePurchaseForm(request.POST, request.FILES)
-        amount = x.price
+   amount = x.price
+   form = HousePurchaseInfoForm(request.POST, request.FILES)
+   if request.method == "POST":
         ba = userwallet.objects.get(user=user)
         if float(amount) > ba.amount:
-            messages.error(request,'insuficiant funds')
-            return redirect('/assets')
+         messages.error(request,'insuficiant funds')
+         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
          if form.is_valid():
-            form.save()
-            return redirect('success')  # Replace with the name of your success URL
+               house_purchase_info = form.save()
+               
+               # Save to housebuy
+               housebuy_entry = housebuy.objects.create(
+                     user=request.user,
+                     house=x,
+                     HousePurchaseInfo=house_purchase_info,
+                     amount=x.price,
+               )
+               ba.amount -= float(amount)
+               ba.save()
+               return redirect('/properties')  # Replace with your success URL/view name
          else:
-          form = HousePurchaseForm()
-    
-
-   else:
-    return render(request,'user/housebuy.html', locals())
+            form = HousePurchaseInfoForm()
+   return render(request, 'user/housebuy.html', {'form': form,'x':x})
 
 
+@login_required
+def house_cert(request, id):
+   user = request.user
+   p = housebuy.objects.get(id=id)
+   return render(request, 'user/house_cert.html',locals())
+
+@login_required
+def properties(request):
+   user = request.user
+   try:
+      purch = housebuy.objects.filter(user=user)
+   except:
+      housebuy.DoesNotExist
+      purch = None
+
+   try:
+      rent = houserentconfir.objects.filter(user=request.user)
+   except:
+      houserentconfir.DoesNotExist
+      rent = None
+   return render(request, 'user/properties.html',locals())
+
+
+
+@login_required
+def houserentview(request):
+   x = Houseforrent.objects.all()
+
+   return render(request,'user/houserent.html', locals())
+
+@login_required
+def houserentinfo(request, id):
+   x = Houseforrent.objects.get(id=id)
+   return render(request,'user/houserentinfo.html', locals())
+
+@login_required
+def houserentpay(request, id):
+    # Fetch the house object, or return 404 if not found
+    user = request.user
+    x = get_object_or_404(Houseforrent, id=id)
+    amount = x.price
+    if request.method == "POST":
+        form = RentalApplicationForm(request.POST)
+        ba = userwallet.objects.get(user=user)
+        if float(amount) > ba.amount:
+         messages.error(request,'insuficiant funds')
+         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+         if form.is_valid():
+            r_s = form.save()
+            houserent_pay = houserentconfir.objects.create(
+                  user=request.user,
+                  Houseforrent=x,
+                  RentalApplication=r_s,
+                  amount=x.price,
+            )
+            ba.amount -= float(amount)
+            ba.save()
+            messages.success(request,'house rent is paid successfully')
+            return redirect('/properties')  # Redirect to a success page
+    else:
+        form = RentalApplicationForm()  # Initialize an empty form for GET requests
+
+    return render(request, 'user/houserentpay.html', {'form': form, 'x': x})
+
+@login_required
+def rentedview(request,id):
+   user = request.user
+   r = houserentconfir.objects.get(id=id)
+   return render(request,'user/rentedview.html', locals())
+
+@login_required
+def buyview(request,id):
+   user = request.user
+   p = housebuy.objects.get(id=id)
+   if request.method == 'POST':
+    a_id = request.POST.get('a_id')
+    amount = request.POST.get('amount')
+
+    edi = housebuy.objects.get(id=a_id)
+    edi.status = 'sold'
+    edi.amount = amount
+    edi.save()
+    messages.success(request,'house is sold successfully waiting for buyer')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+   return render(request,'user/buyview.html', locals())
+
+@login_required
 def profilepage(request):
    return render(request,'user/profile.html', locals())
+
+@login_required
+def transfer(request):
+   user = request.user
+   if request.method == 'POST':
+      amount =request.POST.get('amount')
+      walletID =request.POST.get('walletID')
+      ba = userwallet.objects.get(user=user)
+      if float(amount) > ba.amount:
+         messages.error(request,'insuficiant funds')
+         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+      else:
+         try:
+            uw = userwallet.objects.get(id=walletID)
+            uw.amount += float(amount)
+            uw.save()
+
+            
+            ba = userwallet.objects.get(user=user)
+            ba.amount -= float(amount)
+            ba.save()
+            bn = ba.user.username
+            tc = trans_his.objects.create(user=request.user,name=bn,amount=amount)
+            tc.save()
+            messages.success(request,'Transfer is successful')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+         except userwallet.DoesNotExist:
+            messages.error(request, "Wallet ID mismatch: No wallet found with the provided ID.")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+         
+   else:
+    return render(request,'user/transfer.html', locals())
+
+@login_required
+def transf_his(request):
+   x = trans_his.objects.filter(user=request.user)
+   return render(request,'user/transf_his.html', locals())
+
+@login_required
+def withdraw(request):
+  x = paymentmethod.objects.all()
+  return render(request,'user/withdraw.html', locals())
+
+@login_required
+def withdrawam(request, id):
+   x = paymentmethod.objects.get(id=id)
+   return render(request,'user/withdrawam.html', locals())
+
+
+@login_required
+def withdrawconf(request):
+   user=request.user
+   p_id = request.GET.get('p_id')
+   amount = request.GET.get('amount')
+   x = paymentmethod.objects.get(pk=p_id)
+  
+
+   if request.method == 'POST':
+      proof =  request.FILES.get('proof')
+      address = request.POST.get('address')
+
+      dc = withdraw_his.objects.create(user=request.user,paymentm=x,amount=amount,address=address,)
+   
+      messages.success(request,'you have made a withdraw')
+      return redirect('/user')
+   else:
+    return render(request,'user/withdrawconf.html', locals())
+
+
+@login_required
+def withdrawhis(request):
+   x = withdraw_his.objects.filter(user=request.user)
+   return render(request,'user/withdrawhis.html', locals())
+
+
+
+
+
+
+def newslet(request):
+   email = request.POST.get('email')
+   if request.method == 'POST':
+      x = newsletter.objects.get_or_create(email=email)
+      messages.success(request,'Email added successfully')
+      return redirect('/')
+   else:
+    return render(request,'home/newslet.html')
 
 
 

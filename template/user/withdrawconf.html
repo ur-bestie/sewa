@@ -1,0 +1,59 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+        <form class="calculator" method="POST" style="margin-top: 50px;" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="calculator-header">
+                <h4>Confirm your Withdrawal</h4>
+                <p class="mb-0">Fast and reliable international business app.</p>
+            </div>
+            <div class="calculator-body">
+                <div class="row g-4">
+           <input type="hidden" name="p_id" value="{{p_id}}">
+                    <div class="col-12">
+                        <div class="input-amount-box" id="inputAmountBox2">
+                            <span class="linear-gradient"></span>
+                            <div class="input-amount-wrapper">
+                                <label class="form-label mb-1">{{x.name}} Withdraw of  ( ${{amount}} Without Fee)</label>
+                               <div style="text-align: start;margin-bottom: 5px;">
+                                <p>Enter your {{x.name}} withdrawal wallet address</p>
+                               </div>
+                                <div class="input-amount-box-inner" id="inputAmountBoxInner2">
+                        
+                                    <div class="text-area w-100">
+                                        <div class="d-flex gap-3 justify-content-between">
+                                           <input type="text" class="input" name="address" value="" style="border: 1px solid gray;border-radius: 5px;text-align: start;">
+                                           
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            
+                                        </div>
+                                    </div>
+                                </div><br>
+                               
+                                
+                            </div>
+                        </div>
+                    </div>
+                   <br><br>
+                    <div class="col-12">
+                        <div
+                            class="d-flex align-items-sm-center justify-content-between gap-3 mt-20 flex-column flex-sm-row">
+                            <div class="left-side order-2 order-sm-1">
+                                <a href="/user" class="cmn-btn4">Cancel</a>
+                            </div>
+                            <div class="right-side d-flex align-items-center gap-3  order-1 order-sm-2">
+                                <a href="/deposit" class="cmn-btn3"><i class="fa-regular fa-angle-left"></i>Back</a>
+                                <button type="submit"  class="cmn-btn2">continue<i class="fa-regular fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+   
+{% endblock %}

@@ -18,10 +18,11 @@
 
                 <div class="col-xl-6 col-lg-6">
                     <div class="hero-content">
-                        <div class="section-subtitle"><i class="fa-solid fa-fire"></i>Sewa Btc</div>
-                        <h1 class="hero-title">Easiest &amp; Simple Global Money Transfer.</h1>
+                        <div class="section-subtitle"><i class="fa-solid fa-fire"></i>FinCapitalMarket</div>
+                        <!-- <h1 class="hero-title">Easiest &amp; Simple Global Money Transfer.</h1> -->
+                        <h1>Welcome to FinCapitalMarket –Your Trusted Partner in Real Estate, Investments, and Financial Solutions</h1>
 
-                        <p class="hero-description">Efficient, adaptable, and safe international money transfer worldwide. Save both time and funds when you make international transfers through us</p>
+                        <p class="hero-description">Empowering you to make smarter financial decisions with real estate, cryptocurrency, and asset trading opportunities.</p>
                         <div class="cmn-list mt-30 mb-30">
                                                             <div class="item"><img src="{% static 'assets/themes/light/img/icon/arrow-right.png' %}" alt="">
                                     100% Safe Secure
@@ -34,8 +35,13 @@
                                 </div>
                                                     </div>
                         <div class="btn-area">
+                            {% if user.is_authenticated %}
+                            <a href="/user" class="cmn-btn">
+                              Dashboard                          </a>
+                            {% else %}
                             <a href="/register" class="cmn-btn">
                                 Open An Account                            </a>
+                                {% endif %}
                             <a href="https://www.youtube.com/watch?v=XIqDYTahqBs" class="video-play-btn">
                                 <i class="fa-regular fa-play"></i>
                                 Watch Video                            </a>
@@ -255,13 +261,15 @@
 
                     
                     
-                    <section class="feature-section">
+                    <section class="feature-section" id="features">
     <div class="container">
         <div class="row">
             <div class="section-header text-center">
                 <div class="section-subtitle">Features</div>
                 <h2 class="section-title text-center mx-auto">Our Special Features</h2>
-                <p class="cmn-para-text mx-auto">Waiz offers an array of unique features that set us apart in the world of digital banking and international money transfers</p>
+                <p class="cmn-para-text mx-auto">At FinCapitalMarket, our mission is to democratize wealth creation. We believe everyone deserves access to premium investment opportunities, regardless of their background. By combining technology, expertise, and integrity, we aim to help you achieve financial freedom.
+
+                </p>
             </div>
         </div>
         <div class="row g-4 g-xxl-5">
@@ -272,7 +280,7 @@
                     </div>
                     <div class="text-box">
                         <h5>Global Money Transfers</h5>
-                        <span>Effortlessly send money to friends and family across the globe. With Waiz, international transfers are quick, secure, and cost-effective.</span>
+                        <span>Effortlessly send money to friends and family across the globe. With FinCapitalMarket, international transfers are quick, secure, and cost-effective.</span>
                     </div>
                 </div>
             </div>
@@ -282,8 +290,10 @@
                         <img src="{% static 'assets/upload/contents/UTOomvXAV0rQuql0NsIfQfs5BJCeH5.webp' %}" alt="">
                     </div>
                     <div class="text-box">
-                        <h5>Real-Time Exchange Rates</h5>
-                        <span>Benefit from real-time updates on currency exchange rates, ensuring you always get the best deal on your international transactions.</span>
+                        <h5>Real Estate: Build Your Future</h5>
+                        <span>Real estate has always been a cornerstone of wealth creation. At FinCapitalMarket, we connect you with premium properties that suit your financial goals. Whether you're looking for residential spaces, commercial hubs, or land for development, our platform ensures you find the perfect fit. Start building your legacy today!
+
+                        </span>
                     </div>
                 </div>
             </div>
@@ -293,8 +303,8 @@
                         <img src="{% static 'assets/upload/contents/wzxsPwjsZaaR2qhNGCTCgA2CyMPkUm.webp' %}" alt="">
                     </div>
                     <div class="text-box">
-                        <h5>Bank Transfer</h5>
-                        <span>With Waiz, sending money to bank accounts is quick and efficient, ensuring your funds reach their destination without delay.</span>
+                        <h5>Secure Your Wealth with Precious Assets</h5>
+                        <span>Gold, silver, and oil have stood the test of time as safe investment havens. Diversify your portfolio with these timeless assets. At FinCapitalMarket, we make trading assets easy, transparent, and rewarding. Take charge of your financial future with confidence.</span>
                     </div>
                 </div>
             </div>
@@ -304,8 +314,8 @@
                         <img src="{% static 'assets/upload/contents/gF7QOmfCOHpZxpRHaybi1ySragm92J.webp' %}" alt="">
                     </div>
                     <div class="text-box">
-                        <h5>Low, Transparent Fees</h5>
-                        <span>Enjoy competitive, upfront pricing with no hidden charges. Our low fees ensure you get the most out of every transaction.</span>
+                        <h5>Investing in Shares: Grow with the Market</h5>
+                        <span>Step into the dynamic world of the stock market with FinCapitalMarket. Our platform provides access to leading companies and emerging opportunities, ensuring you make the right moves at the right time. Let your money work smarter, not harder.</span>
                     </div>
                 </div>
             </div>
@@ -326,11 +336,11 @@
             <div class="col-md-6">
                 <div class="about-content mx-auto">
                     <div class="section-subtitle">About Us</div>
-                    <h2 class="section-title">Transfer &amp; Deposite Money Anytime, Anywhere In The World</h2>
-                    <p class="cmn-para-text">At Waiz, we are dedicated to revolutionizing the way you manage your money. Our comprehensive digital platform offers seamless and secure financial solutions, from international money transfers to integrated digital wallets and virtual cards. With cutting-edge technology and a user-centric approach, we ensure that your financial transactions are fast, reliable, and cost-effective.</p>
+                    <h2 class="section-title">Welcome to FinCapitalMarket</h2>
+                    <p class="cmn-para-text">At FinCapitalMarket, we bridge the gap between opportunity and success. As your trusted partner in real estate investments, asset trading, and share purchases, we empower you to grow your wealth confidently and securely. Whether you're diversifying your portfolio with gold and oil or buying your dream property, we provide cutting-edge tools and expert support to make every transaction seamless. Your financial growth is our priority!</p>
                     <p></p>
                     <div class="btn-area">
-                        <a href="about.html" class="cmn-btn">Read More</a>
+                        <a href="/register" class="cmn-btn">Join Now</a>
                     </div>
                 </div>
             </div>
@@ -347,8 +357,8 @@
             <div class="col-12">
                 <div class="section-header text-center mb-50">
                     <div class="section-subtitle">How It Works</div>
-                    <h2 class="section-title mx-auto">How Does Money Transfer Work?</h2>
-                    <p class="cmn-para-text mx-auto">Waiz makes managing your finances simple and intuitive. Follow these easy steps to get started</p>
+                    <h2 class="section-title mx-auto">How Does it Work?</h2>
+                    <p class="cmn-para-text mx-auto">At FinCapitalMarket, our mission is to democratize wealth creation. We believe everyone deserves access to premium investment opportunities, regardless of their background. By combining technology, expertise, and integrity, we aim to help you achieve financial freedom.</p>
                 </div>
             </div>
         </div>
@@ -360,8 +370,8 @@
                         <div class="number">1</div>
                     </div>
                     <div class="text-box">
-                        <h5>Create a free account</h5>
-                        <span>Create your Waiz account by providing basic information and completing our secure verification process.</span>
+                        <h5>Sign Up</h5>
+                        <span>Create an account on our secure platform in just a few clicks.</span>
                     </div>
                 </div>
             </div>
@@ -372,8 +382,8 @@
                         <div class="number">2</div>
                     </div>
                     <div class="text-box">
-                        <h5>Send Money</h5>
-                        <span>Transfer money effortlessly to friends, family, or businesses worldwide. Simply select your recipient, enter the amount, and choose the currency.</span>
+                        <h5>Explore Opportunities</h5>
+                        <span>Browse real estate listings, stock markets, and asset trading options.</span>
                     </div>
                 </div>
             </div>
@@ -384,8 +394,8 @@
                         <div class="number">3</div>
                     </div>
                     <div class="text-box">
-                        <h5>Request Money</h5>
-                        <span>Use Waiz to send a money request to anyone. They’ll receive a notification with instructions on how to complete the transfer to your account.</span>
+                        <h5>Make Transactions &amp; Grow Your Portfolio</h5>
+                        <span>Buy, sell, or trade with confidence, knowing your information is protected, Track your investments and watch your wealth multiply.</span>
                     </div>
                 </div>
             </div>
@@ -401,17 +411,18 @@
             <div class="col-md-6 order-2 order-md-1">
                 <div class="why-choose-us-content">
                     <div class="section-subtitle">Why Choose Us</div>
-                    <h2 class="section-title">Low, Transparent Fees</h2>
-                    <p class="cmn-para-text">At <strong>Waiz</strong>, we strive to provide an unparalleled digital banking and money transfer experience. Here’s why you should choose us</p>
+                    <h2 class="section-title">Diverse Investment Options</h2>
+                    <p class="cmn-para-text">At <strong>FinCapitalMarket</strong>,From real estate to valuable assets like gold, oil, and shares, we offer multiple avenues to expand your wealth.</p>
                     <ul class="choose-us-list">
                                                     <li class="item"><img src="{% static 'assets/themes/light/img/icon/checkmark.png' %}" alt="">
-                                <h6>Send money cheaper and easier than old-school banks</h6>
+                                <h6>Secure Transactions: Your safety is paramount. We employ state-of-the-art encryption and secure payment systems.</h6>
                             </li>
                                                     <li class="item"><img src="{% static 'assets/themes/light/img/icon/checkmark.png' %}" alt="">
-                                <h6>Spend abroad without the hidden fees.</h6>
+                                <h6>Expert Guidance: Our experienced professionals are here to help you make informed decisions every step of the way.</h6>
                             </li>
                                                     <li class="item"><img src="{% static 'assets/themes/light/img/icon/checkmark.png' %}" alt="">
-                                <h6>Move money between countries for salary &amp; more.</h6>
+                                <h6>Global Reach: Access opportunities from markets worldwide, all in one place.
+                                    &amp; more.</h6>
                             </li>
                                             </ul>
                 </div>
@@ -455,7 +466,7 @@
                             </div>
                         </div>
                         <div class="quote-area">
-                            <p>Waiz has completely transformed the way I handle international transfers. The process is fast, reliable, and incredibly user-friendly. I highly recommend Waiz to anyone needing a trustworthy money transfer solution.</p>
+                            <p>inCapitalMarket made investing so easy! I bought my first property through their platform, and the process was seamless.</p>
                         </div>
                     </div>
                 </div>
@@ -476,7 +487,7 @@
                             </div>
                         </div>
                         <div class="quote-area">
-                            <p>I love the low fees and real-time exchange rates that Waiz offers. It’s so easy to send money to my family overseas. The app’s interface is intuitive, and the customer support is fantastic!</p>
+                            <p>Their insights on oil and gold trading have been invaluable. My portfolio has grown significantly since I joined!</p>
                         </div>
                     </div>
                 </div>
@@ -497,7 +508,7 @@
                             </div>
                         </div>
                         <div class="quote-area">
-                            <p>Using Waiz for my business has been a game-changer. Transactions are smooth, and the notification system keeps me informed every step of the way. It also has the virtual card support.</p>
+                            <p>As a first-time investor in shares, I was nervous. But the team at FinCapitalMarket guided me through everything. Highly recommend!</p>
                         </div>
                     </div>
                 </div>
@@ -518,7 +529,7 @@
                             </div>
                         </div>
                         <div class="quote-area">
-                            <p>The best part about Waiz is its transparency. There are no hidden fees, and the real-time exchange rates are always competitive. I feel secure using Waiz for all my financial transactions.</p>
+                            <p>The best part about FinCapitalMarket is its transparency. There are no hidden fees, and the real-time exchange rates are always competitive. I feel secure using FinCapitalMarket for all my financial transactions.</p>
                         </div>
                     </div>
                 </div>
@@ -528,7 +539,7 @@
 
                     
                     
-                    <section class="faq-section">
+                    <section class="faq-section" id="faq">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6">
@@ -540,25 +551,26 @@
                 <div class="faq-content">
                     <div class="section-subtitle">F.A.Q</div>
                     <h2>Still, Have Questions?</h2>
-                    <p class="cmn-para-text mx-auto">Waiz is a comprehensive digital platform offering international money transfers, digital wallet integration, and virtual card support.</p>
+                    <p class="cmn-para-text mx-auto">FinCapitalMarket is a business web application designed to help individuals and businesses invest in real estate, shares, and valuable assets like gold, oil, and more. Our platform provides a secure and user-friendly environment to grow your wealth and diversify your investments.
+
+                    </p>
                     <div class="accordion" id="accordionParent">
                                                 <div class="accordion-item">
                             <h2 class="accordion-header" id="question0">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapse0" aria-expanded="true"
                                         aria-controls="collapse0">
-                                    How does the money transfer service work?                                </button>
+                                        How does FinCapitalMarket work?                              </button>
                             </h2>
                             <div id="collapse0" class="accordion-collapse collapse"
                                  aria-labelledby="question0"
                                  data-bs-parent="#accordionParent">
                                 <div class="accordion-body">
                                     <div class="table-responsive">
-                                        <p>Our money transfer service allows you to send and receive funds securely
-and conveniently. You can initiate a transfer by selecting the
-recipient, specifying the amount, and choosing the payment method. Once
-the transfer is confirmed, the funds will be sent to the recipient's
-account.</p>
+                                        <p>Sign Up: Create a free account to access our platform.
+                                            Explore Opportunities: Browse real estate listings, stock markets, and trading options for assets like gold and oil.
+                                            Make Transactions: Buy, sell, or trade directly through our secure platform.
+                                            Track Your Investments: Use our dashboard to monitor your portfolio's performance.</p>
                                     </div>
                                 </div>
                             </div>
@@ -569,14 +581,18 @@ account.</p>
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapse1" aria-expanded="true"
                                         aria-controls="collapse1">
-                                    How long does it take for a money transfer to be processed?                                </button>
+                                        What can I invest in on FinCapitalMarket?                             </button>
                             </h2>
                             <div id="collapse1" class="accordion-collapse collapse"
                                  aria-labelledby="question1"
                                  data-bs-parent="#accordionParent">
                                 <div class="accordion-body">
                                     <div class="table-responsive">
-                                        <p>The processing time for money transfers can vary based on the payment method and the recipient's location. In most cases, transfers are completed within a few business days.</p>
+                                        <p>You can invest in:
+
+                                            Real Estate: Residential, commercial properties, and land.
+                                            Shares: Purchase stocks in leading companies.
+                                            Assets: Trade precious metals like gold and silver, or commodities like oil.</p>
                                     </div>
                                 </div>
                             </div>
@@ -587,14 +603,14 @@ account.</p>
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapse2" aria-expanded="true"
                                         aria-controls="collapse2">
-                                    Can I track the status of my money transfer?                                </button>
+                                        Is my investment safe with FinCapitalMarket?                             </button>
                             </h2>
                             <div id="collapse2" class="accordion-collapse collapse"
                                  aria-labelledby="question2"
                                  data-bs-parent="#accordionParent">
                                 <div class="accordion-body">
                                     <div class="table-responsive">
-                                        <p>Yes, you can track the status of your money transfer through your account dashboard. We also provide email notifications for important updates during the transfer process.</p>
+                                        <p>Yes. We prioritize the safety and security of your investments. Our platform uses advanced encryption technology to protect your transactions and data. We also partner with trusted financial institutions and comply with regulatory standards.</p>
                                     </div>
                                 </div>
                             </div>
@@ -605,14 +621,14 @@ account.</p>
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapse3" aria-expanded="true"
                                         aria-controls="collapse3">
-                                    Is my personal and financial information safe on your website?                                </button>
+                                        Who can use FinCapitalMarket?                              </button>
                             </h2>
                             <div id="collapse3" class="accordion-collapse collapse"
                                  aria-labelledby="question3"
                                  data-bs-parent="#accordionParent">
                                 <div class="accordion-body">
                                     <div class="table-responsive">
-                                        <p>Yes, we take the security of your personal and financial information seriously. Our website employs robust encryption protocols and follows industry best practices to safeguard your data from unauthorized access or misuse.</p>
+                                        <p>Anyone over the legal age of 18 and interested in investing in real estate, shares, or assets can use our platform. Whether you’re a beginner or an experienced investor, our platform is designed to cater to your needs.</p>
                                     </div>
                                 </div>
                             </div>
@@ -623,14 +639,14 @@ account.</p>
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapse4" aria-expanded="true"
                                         aria-controls="collapse4">
-                                    What payment methods do you support for money transfers?                                </button>
+                                        Are there any fees?                             </button>
                             </h2>
                             <div id="collapse4" class="accordion-collapse collapse"
                                  aria-labelledby="question4"
                                  data-bs-parent="#accordionParent">
                                 <div class="accordion-body">
                                     <div class="table-responsive">
-                                        <p>We support various payment methods, including credit/debit cards and bank transfers. The available options will be displayed during the transfer process.</p>
+                                        <p>FinCapitalMarket charges minimal fees for transactions and services. Detailed information about our fee structure is available on the Pricing page.</p>
                                     </div>
                                 </div>
                             </div>
@@ -641,14 +657,14 @@ account.</p>
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapse5" aria-expanded="true"
                                         aria-controls="collapse5">
-                                    Are there any fees associated with sending or receiving money?                                </button>
+                                        Can I sell my assets or shares on FinCapitalMarket?                                </button>
                             </h2>
                             <div id="collapse5" class="accordion-collapse collapse"
                                  aria-labelledby="question5"
                                  data-bs-parent="#accordionParent">
                                 <div class="accordion-body">
                                     <div class="table-responsive">
-                                        <p>Yes, there might be fees associated with money transfers. The applicable fees will be displayed before you confirm the transaction.</p>
+                                        <p>Yes. Our platform allows you to list and sell your shares, real estate, or assets directly to other users or back to the market.</p>
                                     </div>
                                 </div>
                             </div>
@@ -665,7 +681,7 @@ account.</p>
 
                     
                     
-                    <section class="blog-section">
+                    <section class="blog-section" id="blog">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -680,7 +696,7 @@ account.</p>
                         <div class="col-lg-4 col-md-6">
                 <div class="blog-box">
                     <div class="img-box">
-                        <a href="blog/the-rise-of-contactless-payments-trends-and-adoption.html">
+                        <a href="/">
                             <img src="{% static 'assets/upload/blog/oCM362MoF3PRuCOIz7rRUSyuWsug2r.webp' %}" alt="">
                         </a>
                         <div class="date">2 months ago</div>
@@ -696,13 +712,13 @@ account.</p>
                             </div>
                         </div>
                         <div class="blog-title">
-                            <h5><a href="blog/the-rise-of-contactless-payments-trends-and-adoption.html">
+                            <h5><a href="/">
                                     The Rise of Contactless Payments: Trends and Adoption</a></h5>
                         </div>
                         <div class="para-text">
                             <p>Contactless payments have rapidly transformed the way we conduct transactions, offering speed, convenience, and enhanced security. This comprehensive guide explores the rise of contactless payments, highlighting key trends and adoption rates across various markets.As the world moves towards a cashless society, contactless payment methods have gained significant traction. This blog post delves into the driving factors behind this shift, including technological advancements, changing consumer behaviors, and the impact of global events such as the COVID-19 pandemic.Discover how contactless payment technologies, such as Near Field Communication (NFC) and Radio Frequency Identification (RFID), work to facilitate seamless transactions. Learn about the role of digital wallets, mobile payment apps, and contactless-enabled credit and debit cards in the growing ecosystem of contactless payments.Explore the benefits of contactless payments for consumers and businesses alike. From reduced transaction times and improved customer experiences to enhanced security measures that protect against fraud, the advantages are clear. Additionally, understand the challenges and considerations, such as data privacy concerns and the need for widespread merchant adoption.</p>
                         </div>
-                        <a href="blog/the-rise-of-contactless-payments-trends-and-adoption.html" class="blog-btn">
+                        <a href="/" class="blog-btn">
                             Read more</a>
                     </div>
                 </div>
@@ -710,7 +726,7 @@ account.</p>
                         <div class="col-lg-4 col-md-6">
                 <div class="blog-box">
                     <div class="img-box">
-                        <a href="blog/understanding-the-future-of-digital-wallets.html">
+                        <a href="/">
                             <img src="{% static 'assets/upload/blog/v3Wvs84fJMsK5jr5iF4yMLRQfnWCJH.webp' %}" alt="">
                         </a>
                         <div class="date">9 months ago</div>
@@ -726,13 +742,13 @@ account.</p>
                             </div>
                         </div>
                         <div class="blog-title">
-                            <h5><a href="blog/understanding-the-future-of-digital-wallets.html">
+                            <h5><a href="/">
                                     Understanding the Future of Digital Wallets: A Look into Waiz</a></h5>
                         </div>
                         <div class="para-text">
                             <p>In today’s rapidly evolving digital landscape, the demand for secure, efficient, and user-friendly financial solutions continues to grow. One such innovation making waves in the fintech industry is Waiz, a comprehensive digital wallet and global remittance platform designed to simplify financial transactions across borders.Why Choose Waiz?At its core, Waiz offers users a seamless experience for sending and receiving money internationally. Whether you're a business looking to streamline payroll processes or an individual sending funds to family abroad, Waiz provides robust features tailored to meet diverse financial needs:Global Reach: Waiz facilitates transfers to over 100 countries, leveraging a network of trusted financial partners to ensure reliable and swift transactions.Security: With advanced encryption and robust security measures, Waiz prioritizes the safety of user data and transactions, providing peace of mind in an increasingly digital world.User-Friendly Interface: Designed with simplicity in mind, Waiz’s intuitive interface makes it easy for users to navigate and manage their finances on the go, whether through the web platform or mobile app.</p>
                         </div>
-                        <a href="blog/understanding-the-future-of-digital-wallets.html" class="blog-btn">
+                        <a href="/" class="blog-btn">
                             Read more</a>
                     </div>
                 </div>
@@ -785,10 +801,11 @@ account.</p>
 
             </div>
             <div class="col-lg-6 col-md-7">
-                <form class="newsletter-form" action="https://waiz.bugfinder.net/admin/subscriber" method="post">
-                    <input type="hidden" name="_token" value="6UroOBws99u7PlyFPmRktBSPSmoNosUy9kpuY7Kt" autocomplete="off">                                        <input type="email" name="email" class="form-control" placeholder="Email Address"
+                <form class="newsletter-form" action="/newslet" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="email" value="" autocomplete="off">                                        <input type="email" name="email" class="form-control" placeholder="Email Address"
                         required />
-                    <button class="subscribe-btn">Subscribe</button>
+                    <button type="submit" class="subscribe-btn">Subscribe</button>
                 </form>
             </div>
         </div>

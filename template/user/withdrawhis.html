@@ -30,11 +30,11 @@
                            {% for x in x %} 
                             <a class="item showInfo" href="#"
                                data-trx_type="+"
-                               data-remarks="Deposit"
+                               data-remarks="withdrawal"
                                {% if x.satus %}
                                data-note="Approved Deposit"
                                {% else %}
-                               data-note="Pending Deposit"
+                               data-note="Pending Withdrawal"
                                {% endif %}
                                data-amount="{{x.amount}} USD "
                                data-charge="0 USD "
@@ -48,7 +48,7 @@
                                         <i class="fa-regular fa-arrow-down"></i>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        My Deposit
+                                        My Withdrawal
                                     </div>
                                 </div>
                                 <div class="right-side text-end">

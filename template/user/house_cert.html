@@ -1,0 +1,69 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+   
+        .certificate-container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 30px;
+            text-align: center;
+            border: 10px solid #004aad;
+            background: #fff;
+            margin-top: 5rem;
+        }
+        .certificate-header {
+            color: #004aad;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .certificate-body {
+            font-size: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .certificate-footer {
+            margin-top: 40px;
+            font-size: 16px;
+            color: #555;
+        }
+        .certificate-signature {
+            margin-top: 40px;
+            text-align: right;
+            font-size: 18px;
+        }
+       
+        .logo {
+            max-width: 100px;
+            margin: 0 auto 20px;
+        }
+    </style>
+
+    <div class="certificate-container">
+        <a class="navbar-brand logo" href="/">
+            <img src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}" alt=""/>
+        </a>
+        <div class="certificate-header">
+            Certificate of Ownership
+        </div>
+        <div class="certificate-body">
+            This is to certify that <span class="highlight">{{user.first_name}} {{user.last_name}}</span><br>
+            has officially purchased the property located at:<br>
+            <span class="highlight">{{p.house.location}}</span><br>
+            on <span class="highlight">{{p.date}}</span>.
+        </div>
+        <div class="certificate-footer">
+            Issued by:<br>
+            <span class="highlight">Fincapital Market Real Estate Division</span><br>
+            For inquiries, contact us at <span class="highlight">[Company Email]</span>
+        </div>
+        <div class="certificate-signature">
+            _______sjhdhjshd____________________<br>
+            Authorized Signature
+        </div>
+    </div>
+
+
+{% endblock %}
