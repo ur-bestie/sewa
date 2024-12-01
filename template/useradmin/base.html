@@ -1,0 +1,1577 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="sRCUyHFXxE3gSeo3gyy3ReaFTdaApm616ATCLV8f">
+
+    <!-- Title -->
+    <title>Dashboard - Waiz</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://waiz.bugfinder.app/assets/upload/logo/A0QhZokdpliGoja89gSVc9rXHDFomR.webp">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="{% static 'admin/bootstrap-icons.css' %}">
+    <link rel="preload" href="{% static 'admin/theme.min.css' %}" data-hs-appearance="default" as="style">
+    <link rel="preload" href="{% static 'admin/theme-dark.min.css' %}" data-hs-appearance="dark" as="style">
+    
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="{% static 'admin/admin/all.min.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'admin/custom.css' %}">
+
+    
+    <style data-hs-appearance-onload-styles>
+        * {
+            transition: unset !important;
+        }
+
+        body {
+            opacity: 0;
+        }
+    </style>
+
+    <script>
+        window.hs_config = {
+            "autopath": "@autopath",
+            "deleteLine": "hs-builder:delete",
+            "deleteLine:build": "hs-builder:build-delete",
+            "deleteLine:dist": "hs-builder:dist-delete",
+            "previewMode": false,
+            "startPath": "",
+            "vars": {
+                "themeFont": "https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap",
+                "version": "?v=1.0"
+            },
+            "layoutBuilder": {
+                "extend": {"switcherSupport": true},
+                "header": {"layoutMode": "default", "containerMode": "container-fluid"},
+                "sidebarLayout": "default"
+            },
+            "themeAppearance": {
+                "layoutSkin": "default",
+                "sidebarSkin": "default",
+                "styles": {
+                    "colors": {
+                        "primary": "#377dff",
+                        "transparent": "transparent",
+                        "white": "#fff",
+                        "dark": "132144",
+                        "gray": {"100": "#f9fafc", "900": "#1e2022"}
+                    }, "font": "Inter"
+                }
+            },
+            "languageDirection": {"lang": "en"},
+            "minifyCSSFiles": ["assets/css/theme.css", "assets/css/theme-dark.css"],
+            "copyDependencies": {
+                "dist": {"*assets/js/theme-custom.js": ""},
+                "build": {"*assets/js/theme-custom.js": "", "node_modules/bootstrap-icons/font/*fonts/**": "assets/css"}
+            },
+            "buildFolder": "",
+            "replacePathsToCDN": {},
+            "directoryNames": {"src": "./src", "dist": "./dist", "build": "./build"},
+            "fileNames": {
+                "dist": {"js": "theme.min.js", "css": "theme.min.css"},
+                "build": {
+                    "css": "theme.min.css",
+                    "js": "theme.min.js",
+                    "vendorCSS": "vendor.min.css",
+                    "vendorJS": "vendor.min.js"
+                }
+            },
+            "fileTypes": "jpg|png|svg|mp4|webm|ogv|json"
+        }
+
+    </script>
+</head>
+
+
+<body class="has-navbar-vertical-aside navbar-vertical-aside-show-xl footer-offset demo">
+
+
+<script src="{% static 'admin/js/hs.theme-appearance.js' %}"></script>
+
+<script
+    src="https://waiz.bugfinder.app/assets/admin/js/hs-navbar-vertical-aside-mini-cache.js"></script>
+
+<div class="dashboard_announcement_bar"
+     style="background-image: url({% static 'admin/img/topbg.jpeg' %})">
+    <div class="container">
+        <div class="wrapper py-2">
+            <div class="txt">         </div>
+          
+        </div>
+    </div>
+</div>
+{% for message in messages %}
+{{message}}
+{% endfor %}
+<!-- ========== HEADER ========== -->
+<header id="header"
+        class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-container navbar-bordered bg-white">
+    <div class="navbar-nav-wrap">
+        <a class="navbar-brand" href="/useradmin" aria-label="Waiz">
+            <img class="navbar-brand-logo"
+                 src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}"
+                 alt="Waiz Logo"
+                 data-hs-theme-appearance="default">
+            <img class="navbar-brand-logo"
+                 src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}"
+                 alt="Waiz Logo"
+                 data-hs-theme-appearance="dark">
+            <img class="navbar-brand-logo-mini"
+                 src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}"
+                 alt="Waiz Logo"
+                 data-hs-theme-appearance="default">
+            <img class="navbar-brand-logo-mini"
+                 src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}"
+                 alt="Logo"
+                 data-hs-theme-appearance="dark">
+        </a>
+
+        <div class="navbar-nav-wrap-content-start">
+            <button type="button" class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler">
+                <i class="bi-arrow-bar-left navbar-toggler-short-align"
+                   data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+                   data-bs-toggle="tooltip" data-bs-placement="right" title="Collapse"></i>
+                <i class="bi-arrow-bar-right navbar-toggler-full-align"
+                   data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+                   data-bs-toggle="tooltip" data-bs-placement="right" title="Expand"></i>
+            </button>
+
+
+            <div class="dropdown ms-2">
+                <div class="d-none d-lg-block">
+                    <div
+                        class="input-group input-group-merge input-group-borderless input-group-hover-light navbar-input-group">
+                        <div class="input-group-prepend input-group-text">
+                            <i class="fa-brands fa-searchengin"></i>
+                        </div>
+
+                        <input type="search" class="js-form-search form-control global-search"
+                               placeholder="Search for a menu"
+                               aria-label="Search for a menu" data-hs-form-search-options='{
+                               "clearIcon": "#clearSearchResultsIcon",
+                               "dropMenuElement": "#searchDropdownMenu",
+                               "dropMenuOffset": 20,
+                               "toggleIconOnFocus": true,
+                               "activeClass": "focus"
+                             }'>
+                        <a class="input-group-append input-group-text" href="javascript:void(0)">
+                            <i id="clearSearchResultsIcon" class="bi-x-lg d-none"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <button
+                    class="js-form-search js-form-search-mobile-toggle btn btn-ghost-secondary btn-icon rounded-circle d-lg-none"
+                    type="button" data-hs-form-search-options='{
+                       "clearIcon": "#clearSearchResultsIcon",
+                       "dropMenuElement": "#searchDropdownMenu",
+                       "dropMenuOffset": 20,
+                       "toggleIconOnFocus": true,
+                       "activeClass": "focus"
+                     }'>
+                    <i class="bi-search"></i>
+                </button>
+                <!-- End Input Group -->
+
+                <!-- Card Search Content -->
+                <div id="searchDropdownMenu"
+                     class="hs-form-search-menu-content dropdown-menu dropdown-menu-form-search navbar-dropdown-menu-borderless">
+                    <div class="card">
+                        <!-- Body -->
+                        <div class="card-body-height search-result">
+                            <div class="d-lg-none">
+                                <div class="input-group input-group-merge navbar-input-group mb-5">
+                                    <div class="input-group-prepend input-group-text">
+                                        <i class="bi-search"></i>
+                                    </div>
+
+                                    <input type="search" class="form-control global-search"
+                                           placeholder="Search for a menu"
+                                           aria-label="Search for a menu">
+                                    <a class="input-group-append input-group-text" href="javascript:void(0);">
+                                        <i class="bi-x-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <span class="dropdown-header">Result</span>
+
+                            <div class="dropdown-divider"></div>
+
+                            <div class="content">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Notification -->
+        <div class="navbar-nav-wrap-content-end" id="pushNotificationArea">
+            <ul class="navbar-nav">
+                <li class="nav-item d- d-sm-inline-block">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle"
+                                id="navbarNotificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                                data-bs-auto-close="outside">
+                                <i class="fa-solid fa-bell"></i>
+                            <span class="btn-status btn-sm-status btn-status-danger" v-if="items.length > 0"
+                                  v-cloak></span>
+                        </button>
+                        <div
+                            class="dropdown-menu dropdown-menu-end dropdown-card navbar-dropdown-menu navbar-dropdown-menu-borderless navbarNotificationsDropdown data-bs-dropdown-animation"
+                            aria-labelledby="navbarNotificationsDropdown">
+                            <div class="card ">
+                                <div class="card-header card-header-content-between">
+                                    <h4 class="card-title mb-0">Notifications</h4>
+                                </div>
+                                <div class="card-body-height">
+                                    <div id="notificationTabContent">
+                                        <ul class="list-group list-group-flush navbar-card-list-group">
+                                            <li class="list-group-item form-check-select"
+                                                v-for="(item, index) in items">
+                                                <div class="row">
+                                                    <div class="col-auto">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       id="notificationCheck6">
+                                                                <label class="form-check-label"
+                                                                       for="notificationCheck6"></label>
+                                                                <span class="form-check-stretched-bg"></span>
+                                                            </div>
+                                                            <div class="avatar avatar-sm avatar-circle">
+                                                                <img class="avatar-img" :src="item.description.image"
+                                                                     alt="Image Description">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col ms-n2">
+                                                        <h5 class="mb-1">{{ item.description.name }}</h5>
+                                                        <p class="text-body fs-5">{{ item.description.text }}</p>
+                                                        <small class="col-auto text-muted text-cap" v-cloak>{{
+                                                            item.formatted_date }}</small>
+                                                    </div>
+                                                </div>
+                                                <a class="stretched-link" :href="item.description.link"></a>
+                                            </li>
+                                        </ul>
+                                        <div class="text-center p-4" v-if="items.length < 1">
+                                            <img class="dataTables-image mb-3"
+                                                 src="https://waiz.bugfinder.app/assets/admin/img/oc-error.svg"
+                                                 alt="Image Description" data-hs-theme-appearance="default">
+                                            <img class="dataTables-image mb-3"
+                                                 src="https://waiz.bugfinder.app/assets/admin/img/oc-error-light.svg"
+                                                 alt="Image Description" data-hs-theme-appearance="dark">
+                                            <p class="mb-0">No Notifications Found</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <a class="card-footer text-center" href="javascript:void(0)" v-if="items.length > 0"
+                                   @click.prevent="readAll">
+                                    Clear all notifications <i class="bi-chevron-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+
+
+
+
+
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="navbar-dropdown-account-wrapper" href="javascript:void(0)" id="accountNavbarDropdown"
+                           data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
+                           data-bs-dropdown-animation>
+                            <div class="avatar avatar-sm avatar-circle">
+                                <img class="avatar-img" src="https://waiz.bugfinder.app/assets/upload/adminProfileImage/6CKlyJJWxoCn8AGyXFuYHHcfi7xvmP.avif"
+                                     alt="Image Description">
+                                <span class="avatar-status avatar-sm-status avatar-status-success"></span>
+                            </div>
+                        </a>
+
+                        <div
+                            class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account admin_dropdown_account"
+                            aria-labelledby="accountNavbarDropdown">
+                            <div class="dropdown-item-text">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-sm avatar-circle">
+                                        <img class="avatar-img" src="https://waiz.bugfinder.app/assets/upload/adminProfileImage/6CKlyJJWxoCn8AGyXFuYHHcfi7xvmP.avif"
+                                             alt="Image Description">
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="mb-0">Danber MaZud</h5>
+                                        <p class="card-text text-body">admin@gmail.com</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item"
+                               href="https://waiz.bugfinder.app/admin/profile">Profile &amp; account</a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item" href="https://waiz.bugfinder.app/admin/logout"
+                               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                Sign out                            </a>
+                            <form id="logout-form" action="https://waiz.bugfinder.app/admin/logout" method="POST" class="d-none">
+                                <input type="hidden" name="_token" value="sRCUyHFXxE3gSeo3gyy3ReaFTdaApm616ATCLV8f" autocomplete="off">                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+   
+</header>
+<!-- ========== END HEADER ========== -->
+
+
+<!-- Navbar Vertical -->
+<aside
+    class="js-navbar-vertical-aside navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed navbar-expand-xl navbar-vertical-aside-initialized navbar-bordered
+    navbar-dark bg-dark ">
+    <div class="navbar-vertical-container">
+        <div class="navbar-vertical-footer-offset">
+            <!-- Logo -->
+            <a class="navbar-brand" href="/useradmin" aria-label="Waiz">
+
+                <img class="navbar-brand-logo navbar-brand-logo-auto"
+                     src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}"
+                     alt="Waiz Logo"
+                     data-hs-theme-appearance="default">
+
+                <img class="navbar-brand-logo"
+                     src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}"
+                     alt="Waiz Logo"
+                     data-hs-theme-appearance="dark">
+
+                <img class="navbar-brand-logo-mini"
+                     src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}"
+                     alt="Waiz Logo"
+                     data-hs-theme-appearance="default">
+                <img class="navbar-brand-logo-mini"
+                     src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}"
+                     alt="Logo"
+                     data-hs-theme-appearance="dark">
+            </a>
+            <!-- End Logo -->
+
+            <!-- Navbar Vertical Toggle -->
+            <button type="button" class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler">
+                <i class="fa-solid fa-minimize"
+                   data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="right"
+                   title="Collapse">
+                </i>
+                <i
+                    class="bi-arrow-bar-right navbar-toggler-full-align"
+                    data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    title="Expand"
+                ></i>
+            </button>
+            <!-- End Navbar Vertical Toggle -->
+
+
+            <!-- Content -->
+            <div class="navbar-vertical-content">
+                <div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
+
+                    <div class="nav-item">
+                        <a class="nav-link active"
+                           href="https://waiz.bugfinder.app/admin/dashboard">
+                            <i class="bi-house-door nav-icon"></i>
+                            <span class="nav-link-title">Dashboard</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link "
+                           href="https://waiz.bugfinder.app/admin/transaction-summary">
+                            <i class="bi-arrow-clockwise nav-icon"></i>
+                            <span class="nav-link-title">Transaction Summary</span>
+                        </a>
+                    </div>
+
+                    <span class="dropdown-header mt-4">Countries</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+                    <div class="nav-item">
+                        <a class="nav-link
+                        "
+
+                           href="https://waiz.bugfinder.app/admin/country" data-placement="left">
+                            <i class="bi bi-globe nav-icon"></i>
+                            <span class="nav-link-title">Countries</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link "
+                           href="https://waiz.bugfinder.app/admin/services" data-placement="left">
+                            <i class="bi bi-gear nav-icon"></i>
+                            <span class="nav-link-title">Services</span>
+                        </a>
+                    </div>
+
+
+                    <span class="dropdown-header mt-4">User</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+                    <div class="nav-item">
+                        <a class="nav-link
+                        "
+
+                           href="https://waiz.bugfinder.app/admin/money-transfer" data-placement="left">
+                           <i class="fa-solid fa-user"></i>
+                            <span class="nav-link-title">Users</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link
+                        "
+
+                           href="/useradmin/userbalance" data-placement="left">
+                           <i class="fa-solid fa-wallet"></i>
+                            <span class="nav-link-title">User Balance</span>
+                        </a>
+                    </div>
+
+                    <span class="dropdown-header mt-4"> Transactions</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+                    <div class="nav-item">
+                        <a class="nav-link dropdown-toggle
+                            
+                        " role="button"
+                           href="#virtualCard"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#virtualCard"
+                           aria-expanded="false"
+                           aria-controls="virtualCard">
+                           <i class="fa-brands fa-product-hunt"></i>
+                            <span class="nav-link-title">Add/Edit Site Market</span>
+                        </a>
+                        <div id="virtualCard" data-bs-parent="#virtualCard" class="nav-collapse collapse
+                            "
+                        >
+                            <a class="nav-link "
+                               href="/useradmin/houseview">House</a>
+
+                            <a class="nav-link "
+                               href="">Property</a>
+
+                            <a class="nav-link "
+                               href="">Asset</a>
+
+                            <a class="nav-link "
+                               href="">Shares</a>
+
+                            <a class="nav-link "
+                               href="">Block Request</a>
+                        </div>
+                    </div>
+
+
+
+                    <div class="nav-item">
+                        <a class="nav-link dropdown-toggle
+                            
+                        " role="button"
+                           href="#transactions"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#transactions"
+                           aria-expanded="false"
+                           aria-controls="transactions">
+                           <i class="fa-solid fa-money-bill"></i>
+                            <span class="nav-link-title">User Transactions</span>
+                        </a>
+                        <div id="transactions" data-bs-parent="#virtualCard" class="nav-collapse collapse
+                            "
+                        >
+                            <a class="nav-link "
+                               href="/useradmin/userdeposit">Deposit</a>
+
+                            <a class="nav-link "
+                               href="">Withdrawal</a>
+
+                            <a class="nav-link "
+                               href="">Assets</a>
+
+                            <a class="nav-link "
+                               href="">Shares</a>
+
+                            <a class="nav-link "
+                               href="">Transfer</a>
+                        </div>
+                    </div>
+
+
+                    <span class="dropdown-header mt-4">Transactions</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+                    <div class="nav-item">
+                        <a class="nav-link "
+                           href="https://waiz.bugfinder.app/admin/transaction" data-placement="left">
+                            <i class="bi bi-send nav-icon"></i>
+                            <span class="nav-link-title">Transaction</span>
+                        </a>
+                    </div>
+
+
+                    <div class="nav-item">
+                        <a class="nav-link "
+                           href="https://waiz.bugfinder.app/admin/payment/log" data-placement="left">
+                            <i class="bi bi-credit-card-2-front nav-icon"></i>
+                            <span class="nav-link-title">Payment Log</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link "
+                           href="https://waiz.bugfinder.app/admin/payment/pending" data-placement="left">
+                            <i class="bi bi-cash nav-icon"></i>
+                            <span class="nav-link-title">Payment Request</span>
+                        </a>
+                    </div>
+
+                    <span class="dropdown-header mt-4"> Ticket Panel</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+                    <div class="nav-item">
+                        <a class="nav-link dropdown-toggle "
+                           href="#navbarVerticalTicketMenu"
+                           role="button"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#navbarVerticalTicketMenu"
+                           aria-expanded="false"
+                           aria-controls="navbarVerticalTicketMenu">
+                            <i class="fa-light fa-headset nav-icon"></i>
+                            <span class="nav-link-title">Support Ticket</span>
+                        </a>
+                        <div id="navbarVerticalTicketMenu"
+                             class="nav-collapse collapse "
+                             data-bs-parent="#navbarVerticalTicketMenu">
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/tickets/all">All Tickets                            </a>
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/tickets/answered">Answered Ticket</a>
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/tickets/replied">Replied Ticket</a>
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/tickets/closed">Closed Ticket</a>
+                        </div>
+                    </div>
+
+
+                    <span class="dropdown-header mt-4"> Kyc Management</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+                    <div class="nav-item">
+                        <a class="nav-link "
+                           href="https://waiz.bugfinder.app/admin/kyc-setting/list" data-placement="left">
+                            <i class="bi-stickies nav-icon"></i>
+                            <span class="nav-link-title">KYC Setting</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-item" >
+                        <a class="nav-link dropdown-toggle collapsed" href="#navbarVerticalKycRequestMenu"
+                           role="button"
+                           data-bs-toggle="collapse" data-bs-target="#navbarVerticalKycRequestMenu"
+                           aria-expanded="false"
+                           aria-controls="navbarVerticalKycRequestMenu">
+                            <i class="bi bi-person-lines-fill nav-icon"></i>
+                            <span class="nav-link-title">KYC Request</span>
+                        </a>
+                        <div id="navbarVerticalKycRequestMenu"
+                             class="nav-collapse collapse "
+                             data-bs-parent="#navbarVerticalKycRequestMenu">
+
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/kyc/pending">
+                                Pending KYC                            </a>
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/kyc/approve">
+                                Approved KYC                            </a>
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/kyc/rejected">
+                                Rejected KYC                            </a>
+                        </div>
+                    </div>
+
+                    <span class="dropdown-header mt-4"> User Panel</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+
+                    <div class="nav-item">
+                        <a class="nav-link dropdown-toggle "
+                           href="#navbarVerticalUserPanelMenu"
+                           role="button"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#navbarVerticalUserPanelMenu"
+                           aria-expanded="false"
+                           aria-controls="navbarVerticalUserPanelMenu">
+                            <i class="bi-people nav-icon"></i>
+                            <span class="nav-link-title">User Management</span>
+                        </a>
+                        <div id="navbarVerticalUserPanelMenu"
+                             class="nav-collapse collapse "
+                             data-bs-parent="#navbarVerticalUserPanelMenu">
+
+                            <a class="nav-link " href="https://waiz.bugfinder.app/admin/users">
+                                All User                            </a>
+
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/mail-all-user">Mail To Users</a>
+                        </div>
+                    </div>
+
+
+                    <span class="dropdown-header mt-4"> SETTINGS PANEL</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+
+
+                    <div class="nav-item">
+                        <a class="nav-link "
+                           href="https://waiz.bugfinder.app/admin/settings" data-placement="left">
+                            <i class="bi bi-gear nav-icon"></i>
+                            <span class="nav-link-title">Control Panel</span>
+                        </a>
+                    </div>
+
+
+                    <div
+                        class="nav-item ">
+                        <a class="nav-link dropdown-toggle"
+                           href="#navbarVerticalGatewayMenu"
+                           role="button"
+                           data-bs-toggle="collapse"
+                           data-bs-target="#navbarVerticalGatewayMenu"
+                           aria-expanded="false"
+                           aria-controls="navbarVerticalGatewayMenu">
+                            <i class="bi-briefcase nav-icon"></i>
+                            <span class="nav-link-title">Payment Setting</span>
+                        </a>
+                        <div id="navbarVerticalGatewayMenu"
+                             class="nav-collapse collapse "
+                             data-bs-parent="#navbarVerticalGatewayMenu">
+
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/payment-methods">Payment Gateway</a>
+
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/payment-methods/manual">Manual Gateway</a>
+                        </div>
+                    </div>
+
+
+
+                    <span class="dropdown-header mt-4">Subscriber</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+                    <div class="nav-item">
+                        <a class="nav-link "
+                           href="https://waiz.bugfinder.app/admin/subscriber" data-placement="left">
+                            <i class="bi bi-envelope nav-icon"></i>
+                            <span class="nav-link-title">Subscribers</span>
+                        </a>
+                    </div>
+
+                    <span class="dropdown-header mt-4">Themes Settings</span>
+                    <small class="bi-three-dots nav-subtitle-replacer"></small>
+                    <div id="navbarVerticalThemeMenu">
+                        <div class="nav-item">
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/frontend/pages/light"
+                               data-placement="left">
+                                <i class="fa-light fa-list nav-icon"></i>
+                                <span class="nav-link-title">Pages</span>
+                            </a>
+                        </div>
+
+                        <div class="nav-item">
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/frontend/manage-menu" data-placement="left">
+                                <i class="bi-folder2-open nav-icon"></i>
+                                <span class="nav-link-title">Manage Menu</span>
+                            </a>
+                        </div>
+                    </div>
+
+                                        <div class="nav-item">
+                        <a class="nav-link dropdown-toggle "
+                           href="#navbarVerticalContentsMenu"
+                           role="button" data-bs-toggle="collapse"
+                           data-bs-target="#navbarVerticalContentsMenu" aria-expanded="false"
+                           aria-controls="navbarVerticalContentsMenu">
+                            <i class="fa-light fa-pen nav-icon"></i>
+                            <span class="nav-link-title">Manage Content</span>
+                        </a>
+                        <div id="navbarVerticalContentsMenu"
+                             class="nav-collapse collapse "
+                             data-bs-parent="#navbarVerticalContentsMenu">
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/hero">Hero</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/about">About</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/features">Features</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/how_it_work">How It Work</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/why_choose_us">Why Choose Us</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/testimonial">Testimonial</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/news_letter">News Letter</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/faq">Faq</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/blog">Blog</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/contact">Contact</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/countries">Countries</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/footer">Footer</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/login">Login</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/register">Register</a>
+                                                            <a class="nav-link "
+                                   href="https://waiz.bugfinder.app/admin/frontend/contents/user_verify">User Verify</a>
+                                                    </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link dropdown-toggle "
+                           href="#navbarVerticalBlogMenu" role="button"
+                           data-bs-toggle="collapse" data-bs-target="#navbarVerticalBlogMenu" aria-expanded="false"
+                           aria-controls="navbarVerticalMenuPagesProjectsMenu">
+                            <i class="fa-light fa-newspaper nav-icon"></i>
+                            <span class="nav-link-title">Manage Blog</span>
+                        </a>
+
+                        <div id="navbarVerticalBlogMenu" data-bs-parent="#navbarVerticalMenuPagesMenu"
+                            data-hs-parent-area="#navbarVerticalMenu"
+                             class="nav-collapse collapse ">
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/blog-categories">Category</a>
+                            <a class="nav-link "
+                               href="https://waiz.bugfinder.app/admin/blogs">Blog</a>
+                        </div>
+                    </div>
+
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/basic-control">
+                                <i class="fa-light fa-image nav-icon"></i>
+                                <span class="nav-link-title">Basic Control Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/cookie-control">
+                                <i class="fal fa-cookie nav-icon"></i>
+                                <span class="nav-link-title">Cookie Policy Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/virtual-card.settings">
+                                <i class="fal fa-credit-card-alt nav-icon"></i>
+                                <span class="nav-link-title">Virtual Card Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/money-transfer.settings">
+                                <i class="fal fa-money-bill-alt nav-icon"></i>
+                                <span class="nav-link-title">Money Transfer Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/refer-user.settings">
+                                <i class="fal fa-users nav-icon"></i>
+                                <span class="nav-link-title">Referral Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/logo-setting">
+                                <i class="fa-light fa-image nav-icon"></i>
+                                <span class="nav-link-title">Logo Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/settings/push-notification">
+                                <i class="fa-light fa-bullhorn nav-icon"></i>
+                                <span class="nav-link-title">Push Notification Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/settings/in-app-notification">
+                                <i class="fa-light fa-bell nav-icon"></i>
+                                <span class="nav-link-title">In App Notification Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/settings/email">
+                                <i class="fa-light fa-envelope nav-icon"></i>
+                                <span class="nav-link-title">Email Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/settings/sms">
+                                <i class="fa-light fa-message nav-icon"></i>
+                                <span class="nav-link-title">SMS Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/languages">
+                                <i class="fa-light fa-language nav-icon"></i>
+                                <span class="nav-link-title">Language Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/storage">
+                                <i class="fa-light fa-database nav-icon"></i>
+                                <span class="nav-link-title">Storage Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/currency-exchange-api-config">
+                                <i class="bi bi-arrow-down-up nav-icon"></i>
+                                <span class="nav-link-title">Exchange API Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/translate-api-setting">
+                                <i class="fa-sharp fa-light fa-language nav-icon"></i>
+                                <span class="nav-link-title">Translate Api Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/plugin">
+                                <i class="fa-thin fa-toolbox nav-icon"></i>
+                                <span class="nav-link-title">Plugin Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/maintenance-mode">
+                                <i class="fa-thin fa-screwdriver-wrench nav-icon"></i>
+                                <span class="nav-link-title">Maintenance Mode Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/two-fa-control">
+                                <i class="fa-thin fa-screwdriver-wrench nav-icon"></i>
+                                <span class="nav-link-title">Two Fa Control Settings</span>
+                            </a>
+                        </div>
+                                            <div class="nav-item d-none">
+                            <a class="nav-link  "
+                               href="https://waiz.bugfinder.app/admin/socialite">
+                                <i class="fas fa-share-alt nav-icon"></i>
+                                <span class="nav-link-title">Socialite Settings</span>
+                            </a>
+                        </div>
+                    
+
+                </div>
+
+                <div class="navbar-vertical-footer">
+                    <ul class="navbar-vertical-footer-list">
+                        <li class="navbar-vertical-footer-list-item">
+                            <span class="dropdown-header">Version 1.4</span>
+                        </li>
+                        <li class="navbar-vertical-footer-list-item">
+                            <div class="dropdown dropup">
+                                <button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle"
+                                        id="selectThemeDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                                        data-bs-dropdown-animation></button>
+                                <div class="dropdown-menu navbar-dropdown-menu navbar-dropdown-menu-borderless"
+                                     aria-labelledby="selectThemeDropdown">
+                                    <a class="dropdown-item" href="javascript:void(0)" data-icon="bi-moon-stars"
+                                       data-value="auto">
+                                        <i class="bi-moon-stars me-2"></i>
+                                        <span class="text-truncate"
+                                              title="Auto (system default)">Default</span>
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)" data-icon="bi-brightness-high"
+                                       data-value="default">
+                                        <i class="bi-brightness-high me-2"></i>
+                                        <span class="text-truncate"
+                                              title="Default (light mode)">Light Mode</span>
+                                    </a>
+                                    <a class="dropdown-item active" href="javascript:void(0)" data-icon="bi-moon"
+                                       data-value="dark">
+                                        <i class="bi-moon me-2"></i>
+                                        <span class="text-truncate" title="Dark">Dark Mode</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+
+{% block content %}
+{% endblock %}
+
+
+
+
+<script src="{% static 'admin/js/jquery.min.js' %}"></script>
+<script src="{% static 'admin/js/jquery-migrate.min.js' %}"></script>
+<script src="{% static 'admin/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'admin/js/hs-form-search.min.js' %}"></script>
+<script src="{% static 'admin/js/hs-navbar-vertical-aside.min.js' %}"></script>
+
+    <script src="{% static 'admin/js/chart.min.js' %}"></script>
+    <script src="{% static 'admin/js/apexcharts.min.js' %}"></script>
+
+<!-- JS Global Compulsory  -->
+<script src="{% static 'admin/js/notiflix-aio-3.2.6.min.js' %}"></script>
+<script src="{% static 'admin/js/vue.min.js' %}"></script>
+<script src="{% static 'admin/js/axios.min.js' %}"></script>
+<script src="{% static 'admin/js/pusher.min.js' %}"></script>
+
+
+<script src="{% static 'admin/js/theme.min.js' %}"></script>
+<script src="{% static 'admin/js/js-switch-element.min.js' %}"></script>
+<script src="{% static 'admin/js/main.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+
+
+
+
+
+
+    <script>
+        Notiflix.Block.standard('#ticketRecord');
+        HSCore.components.HSChartJS.init(document.querySelector('#chartTicketRecordsGraph'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    backgroundColor: ["rgba(55, 125, 255, 0)", "rgba(255, 255, 255, 0)"],
+                    borderColor: "#377dff",
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    pointHoverRadius: 0
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false
+                    },
+                    x: {
+                        display: false
+                    }
+                },
+                hover: {
+                    mode: "nearest",
+                    intersect: false
+                },
+                plugins: {
+                    tooltip: {
+                        postfix: "",
+                        hasIndicator: true,
+                        intersect: false
+                    }
+                }
+            },
+        });
+        const chartTicketRecordsGraph = HSCore.components.HSChartJS.getItem('chartTicketRecordsGraph');
+
+        updateChartTicketRecordsGraph();
+
+        async function updateChartTicketRecordsGraph() {
+            let $url = "https://waiz.bugfinder.app/admin/dashboard/chartTicketRecords"
+            await axios.get($url)
+                .then(function (res) {
+                    $('.ticketRecord-totalTickets').text(res.data.ticketRecord.pending);
+                    $('.ticketRecord-followupGrapClass').addClass(res.data.ticketRecord.followupGrapClass);
+                    $('.ticketRecord-followupGrap').text(res.data.ticketRecord.followupGrap);
+                    $('.ticketRecord-chartPercentageIncDec').text(`from ${res.data.ticketRecord.chartPercentageIncDec}`);
+
+                    chartTicketRecordsGraph.data.labels = res.data.current_month_data_dates
+                    chartTicketRecordsGraph.data.datasets[0].data = res.data.current_month_datas
+                    chartTicketRecordsGraph.update();
+                    Notiflix.Block.remove('#ticketRecord');
+                })
+                .catch(function (error) {
+
+                });
+        }
+
+    </script>
+
+    <script>
+        Notiflix.Block.standard('#kycRecord');
+        HSCore.components.HSChartJS.init(document.querySelector('#chartKycRecordsGraph'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    backgroundColor: ["rgba(55, 125, 255, 0)", "rgba(255, 255, 255, 0)"],
+                    borderColor: "#377dff",
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    pointHoverRadius: 0
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false
+                    },
+                    x: {
+                        display: false
+                    }
+                },
+                hover: {
+                    mode: "nearest",
+                    intersect: false
+                },
+                plugins: {
+                    tooltip: {
+                        postfix: "",
+                        hasIndicator: true,
+                        intersect: false
+                    }
+                }
+            },
+        });
+        const chartKycRecordsGraph = HSCore.components.HSChartJS.getItem('chartKycRecordsGraph');
+
+        updateChartKycRecordsGraph();
+
+        async function updateChartKycRecordsGraph() {
+            let $url = "https://waiz.bugfinder.app/admin/dashboard/chartKycRecords"
+            await axios.get($url)
+                .then(function (res) {
+                    $('.kycRecord-pendingKycs').text(res.data.kycRecord.pendingKYC);
+                    $('.kycRecord-followupGrapClass').addClass(res.data.kycRecord.followupGrapClass);
+                    $('.kycRecord-followupGrap').text(res.data.kycRecord.followupGrap);
+                    $('.kycRecord-chartPercentageIncDec').text(`from ${res.data.kycRecord.chartPercentageIncDec}`);
+
+                    chartKycRecordsGraph.data.labels = res.data.current_month_data_dates
+                    chartKycRecordsGraph.data.datasets[0].data = res.data.current_month_datas
+                    chartKycRecordsGraph.update();
+                    Notiflix.Block.remove('#kycRecord');
+                })
+                .catch(function (error) {
+
+                });
+        }
+
+    </script>
+
+    <script>
+        Notiflix.Block.standard('#transactionRecord');
+        HSCore.components.HSChartJS.init(document.querySelector('#chartTransactionRecordsGraph'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    backgroundColor: ["rgba(55, 125, 255, 0)", "rgba(255, 255, 255, 0)"],
+                    borderColor: "#377dff",
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    pointHoverRadius: 0
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        display: false
+                    },
+                    x: {
+                        display: false
+                    }
+                },
+                hover: {
+                    mode: "nearest",
+                    intersect: false
+                },
+                plugins: {
+                    tooltip: {
+                        postfix: "",
+                        hasIndicator: true,
+                        intersect: false
+                    }
+                }
+            },
+        });
+        const chartTransactionRecordsGraph = HSCore.components.HSChartJS.getItem('chartTransactionRecordsGraph');
+
+        updateChartTransactionRecordsGraph();
+
+        async function updateChartTransactionRecordsGraph() {
+            let $url = "https://waiz.bugfinder.app/admin/dashboard/chartTransactionRecords"
+            await axios.get($url)
+                .then(function (res) {
+                    $('.transactionRecord-totalTransaction').text(res.data.transactionRecord.totalTransaction);
+                    $('.transactionRecord-followupGrapClass').addClass(res.data.transactionRecord.followupGrapClass);
+                    $('.transactionRecord-followupGrap').text(res.data.transactionRecord.followupGrap);
+                    $('.transactionRecord-chartPercentageIncDec').text(`from ${res.data.transactionRecord.chartPercentageIncDec}`);
+
+                    chartTransactionRecordsGraph.data.labels = res.data.current_month_data_dates
+                    chartTransactionRecordsGraph.data.datasets[0].data = res.data.current_month_datas
+                    chartTransactionRecordsGraph.update();
+                    Notiflix.Block.remove('#transactionRecord');
+                })
+                .catch(function (error) {
+
+                });
+        }
+
+    </script>
+    <script>
+        Notiflix.Block.standard('#cardOrder')
+        const cardOrderChart = new Chart("cardOrdered", {
+            type: "bar",
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        data: [],
+                        label: "Total Ordered",
+                        backgroundColor: "#e7eaf3",
+                        hoverBackgroundColor: "#377dff",
+                        borderColor: "#377dff",
+                        maxBarThickness: "10"
+                    },
+                    {
+                        data: [],
+                        label: "Total Approved",
+                        backgroundColor: "#377dff",
+                        borderColor: "#e7eaf3",
+                        maxBarThickness: "10"
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        grid: {
+                            color: "#e7eaf3",
+                            drawBorder: false,
+                            zeroLineColor: "#e7eaf3"
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 100,
+                            color: "#97a4af",
+                            font: {
+                                size: 12,
+                                family: "Open Sans, sans-serif"
+                            },
+                            padding: 10
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: "#97a4af",
+                            font: {
+                                size: 12,
+                                family: "Open Sans, sans-serif"
+                            },
+                            padding: 5
+                        },
+                        categoryPercentage: 0.5,
+                        maxBarThickness: "10"
+                    }
+                },
+                cornerRadius: 2,
+                plugins: {
+                    tooltip: {
+                        hasIndicator: true,
+                        mode: "index",
+                        intersect: false
+                    }
+                },
+                hover: {
+                    mode: "nearest",
+                    intersect: true
+                }
+            }
+        });
+
+        getData();
+        async function getData() {
+            let url = "https://waiz.bugfinder.app/admin/dashboard/card-order-history";
+            try {
+                const res = await axios.get(url);
+                cardOrderChart.data.labels = res.data.labels;
+                cardOrderChart.config.data.datasets[0].data = res.data.TotalOrder;
+                cardOrderChart.config.data.datasets[1].data = res.data.TotalApproved;
+                cardOrderChart.update();
+                Notiflix.Block.remove('#cardOrder')
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    </script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <script>
+        Notiflix.Block.standard('#loginHistory');
+        HSCore.components.HSChartJS.init(document.querySelector('#chartBrowserHistoryGraph'), {
+            type: "doughnut",
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    backgroundColor: ["#0072C6", "#FF9500", "#FF5733", "#4285F4", "#0078D4", "#FF1B2D", "#006699", "#002558", "#003399", "#3E74A0", "#5EAA51", "#999999"],
+                    borderWidth: 0.5,
+                    hoverBorderColor: "#fff"
+                }]
+            },
+            options: {
+                cutout: "70%",
+                plugins: {
+                    tooltip: {
+                        hasIndicator: true,
+                        mode: "index",
+                        intersect: false
+                    }
+                },
+                hover: {
+                    mode: "nearest",
+                    intersect: true
+                }
+            },
+        });
+        const chartBrowserHistoryGraph = HSCore.components.HSChartJS.getItem('chartBrowserHistoryGraph');
+
+        // OS
+
+        HSCore.components.HSChartJS.init(document.querySelector('#chartOSHistoryGraph'), {
+            type: "doughnut",
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    backgroundColor: ["#0072C6", "#FF9500", "#FF5733", "#4285F4", "#0078D4", "#FF1B2D", "#006699", "#002558", "#003399", "#3E74A0", "#5EAA51", "#999999"],
+                    borderWidth: 0.5,
+                    hoverBorderColor: "#fff"
+                }]
+            },
+            options: {
+                cutout: "70%",
+                plugins: {
+                    tooltip: {
+                        hasIndicator: true,
+                        mode: "index",
+                        intersect: false
+                    }
+                },
+                hover: {
+                    mode: "nearest",
+                    intersect: true
+                }
+            },
+        });
+        const chartOSHistoryGraph = HSCore.components.HSChartJS.getItem('chartOSHistoryGraph');
+
+        // Device
+        HSCore.components.HSChartJS.init(document.querySelector('#chartDeviceHistoryGraph'), {
+            type: "doughnut",
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    backgroundColor: ["#0072C6", "#FF9500", "#FF5733", "#4285F4", "#0078D4", "#FF1B2D", "#006699", "#002558", "#003399", "#3E74A0", "#5EAA51", "#999999"],
+                    borderWidth: 0.5,
+                    hoverBorderColor: "#fff"
+                }]
+            },
+            options: {
+                cutout: "70%",
+                plugins: {
+                    tooltip: {
+                        hasIndicator: true,
+                        mode: "index",
+                        intersect: false
+                    }
+                },
+                hover: {
+                    mode: "nearest",
+                    intersect: true
+                }
+            },
+        });
+        const chartDeviceHistoryGraph = HSCore.components.HSChartJS.getItem('chartDeviceHistoryGraph');
+
+        updateChartLoginHistoryGraph();
+
+        async function updateChartLoginHistoryGraph() {
+            let $url = "https://waiz.bugfinder.app/admin/dashboard/chartLoginHistory"
+            await axios.get($url)
+                .then(function (res) {
+                    browserHistory(res.data.loginPerformance);
+                    operatingHistory(res.data.loginPerformance);
+                    deviceHistory(res.data.loginPerformance);
+                    Notiflix.Block.remove('#loginHistory');
+                })
+                .catch(function (error) {
+
+                });
+        }
+
+        function browserHistory(loginPerformance) {
+            chartBrowserHistoryGraph.data.labels = loginPerformance.browserKeys
+            chartBrowserHistoryGraph.data.datasets[0].data = loginPerformance.browserValue
+            chartBrowserHistoryGraph.update();
+        }
+
+        function operatingHistory(loginPerformance) {
+            chartOSHistoryGraph.data.labels = loginPerformance.osKeys
+            chartOSHistoryGraph.data.datasets[0].data = loginPerformance.osValue
+            chartOSHistoryGraph.update();
+        }
+
+        function deviceHistory(loginPerformance) {
+            chartDeviceHistoryGraph.data.labels = loginPerformance.deviceKeys
+            chartDeviceHistoryGraph.data.datasets[0].data = loginPerformance.deviceValue
+            chartDeviceHistoryGraph.update();
+        }
+
+    </script>
+    <script>
+
+        $(document).on('click', '.loginAccount', function () {
+            let route = $(this).data('route');
+            $('.loginAccountAction').attr('action', route)
+        });
+
+        $(document).ready(function () {
+            let isActiveCronNotification = '0';
+            if (isActiveCronNotification == 1)
+                $('#cron-info').modal('show');
+            $(document).on('click', '.copy-btn', function () {
+                var _this = $(this)[0];
+                var copyText = $(this).siblings('input');
+                $(copyText).prop('disabled', false);
+                copyText.select();
+                document.execCommand("copy");
+                $(copyText).prop('disabled', true);
+                $(this).text('Coppied');
+                setTimeout(function () {
+                    $(_this).text('');
+                    $(_this).html('<i class="fas fa-copy"></i>');
+                }, 500)
+            });
+        });
+    </script>
+        <script type="module">
+
+            import {initializeApp} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+            import {
+                getMessaging,
+                getToken,
+                onMessage
+            } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-messaging.js";
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyCYv0NbhnqfBCbpJtzuaJtm3U7YSIg66rI",
+                authDomain: "bugfinderadmin.firebaseapp.com",
+                projectId: "bugfinderadmin",
+                storageBucket: "bugfinderadmin.appspot.com",
+                messagingSenderId: "1090565989163",
+                appId: "1:1090565989163:web:051e1d575de5ac83d6db6e",
+                measurementId: "G-K3DPMXF3MN"
+            };
+
+            const app = initializeApp(firebaseConfig);
+            const messaging = getMessaging(app);
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('' + `/firebase-messaging-sw.js`, {scope: './'}).then(function (registration) {
+                        requestPermissionAndGenerateToken(registration);
+                    }
+                ).catch(function (error) {
+                });
+            } else {
+            }
+
+            onMessage(messaging, (payload) => {
+                if (payload.data.foreground || parseInt(payload.data.foreground) == 1) {
+                    const title = payload.notification.title;
+                    const options = {
+                        body: payload.notification.body,
+                        icon: payload.notification.icon,
+                    };
+                    new Notification(title, options);
+                }
+            });
+
+            function requestPermissionAndGenerateToken(registration) {
+                document.addEventListener("click", function (event) {
+                    if (event.target.id == 'allow-notification') {
+                        Notification.requestPermission().then((permission) => {
+                            if (permission === 'granted') {
+                                getToken(messaging, {
+                                    serviceWorkerRegistration: registration,
+                                    vapidKey: "BHvxHfvJPNZrt_NEcu6_mEkZX1DNsGVbZh2cK4fWgHL20OomK_uPzf6z2EOZHkCatpUy7k5Met4iFSD78dLG1lk"
+                                })
+                                    .then((token) => {
+                                        $.ajax({
+                                            url: "https://waiz.bugfinder.app/admin/save-token",
+                                            method: "post",
+                                            data: {
+                                                token: token,
+                                            },
+                                            success: function (res) {
+                                            }
+                                        });
+                                        window.newApp.notificationPermission = 'granted';
+                                    });
+                            } else {
+                                window.newApp.notificationPermission = 'denied';
+                            }
+                        });
+                    }
+                });
+            }
+        </script>
+        <script>
+            window.newApp = new Vue({
+                el: "#firebase-app",
+                data: {
+                    admin_foreground: '',
+                    admin_background: '',
+                    notificationPermission: Notification.permission,
+                    is_notification_skipped: sessionStorage.getItem('is_notification_skipped') == '1'
+                },
+                mounted() {
+                    sessionStorage.clear();
+                    this.admin_foreground = "1";
+                    this.admin_background = "1";
+                },
+                methods: {
+                    skipNotification() {
+                        sessionStorage.setItem('is_notification_skipped', '1');
+                        this.is_notification_skipped = true;
+                    }
+                }
+            });
+        </script>
+    
+    <script>
+        'use strict'
+        let pushNotificationArea = new Vue({
+            el: "#pushNotificationArea",
+            data: {
+                items: [],
+            },
+            mounted() {
+                this.getNotifications();
+                this.pushNewItem();
+            },
+            methods: {
+                getNotifications() {
+                    let app = this;
+                    axios.get("https://waiz.bugfinder.app/admin/push-notification-show")
+                        .then(function (res) {
+                            app.items = res.data;
+                        })
+                },
+                readAt(id, link) {
+                    let app = this;
+                    let url = "https://waiz.bugfinder.app/admin/push-notification-readAt/0";
+                    url = url.replace(/.$/, id);
+                    axios.get(url)
+                        .then(function (res) {
+                            if (res.status) {
+                                app.getNotifications();
+                                if (link !== '#') {
+                                    window.location.href = link
+                                }
+                            }
+                        })
+                },
+                readAll() {
+                    let app = this;
+                    let url = "https://waiz.bugfinder.app/admin/push.notification.readAll";
+                    axios.get(url)
+                        .then(function (res) {
+                            if (res.status) {
+                                app.items = [];
+                            }
+                        })
+                },
+                pushNewItem() {
+                    let app = this;
+                    Pusher.logToConsole = false;
+                    let pusher = new Pusher("6ae04039ec41c4852415", {
+                        encrypted: true,
+                        cluster: "ap2"
+                    });
+                    let channel = pusher.subscribe('admin-notification.' + "1");
+                    channel.bind('App\\Events\\AdminNotification', function (data) {
+                        app.items.unshift(data.message);
+                    });
+                    channel.bind('App\\Events\\UpdateAdminNotification', function (data) {
+                        app.getNotifications();
+                    });
+                }
+            }
+        });
+    </script>
+
+<script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+
+

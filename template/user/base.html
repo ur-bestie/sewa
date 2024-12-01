@@ -57,7 +57,7 @@
         </button>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbar">
             <div class="offcanvas-header">
-                <a class="navbar-brand" href="https://waiz.bugfinder.net">
+                <a class="navbar-brand" href="/">
                     <img src="{% static 'assets/upload/logo/4HVH3JeDRlGdQ44yFFnrL7hvfkMBIE.webp' %}" alt=""/>
                 </a>
                 <button type="button" class="cmn-btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
@@ -78,12 +78,12 @@
 
                     <li class="nav-item">
                         <a class="nav-link "
-                           href="assets"><i class="fa-light fa-money-bill-alt"></i><span>Buy Assets</span></a>
+                           href="/assets"><i class="fa-light fa-money-bill-alt"></i><span>Buy Assets</span></a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link  "
-                           href="https://waiz.bugfinder.net/user/virtual-card"><i class="fa-solid fa-building"></i><span>Shares</span></a>
+                           href="/shares"><i class="fa-solid fa-building"></i><span>Shares</span></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -110,7 +110,7 @@
                             <i class="fa-regular fa-timer"></i>
                             history                        </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item " href="https://waiz.bugfinder.net/user/all-transaction-list">Transaction History</a></li>
+                            <li><a class="dropdown-item " href="/user">Transaction History</a></li>
                             <li><a class="dropdown-item " href="/deposithis">Deposit History</a></li>
                             <li><a class="dropdown-item " href="/transf_his">Transfer History</a></li>
                             <li><a class="dropdown-item " href="/withdrawhis">Request History</a></li>
@@ -154,12 +154,42 @@
                         <i class="fa-light fa-bell"></i>
                         <span class="badge badge-number" v-cloak>{{items.length}}</span>
                     </a>
-
+{% if notif %}
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <div class="dropdown-header">
                             <h6> You have <span
                                     v-cloak>{{items.length}}</span> new notifications</h6>
+                                    {% for n in notif %}
+                                    {% if n.status %}
+                             <a href="" class="item showInfo"
+                             data-trx_type="+"
+                               data-remarks="Deposit"
+                               data-note="Pending Deposit"
+                               data-amount="{{x.name}} "
+                               data-charge="${{x.price}}"
+                               data-trxid="{{x.id}}"
+                               data-trx_date="0 USD"
+                               data-bs-toggle="modal"
+                               data-bs-target="#infoViewModal{{n.id}}"
+                            >
+                             <strike>*{{n.subject}}</strike></a> 
+                             {% else %}
+                             <a href="" class="item showInfo" style="color: blue;text-transform: capitalize;" 
+                             data-trx_type="+"
+                               data-remarks="Deposit"
+                               data-note="Pending Deposit"
+                               data-amount="{{x.name}} "
+                               data-charge="${{x.price}}"
+                               data-trxid="{{x.id}}"
+                               data-trx_date="0 USD"
+                               data-bs-toggle="modal"
+                               data-bs-target="#infoViewModal{{n.id}}"
+                            >
+                             *{{n.subject}}</a> 
+                             {% endif %}
+                             {% endfor %}   
                         </div>
+                       
                         <div class="dropdown-body">
                             <div class="notification-item" v-for="(item, index) in items"
                                  @click.prevent="readAt(item.id, item.description.link)">
@@ -172,28 +202,89 @@
                                 </a>
                             </div>
                         </div>
-
+                        
                         <div class="dropdown-footer">
+                            <div class="cont">
                             <a class="btn-view_notification" href="javascript:void(0)"
                                v-if="items.length == 0">You have no notifications</a>
                             <a class="btn-clear" href="javascript:void(0)" v-if="items.length > 0"
                                @click.prevent="readAll">Clear all notification</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </li><!-- End Notification Nav -->
+                {% else %}
+
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                    <div class="dropdown-header">
+                        <h6> <span
+                                v-cloak>{{items.length}}</span> </h6>
+                              
+                         <a href="" class="item showInfo"
+                         data-trx_type="+"
+                           data-remarks="Deposit"
+                           data-note="Pending Deposit"
+                           data-amount="{{x.name}} "
+                           data-charge="${{x.price}}"
+                           data-trxid="{{x.id}}"
+                           data-trx_date="0 USD"
+                           data-bs-toggle="modal"
+                           data-bs-target="#infoViewModal{{n.id}}"
+                        >
+                      
+                         <a href="" class="item showInfo" style="color: blue;text-transform: capitalize;" 
+                         data-trx_type="+"
+                           data-remarks="Deposit"
+                           data-note="Pending Deposit"
+                           data-amount="{{x.name}} "
+                           data-charge="${{x.price}}"
+                           data-trxid="{{x.id}}"
+                           data-trx_date="0 USD"
+                           data-bs-toggle="modal"
+                           data-bs-target="#infoViewModal{{n.id}}"
+                        >
+                   
+                    </div>
+                   
+                    <div class="dropdown-body">
+                        <div class="notification-item" v-for="(item, index) in items"
+                             @click.prevent="readAt(item.id, item.description.link)">
+                            <a href="javascript:void(0)">
+                                <i class="fa-light fa-bell text-warning"></i>
+                                <div>
+                                    <p class="text-highlight-dark" v-cloak v-html="item.description.text"></p>
+                                    <p v-cloak>{{ item.formatted_date }}</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                </li><!-- End Notification Nav -->
+                    
+                    <div class="dropdown-footer">
+                        <div class="cont">
+                        <a class="btn-view_notification" href="javascript:void(0)"
+                           v-if="items.length == 0">You have no notifications</a>
+                        <a class="btn-clear" href="javascript:void(0)" v-if="items.length > 0"
+                           @click.prevent="readAll">Clear all notification</a>
+                        </div>
+                    </div>
+                    
+                </div>
+                        {% endif %}
 
 
 
                 <li class="nav-item dropdown">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{% static 'assets/upload/userProfile/p6OyJX5MfLiWlOJO7tCjQfrpIJwNMt.webp' %}" alt="Profile" class="rounded-circle">
+                        <img src="{% static 'img/profile.jpg' %}" alt="" class="rounded-circle">
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header d-flex justify-content-center text-start">
                             <div class="profile-thum">
-                                <img src="{% static 'assets/upload/userProfile/p6OyJX5MfLiWlOJO7tCjQfrpIJwNMt.webp' %}" alt="">
+                                <img src="{% static 'img/profile.jpg' %}" alt="">
                             </div>
                             <div class="profile-content">
                                 <h6>{{user.username}}</h6>
@@ -269,11 +360,11 @@
 
         <li class="nav-item">
             <a class="nav-link "
-               href="assets"><i class="fa-light fa-money-bill-alt"></i><span>Buy Assets</span></a>
+               href="/assets"><i class="fa-light fa-money-bill-alt"></i><span>Buy Assets</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link  "
-               href="https://waiz.bugfinder.net/user/virtual-card"><i class="fa-solid fa-building"></i><span>Shares</span></a>
+               href="/shares"><i class="fa-solid fa-building"></i><span>Shares</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed  "
@@ -318,7 +409,7 @@
             <ul id="crm" data-bs-parent="#sidebar-nav" class="nav-content collapse
                 " >
                 <li>
-                    <a href="https://waiz.bugfinder.net/user/all-transaction-list" class="">
+                    <a href="/user" class="">
                         <i class="fa-regular fa-circle"></i><span>Transaction History</span>
                     </a>
                 </li>
@@ -396,7 +487,50 @@
                 @click.prevent="skipNotification"><i class="fa-regular fa-xmark"></i></button>
     </div>
 </div>
+
 {% endfor %}
+
+{% for n in notif %}
+<div class="modal fade" id="infoViewModal{{n.id}}" tabindex="-1" role="dialog" aria-hidden="true"
+data-bs-backdrop="static">
+<div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-content">
+       <div class="modal-body">
+           <div class="text-center mb-5">
+               <h4 class="mt-3 mb-1">{{n.subject}}</h4>
+           </div>
+
+           <div class="row mb-6">
+               <div class="transaction-list mt-2" id="trxModal">
+                  <div class="text">
+                    <p style="text-align: center;">{{n.message}}</p>
+                  </div>
+               </div>
+           </div>
+           <ul class="list-container mb-4 ">
+          
+               <li class="item py-2">
+               <input type="hidden" name="amount" value="{{x.price}}">
+               <input type="hidden" name="a_id" value="{{x.id}}">
+                <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                {% if n.status %}
+                <a href="/markread/{{n.id}}" class="cmn-btn2">Mark as UnRead</a>
+                {% else %}
+                <a href="/markunread/{{n.id}}" class="cmn-btn2">Mark as Read</a>
+                {% endif %}
+               </li>
+           </ul>
+           <!-- <div class="modal-footer-text mt-3">
+               <div class="d-flex justify-content-end gap-3 status-buttons">
+                   <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+               </div>
+           </div> -->
+       </div>
+   </div>
+</div>
+</div>
+{% endfor %}
+
 {% block content %}
 
 {% endblock %}
@@ -468,151 +602,7 @@
         });
 
     </script>
-    <script>
-        $(document).ready(function () {
-
-            const baseCurrSymbol = "$";
-            const baseCurrency = "USD";
-            if ($('#columnChart').length) {
-                let options = {
-                    theme: {
-                        mode: $('.dark-theme').length ? 'dark' : 'light',
-                    },
-                    series: [{
-                        name: 'Total Send',
-                        data: [0,0,0,0,50.18,1758.81,107.53,0,1836.11]                    }, {
-                        name: 'Total Transactions',
-                        data: [0,0,0,0,305.18,5245.92,252.49,0,7625.22]                    }, {
-                        name: 'Total Received',
-                        data: [0,0,0,0,255,3487.11,144.96,0,5789.11]                    }],
-                    chart: {
-                        type: 'bar',
-                        height: 350,
-                        background: $('.dark-theme').length ? '#232327' : ''
-                    },
-                    colors: ['#00afb9', '#99b21f', '#6b9080'],
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            columnWidth: '55%',
-                            endingShape: 'rounded'
-                        },
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    stroke: {
-                        show: true,
-                        width: 2,
-                        colors: ['transparent']
-                    },
-                    xaxis: {
-                        categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"],
-                    },
-                    yaxis: {},
-                    fill: {
-                        opacity: 1,
-                    },
-                    tooltip: {
-                        y: {
-                            formatter: function (val) {
-                                return baseCurrSymbol + val;
-                            }
-                        }
-                    }
-                };
-                var chart = new ApexCharts(document.querySelector("#columnChart"), options);
-                chart.render();
-            }
-
-            let monthlyDeposits = {"Jan":0,"Feb":0,"Mar":0,"Apr":0,"May":70833.33,"Jun":967741.94,"Jul":100,"Aug":0,"Sep":258225.78670330014,"Oct":31237.71098901,"Nov":0,"Dec":0};
-
-            function calculateMaxValue(data) {
-                const maxValue = Math.max(...Object.values(data));
-                const increment = 10000;
-                return Math.ceil(maxValue / increment) * increment;
-            }
-
-            const maxYValue = calculateMaxValue(monthlyDeposits) +10000;
-
-            if ($('#lineChart').length) {
-                let options = {
-                    theme: {
-                        mode: $('.dark-theme').length ? 'dark' : 'light'
-                    },
-                    series: [{
-                        name: "Deposit",
-                        data: Object.values(monthlyDeposits).map(value => parseFloat(value).toFixed(2))
-                    }],
-                    chart: {
-                        height: 350,
-                        type: 'line',
-
-                        background: $('.dark-theme').length ? '#232327' : '',
-                        dropShadow: {
-                            enabled: true,
-                            color: '#000',
-                            top: 18,
-                            left: 7,
-                            blur: 10,
-                            opacity: 0.2
-                        },
-                        zoom: {
-                            enabled: false
-                        },
-                        toolbar: {
-                            show: false
-                        }
-                    },
-                    colors: ['#99b21f'],
-                    dataLabels: {
-                        enabled: true,
-                        formatter: function (val) {
-                            return baseCurrSymbol + val;
-                        }
-                    },
-                    stroke: {
-                        curve: 'smooth'
-                    },
-                    title: {
-                        text: 'Monthly Deposit History for Current Year',
-                        align: 'left'
-                    },
-                    grid: {
-                        borderColor: '#e7e7e7',
-                        row: {
-                            colors: [$('.dark-theme').length ? '#232327' : '#f3f3f3', 'transparent'],
-                            opacity: 0.5
-                        },
-                    },
-                    markers: {
-                        size: 1
-                    },
-                    xaxis: {
-                        categories: Object.keys(monthlyDeposits),
-                        title: {
-                            text: 'Month'
-                        }
-                    },
-                    yaxis: {
-                        min: 0,
-                        max: maxYValue
-                    },
-                    legend: {
-                        position: 'top',
-                        horizontalAlign: 'right',
-                        floating: true,
-                        offsetY: -25,
-                        offsetX: -5
-                    }
-                };
-
-                let chart = new ApexCharts(document.querySelector("#lineChart"), options);
-                chart.render();
-            }
-
-        })
-    </script>
+   
         <script type="module">
             import {
                 initializeApp
@@ -768,7 +758,7 @@
         });
     </script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="footer">
     © 2024 Fincapital Market. All rights reserved.
 </div>

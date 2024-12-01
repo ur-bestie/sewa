@@ -78,17 +78,18 @@ class House(models.Model):
     price = models.IntegerField(default=1000)
     description = models.TextField(max_length=10000, default='mmml')
     features = models.TextField(max_length=10000)
+    location_link = models.URLField(max_length=200, default='https://googlemap.com')
     main_picture = models.FileField(upload_to='house/main_pictures/')  # Main display picture
-    other_pictures = models.ManyToManyField('HousePicture', related_name='houses')  # ManyToMany for other pictures
+    other_pictures = models.ManyToManyField('HousePicture', related_name='houses')
 
     def __str__(self):
         return self.name
 
 class HousePicture(models.Model):
     picture = models.FileField(upload_to='house/other_pictures/')  # Store multiple pictures
+    caption = models.CharField(max_length=255, blank=True, null=True)  # Add this field
 
-    def __str__(self):
-        return f"Picture {self.id}"
+    
     
 
 
@@ -191,3 +192,46 @@ class houserentconfir(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+
+class Shares(models.Model):
+    name = models.CharField(max_length=100, unique=True)  # Name of the share
+    img = models.ImageField(upload_to='sharesimg')
+    value = models.DecimalField(max_digits=12, decimal_places=2, default=100.00)  # Current value of the share
+    interest_rate = models.DecimalField(max_digits=5, decimal_places=2, default=2.00)  # Interest rate in percentage
+    update_interval = models.IntegerField(default=5)  # Update interval in seconds
+    end_interval = models.IntegerField(default=20)
+
+    def __str__(self):
+        return f"{self.name}: {self.value}"
+
+
+
+class user_Shares(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    shares = models.ForeignKey(Shares, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)  # Name of the share
+    amount = models.IntegerField(default=600)
+    value = models.DecimalField(max_digits=12, decimal_places=2, default=100.00)  # Current value of the share
+    interest_rate = models.DecimalField(max_digits=5, decimal_places=2, default=2.00)  # Interest rate in percentage
+    update_interval = models.IntegerField(default=5)  # Update interval in seconds
+    end_interval = models.IntegerField(default=20)
+    status = models.BooleanField(default=False)
+    date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+
+    def __str__(self):
+        return f"{self.name}: {self.value}"
+
+
+class notification(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    subject = models.CharField(max_length=100)
+    message = models.TextField(max_length=1000)
+    status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+
+

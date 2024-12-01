@@ -8,6 +8,7 @@ admin.site.register(paymentmethod)
 admin.site.register(deposit_his)
 admin.site.register(asset)
 admin.site.register(assetbuy)
+admin.site.register(withdraw_his)
 
 class HousePictureInline(admin.TabularInline):  # You can also use StackedInline for a different layout
     model = House.other_pictures.through  # Use the through model for ManyToMany
@@ -51,3 +52,10 @@ class HouseforrentPicturesAdmin(admin.ModelAdmin):
 admin.site.register(RentalApplication)
 admin.site.register(houserentconfir)
 admin.site.register(newsletter)
+@admin.register(Shares)
+class SharesAdmin(admin.ModelAdmin):
+    list_display = ['name', 'value', 'interest_rate']
+
+@admin.register(user_Shares)
+class user_SharesAdmin(admin.ModelAdmin):
+    list_display = ['name', 'value', 'interest_rate']

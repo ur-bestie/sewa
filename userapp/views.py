@@ -2,6 +2,7 @@ import requests
 import logging
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.db.models import Sum
 from .models import *
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User, auth
@@ -78,8 +79,36 @@ def user(request):
    user = request.user
    acc = userwallet.objects.get_or_create(user=user,currency='$')
    x = userwallet.objects.filter(user=user).first
+   th = trans_his.objects.filter(user=user).aggregate(Sum('amount'))['amount__sum']
+   if th is None:
+    th = 0
+   total_dep = deposit_his.objects.filter(user=user).aggregate(Sum('amount'))['amount__sum']
+   if total_dep is None:
+    total_dep = 0
+
+   twd = withdraw_his.objects.filter(user=user).aggregate(Sum('amount'))['amount__sum']
+   if twd is None:
+     twd = 0
+   try:
+    notif = notification.objects.filter(user=user)
+   except:
+     notification.DoesNotExist
+     notif = None 
    return render(request,'user/dashboard.html', locals())
-   
+
+
+def markread(request, id):
+    n = notification.objects.get(id=id)
+    n.status = False
+    n.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def markunread(request, id):
+    n = notification.objects.get(id=id)
+    n.status = True
+    n.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 @login_required
 def deposit(request):
@@ -362,7 +391,38 @@ def withdrawhis(request):
    return render(request,'user/withdrawhis.html', locals())
 
 
+@login_required
+def shares_view(request):
+   user = request.user
+   x = Shares.objects.all()
+   amount = request.POST.get('amount')
+   a_id = request.POST.get('a_id')
+   if request.method == 'POST':
+      ba = userwallet.objects.get(user=user)
+      if float(amount) > ba.amount:
+         messages.error(request,'insuficiant funds')
+         return redirect('/assets')
+      else:
+         shares_id = Shares.objects.get(id=a_id)
+         u_s = user_Shares.objects.create(
+            user = user,shares=shares_id,name=shares_id.name,amount=amount,value=amount,interest_rate=shares_id.interest_rate,update_interval=shares_id.update_interval,end_interval=shares_id.end_interval
+         )
+         
+         messages.success(request,'shares is bought successfully')
+         return redirect('/myshares')
+   else:
+    return render(request,'user/shares.html',{'x':x})
 
+
+@login_required
+def myshares(request):
+   user = request.user
+   try:
+     ms = user_Shares.objects.filter(user=request.user)
+   except:
+      ms = user_Shares.DoesNotExist
+      ms = None
+   return render(request,'user/myshares.html',locals())
 
 
 

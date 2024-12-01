@@ -27,6 +27,10 @@ urlpatterns = [
     path('withdrawhis',views.withdrawhis, name='withdrawhis'),
     path('transf_his',views.transf_his, name='transf_his'),
     path('newslet',views.newslet, name='newslet'),
+    path('shares',views.shares_view, name='shares'),
+    path('myshares',views.myshares, name='myshares'),
+    path('markread/<str:id>',views.markread, name='markread'),
+    path('markunread/<str:id>',views.markunread, name='markunread'),
 
 
 

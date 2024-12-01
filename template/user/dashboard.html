@@ -88,8 +88,8 @@
                             </div>
 
                             <div class="statistics-box-body">
-                                <h5 class="title">1,700.00
-                                    <span class="sub">EUR</span>
+                                <h5 class="title">${{x.amount}}
+                                    <span class="sub">USD</span>
                                 </h5>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                             <div class="statistics-box-body">
-                                <h5 class="title">265.00
+                                <h5 class="title">${{th}}
                                     <span class="sub">USD</span>
                                 </h5>
                             </div>
@@ -120,7 +120,7 @@
                                 </div>
                             </div>
                             <div class="statistics-box-body">
-                                <h5 class="title">31,237.71
+                                <h5 class="title">{{total_dep}}
                                     <span class="sub">USD</span>
                                 </h5>
                             </div>
@@ -136,7 +136,7 @@
                                 </div>
                             </div>
                             <div class="statistics-box-body">
-                                <h5 class="title">350.00
+                                <h5 class="title">${{twd}}
                                     <span class="sub">USD</span>
                                 </h5>
                             </div>
@@ -153,363 +153,185 @@
                     <div class="mb-20 d-flex align-items-center justify-content-between gap-3">
                         <h4>Transaction</h4>
                     </div>
-                    <div id="columnChart"></div>
+                    <div>
+                        <canvas id="myChart"></canvas>
+                      </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-20 d-flex align-items-center justify-content-between gap-3">
-                        <h4>Deposit</h4>
+                        <h4>Views</h4>
                     </div>
-                    <div id="lineChart"></div>
+                   <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+    {
+    "width": "100%",
+    "height": "550",
+    "symbolsGroups": [
+      {
+        "name": "Indices",
+        "originalName": "Indices",
+        "symbols": [
+          {
+            "name": "FOREXCOM:SPXUSD",
+            "displayName": "S&P 500 Index"
+          },
+          {
+            "name": "FOREXCOM:NSXUSD",
+            "displayName": "US 100 Cash CFD"
+          },
+          {
+            "name": "FOREXCOM:DJI",
+            "displayName": "Dow Jones Industrial Average Index"
+          },
+          {
+            "name": "INDEX:NKY",
+            "displayName": "Japan 225"
+          },
+          {
+            "name": "INDEX:DEU40",
+            "displayName": "DAX Index"
+          },
+          {
+            "name": "FOREXCOM:UKXGBP",
+            "displayName": "FTSE 100 Index"
+          }
+        ]
+      },
+      {
+        "name": "Futures",
+        "originalName": "Futures",
+        "symbols": [
+          {
+            "name": "CME_MINI:ES1!",
+            "displayName": "S&P 500"
+          },
+          {
+            "name": "CME:6E1!",
+            "displayName": "Euro"
+          },
+          {
+            "name": "COMEX:GC1!",
+            "displayName": "Gold"
+          },
+          {
+            "name": "NYMEX:CL1!",
+            "displayName": "WTI Crude Oil"
+          },
+          {
+            "name": "NYMEX:NG1!",
+            "displayName": "Gas"
+          },
+          {
+            "name": "CBOT:ZC1!",
+            "displayName": "Corn"
+          }
+        ]
+      },
+      {
+        "name": "Bonds",
+        "originalName": "Bonds",
+        "symbols": [
+          {
+            "name": "CBOT:ZB1!",
+            "displayName": "T-Bond"
+          },
+          {
+            "name": "CBOT:UB1!",
+            "displayName": "Ultra T-Bond"
+          },
+          {
+            "name": "EUREX:FGBL1!",
+            "displayName": "Euro Bund"
+          },
+          {
+            "name": "EUREX:FBTP1!",
+            "displayName": "Euro BTP"
+          },
+          {
+            "name": "EUREX:FGBM1!",
+            "displayName": "Euro BOBL"
+          }
+        ]
+      },
+      {
+        "name": "Forex",
+        "originalName": "Forex",
+        "symbols": [
+          {
+            "name": "FX:EURUSD",
+            "displayName": "EUR to USD"
+          },
+          {
+            "name": "FX:GBPUSD",
+            "displayName": "GBP to USD"
+          },
+          {
+            "name": "FX:USDJPY",
+            "displayName": "USD to JPY"
+          },
+          {
+            "name": "FX:USDCHF",
+            "displayName": "USD to CHF"
+          },
+          {
+            "name": "FX:AUDUSD",
+            "displayName": "AUD to USD"
+          },
+          {
+            "name": "FX:USDCAD",
+            "displayName": "USD to CAD"
+          }
+        ]
+      }
+    ],
+    "showSymbolLogo": true,
+    "isTransparent": false,
+    "colorTheme": "light",
+    "locale": "en"
+  }
+    </script>
+  </div>
+  <!-- TradingView Widget END -->
                 </div>
             </div>
         </div>
 
-        <div class="mt-30">
-            <div class="d-flex justify-content-between align-items-center border-0 flex-wrap gap-3 mb-20">
-                <h4 class="mb-0">Latest Transactions</h4>
-                <div class="gap-3 d-flex">
-                    <a href="https://waiz.bugfinder.net/user/all-transaction-list" class="cmn-btn">
-                        See all <i class="fa-regular fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="cmn-table">
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle">
-                        <thead>
-                        <tr>
-                            <th scope="col">Type</th>
-                            <th scope="col">Transaction ID</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Time & Date</th>
-                            <th scope="col">Remarks</th>
-                            <th scope="col">action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                                                    
-                            <tr>
-                                <td data-label="Type">
-                                    <div class="type">
-                                        <span class="icon icon-sent">
-                                            <i class="fa-regular fa-arrow-up"></i>
-                                        </span>
-                                        <span>Sent</span>
-                                    </div>
-                                </td>
-                                <td data-label="Transaction ID"><span>#O79ADK6BGR8E</span></td>
-                                <td data-label="Amount">
-                                    <span class="fw-bold">100 USD </span>
-                                </td>
-
-                                <td data-label="Time">
-                                    <span>05 Oct 2024</span>
-                                </td>
-                                <td data-label="Remarks">
-                                    <span>Converted Money to BDT wallet</span>
-                                </td>
-                                <td data-label="Action">
-                                    <a class="cmn-btn3 showInfo" href="#"
-                                       data-trx_type="-" data-remarks="Converted Money to BDT wallet"
-                                       data-amount="100 USD " data-charge="0 USD "
-                                       data-trxid="O79ADK6BGR8E"
-                                       data-trx_date="05 Oct 2024"
-                                       data-note="N/A"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#infoViewModal"><i class="fa-regular fa-eye"></i>
-                                        View Details                                    </a>
-                                </td>
-                            </tr>
-                                                    
-                            <tr>
-                                <td data-label="Type">
-                                    <div class="type">
-                                        <span class="icon icon-received">
-                                            <i class="fa-regular fa-arrow-down"></i>
-                                        </span>
-                                        <span>Received</span>
-                                    </div>
-                                </td>
-                                <td data-label="Transaction ID"><span>#PYDPFH1C5WU9</span></td>
-                                <td data-label="Amount">
-                                    <span class="fw-bold">11,952 BDT </span>
-                                </td>
-
-                                <td data-label="Time">
-                                    <span>05 Oct 2024</span>
-                                </td>
-                                <td data-label="Remarks">
-                                    <span>Converted Money From USD wallet</span>
-                                </td>
-                                <td data-label="Action">
-                                    <a class="cmn-btn3 showInfo" href="#"
-                                       data-trx_type="+" data-remarks="Converted Money From USD wallet"
-                                       data-amount="11,952 BDT " data-charge="0 USD "
-                                       data-trxid="PYDPFH1C5WU9"
-                                       data-trx_date="05 Oct 2024"
-                                       data-note="N/A"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#infoViewModal"><i class="fa-regular fa-eye"></i>
-                                        View Details                                    </a>
-                                </td>
-                            </tr>
-                                                    
-                            <tr>
-                                <td data-label="Type">
-                                    <div class="type">
-                                        <span class="icon icon-received">
-                                            <i class="fa-regular fa-arrow-down"></i>
-                                        </span>
-                                        <span>Received</span>
-                                    </div>
-                                </td>
-                                <td data-label="Transaction ID"><span>#HPA3ANQZFKYZ</span></td>
-                                <td data-label="Amount">
-                                    <span class="fw-bold">150 USD </span>
-                                </td>
-
-                                <td data-label="Time">
-                                    <span>04 Oct 2024</span>
-                                </td>
-                                <td data-label="Remarks">
-                                    <span>Deposit Via Flutterwave</span>
-                                </td>
-                                <td data-label="Action">
-                                    <a class="cmn-btn3 showInfo" href="#"
-                                       data-trx_type="+" data-remarks="Deposit Via Flutterwave"
-                                       data-amount="150 USD " data-charge="0 USD "
-                                       data-trxid="HPA3ANQZFKYZ"
-                                       data-trx_date="04 Oct 2024"
-                                       data-note="N/A"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#infoViewModal"><i class="fa-regular fa-eye"></i>
-                                        View Details                                    </a>
-                                </td>
-                            </tr>
-                                                    
-                            <tr>
-                                <td data-label="Type">
-                                    <div class="type">
-                                        <span class="icon icon-received">
-                                            <i class="fa-regular fa-arrow-down"></i>
-                                        </span>
-                                        <span>Received</span>
-                                    </div>
-                                </td>
-                                <td data-label="Transaction ID"><span>#7O55TQQGJZPF</span></td>
-                                <td data-label="Amount">
-                                    <span class="fw-bold">1 USD </span>
-                                </td>
-
-                                <td data-label="Time">
-                                    <span>24 Sep 2024</span>
-                                </td>
-                                <td data-label="Remarks">
-                                    <span>Deposit Via Stripe </span>
-                                </td>
-                                <td data-label="Action">
-                                    <a class="cmn-btn3 showInfo" href="#"
-                                       data-trx_type="+" data-remarks="Deposit Via Stripe "
-                                       data-amount="1 USD " data-charge="0 USD "
-                                       data-trxid="7O55TQQGJZPF"
-                                       data-trx_date="24 Sep 2024"
-                                       data-note="N/A"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#infoViewModal"><i class="fa-regular fa-eye"></i>
-                                        View Details                                    </a>
-                                </td>
-                            </tr>
-                                                    
-                            <tr>
-                                <td data-label="Type">
-                                    <div class="type">
-                                        <span class="icon icon-sent">
-                                            <i class="fa-regular fa-arrow-up"></i>
-                                        </span>
-                                        <span>Sent</span>
-                                    </div>
-                                </td>
-                                <td data-label="Transaction ID"><span>#J22YHXEBWCZ1</span></td>
-                                <td data-label="Amount">
-                                    <span class="fw-bold">100 USD </span>
-                                </td>
-
-                                <td data-label="Time">
-                                    <span>24 Sep 2024</span>
-                                </td>
-                                <td data-label="Remarks">
-                                    <span>Converted Money to BDT wallet</span>
-                                </td>
-                                <td data-label="Action">
-                                    <a class="cmn-btn3 showInfo" href="#"
-                                       data-trx_type="-" data-remarks="Converted Money to BDT wallet"
-                                       data-amount="100 USD " data-charge="0 USD "
-                                       data-trxid="J22YHXEBWCZ1"
-                                       data-trx_date="24 Sep 2024"
-                                       data-note="N/A"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#infoViewModal"><i class="fa-regular fa-eye"></i>
-                                        View Details                                    </a>
-                                </td>
-                            </tr>
-                                                    
-                            <tr>
-                                <td data-label="Type">
-                                    <div class="type">
-                                        <span class="icon icon-received">
-                                            <i class="fa-regular fa-arrow-down"></i>
-                                        </span>
-                                        <span>Received</span>
-                                    </div>
-                                </td>
-                                <td data-label="Transaction ID"><span>#6YXRWJUVRZHA</span></td>
-                                <td data-label="Amount">
-                                    <span class="fw-bold">11,952 BDT </span>
-                                </td>
-
-                                <td data-label="Time">
-                                    <span>24 Sep 2024</span>
-                                </td>
-                                <td data-label="Remarks">
-                                    <span>Converted Money From USD wallet</span>
-                                </td>
-                                <td data-label="Action">
-                                    <a class="cmn-btn3 showInfo" href="#"
-                                       data-trx_type="+" data-remarks="Converted Money From USD wallet"
-                                       data-amount="11,952 BDT " data-charge="0 USD "
-                                       data-trxid="6YXRWJUVRZHA"
-                                       data-trx_date="24 Sep 2024"
-                                       data-note="N/A"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#infoViewModal"><i class="fa-regular fa-eye"></i>
-                                        View Details                                    </a>
-                                </td>
-                            </tr>
-                                                </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    
 
     </div>
 
-    <div class="modal fade" id="addWallet" tabindex="-1" aria-labelledby="share" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content ">
-                <form method="POST" action="https://waiz.bugfinder.net/user/wallet-store">
-                    <input type="hidden" name="_token" value="TC391ydErYvw3b4jq2YTl9boSzsc5uMHCHPc1MOz" autocomplete="off">                    <div class="modal-header">
-                        <h4 class="modal-title" id="share">Create New Wallet</h4>
-                        <button type="button" class="cmn-btn-close" data-bs-dismiss="modal" aria-label="Close">
-                            <i class="fa-light fa-xmark"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-12 mb-2">
-                            <div id="formModal">
-                                <label class="form-label" for="currency">wallet currency</label>
-                                <select class="cmn-select2-image" name="currency_code" id="currency">
-                                                                            <option data-img="https://waiz.bugfinder.net/assets/upload/country/gVwxJ2I9WQnNdaJFIwI4mVM92RCxOp.webp"
-                                                data-country="18" value="BDT"
-                                            >
-                                            BDT - Bangladeshi Taka                                        </option>
-                                                                            <option data-img="https://waiz.bugfinder.net/assets/upload/country/tWv0j9txFB6UyyRlGgKor3xN6ewBU6.webp"
-                                                data-country="45" value="CNY"
-                                            >
-                                            CNY - Chinese Yuan                                        </option>
-                                                                            <option data-img="https://waiz.bugfinder.net/assets/upload/country/2ZizwCPvdQPsKUu7QGsSGDXkuPQBHH.avif"
-                                                data-country="60" value="DKK"
-                                            >
-                                            DKK - Danish Krone                                        </option>
-                                                                            <option data-img="https://waiz.bugfinder.net/assets/global/img/euro.png"
-                                                data-country="83" value="EUR"
-                                            >
-                                            EUR - Euro                                        </option>
-                                                                            <option data-img="https://waiz.bugfinder.net/assets/upload/country/kbkA10KHZ6LTK4VpjYX7aG9yb7vUTr.webp"
-                                                data-country="102" value="INR"
-                                            >
-                                            INR - Indian Rupee                                        </option>
-                                                                            <option data-img="https://waiz.bugfinder.net/assets/upload/country/qUycsnCVExvt6z8xKRq6u7yfZI6dHy.webp"
-                                                data-country="110" value="JPY"
-                                            >
-                                            JPY - Japanese Yen                                        </option>
-                                                                            <option data-img="https://waiz.bugfinder.net/assets/upload/country/KhHiTspJItVtJJ1KiU3M7Gt53med8C.avif"
-                                                data-country="117" value="KWD"
-                                            >
-                                            KWD - Kuwaiti Dinar                                        </option>
-                                                                            <option data-img="https://waiz.bugfinder.net/assets/upload/country/xGH2jNJd4aiHAbQyhnoxyMJcXlOXWm.avif"
-                                                data-country="232" value="UGX"
-                                            >
-                                            UGX - Ugandan Shilling                                        </option>
-                                                                            <option data-img="https://waiz.bugfinder.net/assets/upload/country/ESVoyREUF5RTvrSqSqMn8LgPwLQIyK.avif"
-                                                data-country="236" value="USD"
-                                            >
-                                            USD - US Dollar                                        </option>
-                                                                    </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="cmn-btn3" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="cmn-btn">Create</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+   
 
-    <div class="modal fade" id="infoViewModal" tabindex="-1" role="dialog" aria-hidden="true"
-         data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="text-center mb-5">
-                        <h4 class="mt-3 mb-1">Transaction Details</h4>
-                    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-                    <div class="row mb-6">
-                        <div class="transaction-list mt-2">
-                            <div class="item">
-                                <div class="left-side">
-                                    <div class="icon">
-                                        <i class="fa-regular"></i>
-                                    </div>
-                                    <span class="remarks"></span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <strong class="trxId"></strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <script>
+      const ctx = document.getElementById('myChart');
+    
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Deposit', 'Withdrawal', 'Transfer', 'Total Balance',],
+          datasets: [{
+            label: '# $',
+            data: [{{total_dep}}, {{twd}}, {{th}}, {{x.amount}},],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
+     
 
-                    <div class="title mb-2 mt-4">Summary</div>
-                    <ul class="list-container mb-4 ">
-                        <li class="item py-2">
-                            <span>Amount</span>
-                            <span class=" fw-bold amount"></span>
-                        </li>
-                        <li class="item py-2">
-                            <span>Charge</span>
-                            <span class=" fw-semibold text-danger charge"></span>
-                        </li>
-                        <li class="item py-2">
-                            <span>Transaction Date</span>
-                            <span class=" fw-semibold trx_date"></span>
-                        </li>
-                        <li class="item py-2">
-                            <span>Note</span>
-                            <span class=" fw-semibold note"></span>
-                        </li>
-                    </ul>
-                    <div class="modal-footer-text mt-3">
-                        <div class="d-flex justify-content-end gap-3 status-buttons">
-                            <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
     {% endblock %}
 

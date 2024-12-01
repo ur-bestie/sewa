@@ -1,0 +1,431 @@
+{% extends 'useradmin/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+    <!-- Content -->
+        <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title">Payment Request</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item">
+                                <a class="breadcrumb-link" href="https://waiz.bugfinder.app/admin/dashboard">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Payment Request</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header card-header-content-md-between">
+                <div class="mb-2 mb-md-0">
+                    <div class="input-group input-group-merge navbar-input-group">
+                        <div class="input-group-prepend input-group-text">
+                            <i class="bi-search"></i>
+                        </div>
+                        <input type="search" id="datatableSearch"
+                               class="search form-control form-control-sm"
+                               placeholder="Search here"
+                               aria-label="Search here"
+                               autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="d-grid d-sm-flex justify-content-md-end align-items-sm-center gap-2">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-white btn-sm w-100"
+                                id="dropdownMenuClickable" data-bs-auto-close="false"
+                                id="usersFilterDropdown"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <i class="bi-filter me-1"></i> Filter                        </button>
+
+                        <div
+                            class="dropdown-menu dropdown-menu-sm-end dropdown-card card-dropdown-filter-centered filter_dropdown"
+                            aria-labelledby="dropdownMenuClickable">
+                            <div class="card">
+                                <div class="card-header card-header-content-between">
+                                    <h5 class="card-header-title">Filter</h5>
+                                    <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm ms-2"
+                                            id="filter_close_btn">
+                                        <i class="bi-x-lg"></i>
+                                    </button>
+                                </div>
+
+                                <div class="card-body">
+                                    <form id="filter_form">
+                                        <div class="row">
+                                            <div class="mb-4">
+                                                <span class="text-cap text-body">Transaction ID</span>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control"
+                                                               id="transaction_id_filter_input"
+                                                               autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm mb-4">
+                                                <small class="text-cap text-body">Status</small>
+                                                <div class="tom-select-custom">
+                                                    <select
+                                                        class="js-select js-datatable-filter form-select form-select-sm"
+                                                        id="filter_status"
+                                                        data-target-column-index="4" data-hs-tom-select-options='{
+                                                                  "placeholder": "Any status",
+                                                                  "searchInDropdown": false,
+                                                                  "hideSearch": true,
+                                                                  "dropdownWidth": "10rem"
+                                                                }'>
+                                                        <option value="all"
+                                                                data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-secondary"></span>All Status</span>'>
+                                                            All Status                                                        </option>
+                                                        <option value="2"
+                                                                data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-warning"></span>Pending</span>'>
+                                                            Pending                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 mb-4">
+                                                <span class="text-cap text-body">Method</span>
+                                                <div class="tom-select-custom">
+                                                    <select class="js-select form-select" id="filter_method">
+                                                        <option value="all"
+                                                                data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/all_gateway.png" alt="..." /><span class="text-truncate">All Gateway</span></span>'
+                                                                                                                    <option value="2"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/F2Dca5VrhZOm5QSTvSj6Cb9D6R2UUp.webp" alt="Flag" /><span class="text-truncate">Stripe </span></span>'>
+                                                                Stripe                                                             </option>
+                                                                                                                    <option value="1000"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/A2zYpiPKpPWcByCCys7mpnCugQEHvv.avif" alt="Flag" /><span class="text-truncate">Bank Transfer</span></span>'>
+                                                                Bank Transfer                                                            </option>
+                                                                                                                    <option value="9"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/AYYHy5rYbjo8OGBV2PX7aqpP5IHyOg.webp" alt="Flag" /><span class="text-truncate">Flutterwave</span></span>'>
+                                                                Flutterwave                                                            </option>
+                                                                                                                    <option value="1"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/rukxDLSXMeMGGyN6KiTucF5Bh30FbO.webp" alt="Flag" /><span class="text-truncate">Paypal</span></span>'>
+                                                                Paypal                                                            </option>
+                                                                                                                    <option value="37"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/rbbey8zLDMKdNPftwRdOSY79eVEGLi.avif" alt="Flag" /><span class="text-truncate">cashonex</span></span>'>
+                                                                cashonex                                                            </option>
+                                                                                                                    <option value="29"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/x4BeAPBkYuM494NvWfAkrxTfk1tbUt.avif" alt="Flag" /><span class="text-truncate">Khalti Payment</span></span>'>
+                                                                Khalti Payment                                                            </option>
+                                                                                                                    <option value="7"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/DR1hOWzTPm7wdvmJVGenNVFqdT5SJP.webp" alt="Flag" /><span class="text-truncate">PayStack</span></span>'>
+                                                                PayStack                                                            </option>
+                                                                                                                    <option value="4"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/eSSreBDztXYn9UjK91B0muLr1Nf2kN.webp" alt="Flag" /><span class="text-truncate">Perfect Money</span></span>'>
+                                                                Perfect Money                                                            </option>
+                                                                                                                    <option value="35"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/YuBFrsBWuxf17sqB6z8y039xgdxyat.avif" alt="Flag" /><span class="text-truncate">IME PAY</span></span>'>
+                                                                IME PAY                                                            </option>
+                                                                                                                    <option value="13"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/0zezRmPTfrn1Q34gnv65bUCoMVtT6s.webp" alt="Flag" /><span class="text-truncate">2checkout</span></span>'>
+                                                                2checkout                                                            </option>
+                                                                                                                    <option value="11"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/y9M8j59LNJSYiedc6WeaSMJy8YqmNv.webp" alt="Flag" /><span class="text-truncate">instamojo</span></span>'>
+                                                                instamojo                                                            </option>
+                                                                                                                    <option value="36"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/GAcL1CamWpPaeDGaD6aSInqXknXK50.avif" alt="Flag" /><span class="text-truncate">Cashonex Hosted</span></span>'>
+                                                                Cashonex Hosted                                                            </option>
+                                                                                                                    <option value="6"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/ypnPuzm1Kxm24UJoKfEAy2dFlhSgx2.webp" alt="Flag" /><span class="text-truncate">Payeer</span></span>'>
+                                                                Payeer                                                            </option>
+                                                                                                                    <option value="17"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/KpA16QNPc9Z19FXah3wKDvRI495QsO.webp" alt="Flag" /><span class="text-truncate">Mercado Pago</span></span>'>
+                                                                Mercado Pago                                                            </option>
+                                                                                                                    <option value="18"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/ygcem6ozkAPmDRhs3teepCwBbFlZdC.webp" alt="Flag" /><span class="text-truncate">Coingate</span></span>'>
+                                                                Coingate                                                            </option>
+                                                                                                                    <option value="19"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/BcJivOzEHHcAQlVxNtQblxw53ypeqf.webp" alt="Flag" /><span class="text-truncate">Coinbase Commerce</span></span>'>
+                                                                Coinbase Commerce                                                            </option>
+                                                                                                                    <option value="20"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/n3Uy9bFd9Haw9h5o7qcYGoXkxQFf6W.webp" alt="Flag" /><span class="text-truncate">Monnify</span></span>'>
+                                                                Monnify                                                            </option>
+                                                                                                                    <option value="22"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/RV3EUwmZ2IRQ3Jrt9IzxmS0i0BhOBG.webp" alt="Flag" /><span class="text-truncate">CoinPayments</span></span>'>
+                                                                CoinPayments                                                            </option>
+                                                                                                                    <option value="30"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/j8bFL5e5LOn6YkquKQiy6com8w1uj2.avif" alt="Flag" /><span class="text-truncate">MAGUA PAY</span></span>'>
+                                                                MAGUA PAY                                                            </option>
+                                                                                                                    <option value="28"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/Z5wvvbRZN7nZUC6GgPTqMyf1lM2WBf.avif" alt="Flag" /><span class="text-truncate">Nowpayments</span></span>'>
+                                                                Nowpayments                                                            </option>
+                                                                                                                    <option value="5"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/gWebvaDTOPQPOiu2Le5EKKSGeTA2ZL.webp" alt="Flag" /><span class="text-truncate">PayTM</span></span>'>
+                                                                PayTM                                                            </option>
+                                                                                                                    <option value="12"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/fOrbgqnljcnSUXXXNBEN68fVu7veJd.webp" alt="Flag" /><span class="text-truncate">Mollie</span></span>'>
+                                                                Mollie                                                            </option>
+                                                                                                                    <option value="16"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/ampDJJ0UuC0jlcDXJHAcnRiw4fLTdT.webp" alt="Flag" /><span class="text-truncate">PayUmoney</span></span>'>
+                                                                PayUmoney                                                            </option>
+                                                                                                                    <option value="39"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/9WCd4Kn4EvlDX8y4V3bEV7eazCTlla.avif" alt="Flag" /><span class="text-truncate">CinetPay </span></span>'>
+                                                                CinetPay                                                             </option>
+                                                                                                                    <option value="32"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/DIWitJin1UBjkwTLrSPcstnUDGmTz3.avif" alt="Flag" /><span class="text-truncate">Konnect</span></span>'>
+                                                                Konnect                                                            </option>
+                                                                                                                    <option value="33"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/kkBeSnA5MFdlLrrSOpF3dJp1JwMxIB.avif" alt="Flag" /><span class="text-truncate">Mypay Np</span></span>'>
+                                                                Mypay Np                                                            </option>
+                                                                                                                    <option value="8"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/x6HOsziQhmuJ7iu46zMKdBEewDSesm.avif" alt="Flag" /><span class="text-truncate">VoguePay</span></span>'>
+                                                                VoguePay                                                            </option>
+                                                                                                                    <option value="14"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/kY6uyYr0nPgU0SyM69Yy4ei7aAowCu.avif" alt="Flag" /><span class="text-truncate">Authorize.Net</span></span>'>
+                                                                Authorize.Net                                                            </option>
+                                                                                                                    <option value="27"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/4aJggeZFR2SBLYMw9DewRUOByPaRez.avif" alt="Flag" /><span class="text-truncate">peachpayments</span></span>'>
+                                                                peachpayments                                                            </option>
+                                                                                                                    <option value="31"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/VqJR12ZLuhmisIpUbpm6p2OCqm4hHC.avif" alt="Flag" /><span class="text-truncate">Free kassa</span></span>'>
+                                                                Free kassa                                                            </option>
+                                                                                                                    <option value="26"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/7fRFCClfGcMefCb35AVzgnEJevUi37.avif" alt="Flag" /><span class="text-truncate">Midtrans</span></span>'>
+                                                                Midtrans                                                            </option>
+                                                                                                                    <option value="38"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/bZ7w2koAzATHG9gp8k6JzRhhusXTpH.avif" alt="Flag" /><span class="text-truncate">Binance</span></span>'>
+                                                                Binance                                                            </option>
+                                                                                                                    <option value="23"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/20zn8YG4VPgOUSBQHvj0GeKMHwL4ZY.avif" alt="Flag" /><span class="text-truncate">Blockchain</span></span>'>
+                                                                Blockchain                                                            </option>
+                                                                                                                    <option value="25"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/7Y3IZE7VY61XHwNxRzrgWVFZx8zUu0.avif" alt="Flag" /><span class="text-truncate">cashmaal</span></span>'>
+                                                                cashmaal                                                            </option>
+                                                                                                                    <option value="10"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/HvTfH2WAQtw0pcN4ZzssUT5l86FMCZ.avif" alt="Flag" /><span class="text-truncate">RazorPay</span></span>'>
+                                                                RazorPay                                                            </option>
+                                                                                                                    <option value="3"
+                                                                    data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="https://waiz.bugfinder.app/assets/upload/gateway/Fkb2V3GNXGIYSSoGXFjH6fmKh6YpsJ.webp" alt="Flag" /><span class="text-truncate">Skrill</span></span>'>
+                                                                Skrill                                                            </option>
+                                                                                                            </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 mb-4">
+                                                <span class="text-cap text-body">Date Range</span>
+                                                <div class="input-group mb-3 custom">
+                                                    <input type="text" id="filter_date_range"
+                                                           class="js-flatpickr form-control"
+                                                           placeholder="Select dates"
+                                                           data-hs-flatpickr-options='{
+                                                                 "dateFormat": "d/m/Y",
+                                                                 "mode": "range"
+                                                               }' aria-describedby="flatpickr_filter_date_range">
+                                                    <span class="input-group-text" id="flatpickr_filter_date_range">
+                                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row gx-2">
+                                            <div class="col">
+                                                <div class="d-grid">
+                                                    <button type="button" id="clear_filter"
+                                                            class="btn btn-white">Clear Filters</button>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="d-grid">
+                                                    <button type="button" class="btn btn-primary"
+                                                            id="filter_button"><i
+                                                            class="bi-search"></i> Apply</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" table-responsive datatable-custom  ">
+                <table id="datatable"
+                       class="js-datatable table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                       data-hs-datatables-options='{
+                       "columnDefs": [{
+                          "targets": [0, 9],
+                          "orderable": false
+                        }],
+                       "order": [],
+                       "info": {
+                         "totalQty": "#datatableWithPaginationInfoTotalQty"
+                       },
+                       "search": "#datatableSearch",
+                       "entries": "#datatableEntries",
+                       "pageLength": 15,
+                       "isResponsive": false,
+                       "isShowPaging": false,
+                       "pagination": "datatablePagination"
+                     }'>
+                    <thead class="thead-light">
+                    <tr>
+                        <th>No.</th>
+                        <th>Transaction ID</th>
+                        <th>Name</th>
+                        <th>Method</th>
+                        <th>Amount</th>
+                        <th>Charge</th>
+                        <th>Payable Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for x in x %}
+<tr>
+<td>N0</td>
+<td>{{x.id}}</td>
+<td>{{x.user.username}}</td>
+<td>{{x.paymentm.name}}</td>
+<td>${{x.amount}}</td>
+<td>0USD</td>
+<td>${{x.amount}}+</td>
+{% if x.status %}
+<td class="text-success">Approved</td>
+{% else %}
+<td class="text-warning">Pending</td>
+{% endif %}
+<td>{{x.date}}</td>
+<td><button type="button" class="btn btn-white btn-sm edit_btn" data-bs-toggle="modal" data-bs-target="#accountInvoiceReceiptModal{{x.id}}">  <i class="fa-solid fa-pen-to-square"></i> </button></td>
+</tr>
+
+
+
+
+
+
+<div class="modal fade" id="accountInvoiceReceiptModal{{x.id}}" tabindex="-1" role="dialog" aria-hidden="true"
+data-bs-backdrop="static">
+<div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-content">
+       <form role="form" method="POST" class="depositaprove" action="" enctype="multipart/form-data">
+           <input type="hidden" name="_token" value="sRCUyHFXxE3gSeo3gyy3ReaFTdaApm616ATCLV8f" autocomplete="off">                <input type="hidden" name="_method" value="put">                <div class="modal-body">
+               <div class="text-center mb-5">
+                   <h3 class="mb-1">Payment Information</h3>
+               </div>
+
+               <div class="row mb-6">
+                   <div class="col-md-4 mb-3 mb-md-0">
+                       <small class="text-cap text-secondary mb-0">Amount paid:</small>
+                       <h5 class="amount">${{x.amount}}</h5>
+                   </div>
+
+                   <div class="col-md-4 mb-3 mb-md-0">
+                       <small class="text-cap text-secondary mb-0">Date paid:</small>
+                       <span class="text-dark date">{{x.date}}</span>
+                   </div>
+
+                   <div class="col-md-4">
+                       <small class="text-cap text-secondary mb-0">Payment method:</small>
+                       <div class="d-flex align-items-center">
+                           <img class="avatar avatar-xss me-2 gateway_modal_image" src="{{x.paymentm.logo.url}}" alt="Image Description">
+                           <span class="text-dark method">{{x.paymentm.name}}</span>
+                       </div>
+                   </div>
+               </div>
+
+               <small class="text-cap mb-2">Payment Proof</small>
+               <ul class="list-group mb-4 payment_information">
+                <img src="{{x.proof.url}}" alt="">
+               </ul>
+
+               <div class="get-feedback">
+
+               </div>
+
+               <div class="modal-footer-text mt-3">
+                   <div class="d-flex justify-content-end gap-3 status-buttons">
+                       <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+                       <input type="hidden" class="action_id" name="id">
+                       <a href="/useradmin/userappr/{{x.id}}" class="btn btn-success btn-sm" >Approved</a>
+                       <a href="/useradmin/userrejec/{{x.id}}" class="btn btn-danger btn-sm"> Rejected</a>
+                   </div>
+               </div>
+           </div>
+       </form>
+   </div>
+</div>
+</div>
+
+
+
+
+
+{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-footer">
+                <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+                    <div class="col-sm mb-2 mb-sm-0">
+                        <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                            <span class="me-2">Showing:</span>
+                            <!-- Select -->
+                            <div class="tom-select-custom">
+                                <select id="datatableEntries"
+                                        class="js-select form-select form-select-borderless w-auto" autocomplete="off"
+                                        data-hs-tom-select-options='{
+                                            "searchInDropdown": false,
+                                            "hideSearch": true
+                                          }'>
+                                    <option value="10">10</option>
+                                    <option value="15" selected>15</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </div>
+                            <span class="text-secondary me-2">of</span>
+                            <span id="datatableWithPaginationInfoTotalQty"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-auto">
+                        <div class="d-flex  justify-content-center justify-content-sm-end">
+                            <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- End Content -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+
+{% endblock %}

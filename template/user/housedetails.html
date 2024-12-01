@@ -119,6 +119,13 @@ button:hover {
                 <img src="{{ picture.picture.url }}" alt="other images" onclick="changeImage('{{ picture.picture.url }}')">
                 {% endfor %}
             </div>
+
+            <div class="locationview" style="margin-top: 1rem;">
+                <h6>Street location</h6>
+                <a href="{{x.location_link}}"  target="_blank">
+                <img src="{% static 'img/Google-Map-US_10.webp' %}" alt="">
+            </a>
+            </div>
         </section>
 
         <!-- House Information -->
@@ -131,10 +138,12 @@ button:hover {
                     <li><strong>Price:</strong> ${{x.price}}</li>
                     <li><strong>Location:</strong> {{x.location}}</li>
                     <li></li><h5>Features</h5></li>
+                    <div style="white-space: pre-wrap;">
                     {{x.features}}
+                </div>
                 </ul>
             </div>
-
+<br>
             <!-- Booking Section -->
             <!-- <div class="booking">
                 <h3>Book Now</h3>
@@ -170,6 +179,14 @@ document.getElementById('booking-form').addEventListener('submit', function(e) {
 </body>
 </html>
 
+<script>
+    $(document).ready(function () {
+        const linkUrl = "{{ link_url }}";
+        const linkText = "{{ link_text }}";
 
+        // Dynamically insert the link into the div
+        $('#linkContainer').html(`<a href="${linkUrl}" target="_blank">${linkText}</a>`);
+    });
+</script>
 
 {% endblock %}

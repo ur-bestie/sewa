@@ -1,0 +1,205 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+   
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: transparent;
+            margin-top: 5rem;
+            
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 40px 20px;
+            gap: 30px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            font-size: 1.8rem;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+
+
+<header>
+    <h5>Invest In Shares</h5>
+    <p>the financial gain an investor makes from owning shares (equity) in a company or other financial instruments. Shares represent partial ownership in a company, and investors can earn profit through two primary means:
+
+     
+        <li>Capital Gains (Increase in Share Price)</li>
+         <li>  Dividends (Income Distributed by the Company)
+    </li>
+</p>
+<a href="/myshares" class="btn">My Shares</a>
+</header>
+
+<div class="container">
+    <!-- Starter Plan -->
+     {% for x in x %}
+    <div class="card">
+        <h4>{{x.name}}</h4>
+        <p>Ideal for beginners looking to start small and grow steadily.</p>
+        <div class="">
+            <img src="{{x.img.url}}" alt="">
+            <div class="content">
+                <div class="price"><h3>$100 - $9999</h3></div>
+        <p>• $100 <span style="color: rgb(12, 199, 12);">+{{x.interest_rate}}%</span></p>
+        <p>• Interest Period: Daily</p>
+        <p>• Minimum term: 1 month</p>
+            </div>
+        </div>
+        <a href="#" class="item showInfo btn"
+        data-trx_type="+"
+                               data-remarks="Shares"
+                               data-note="Pending Deposit"
+                               data-amount="{{x.name}} "
+                               data-charge="$100 - $9999"
+                               data-trxid="{{x.id}}"
+                               data-trx_date="+{{x.interest_rate}}%"
+                               data-bs-toggle="modal"
+                               data-bs-target="#infoViewModal{{x.id}}"
+                            >  Get Started</a>
+    </div>
+
+
+    <form action="" method="POST"> 
+        {% csrf_token %}
+       <div class="modal fade" id="infoViewModal{{x.id}}" tabindex="-1" role="dialog" aria-hidden="true"
+       data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <div class="text-center mb-5">
+                      <h4 class="mt-3 mb-1">Confirm your purchase</h4>
+                  </div>
+    
+                  <div class="row mb-6">
+                      <div class="transaction-list mt-2" id="trxModal">
+                          <div class="item">
+                              <div class="left-side">
+                                  <div class="icon">
+                                      <i class="fa-regular"></i>
+                                  </div>
+                                  <span class="remarks"></span>
+                              </div>
+                              <div class="d-flex gap-2">
+                                  <strong class="trxId"></strong>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+    
+                  <div class="title mb-2 mt-4">Summary</div>
+                  <ul class="list-container mb-4 ">
+                      <li class="item py-2">
+                          <span>Shares name</span>
+                          <span class=" fw-bold amount"></span>
+                      </li>
+                      <li class="item py-2">
+                          <span>purchase amount</span>
+                          <span class=" fw-semibold text-danger charge"></span>
+                      </li>
+                      <li class="item py-2">
+                          <span>Interest</span>
+                          <span class=" fw-semibold trx_date" style="color: rgb(12, 199, 12);"></span>
+                      </li>
+                      <li class="item py-2">
+                        <span>How much shares you want to buy</span>
+                       <div class="input-control" style="display: flex;align-items: center;">$<input type="number" name="amount" style="border-radius: 5px;"></div>
+                    </li>
+                      <li class="item py-2">
+                      <!-- <input type="hidden" name="amount" value="{{x.amount}}"> -->
+                      <input type="hidden" name="a_id" value="{{x.id}}">
+                       <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                       <button type="submit" class="cmn-btn2">Buy Now</button>
+                      </li>
+                  </ul>
+                  <!-- <div class="modal-footer-text mt-3">
+                      <div class="d-flex justify-content-end gap-3 status-buttons">
+                          <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                      </div>
+                  </div> -->
+              </div>
+          </div>
+      </div>
+    </div>
+    </form>
+
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

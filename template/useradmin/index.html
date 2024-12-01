@@ -1,0 +1,1004 @@
+{% extends 'useradmin/base.html' %}
+{% load static %}
+
+
+
+
+
+
+{% block content %}
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+    <!-- Content -->
+        <div class="content container-fluid dashboard-height">
+        <div id="firebase-app">
+            <div class="shadow p-3 mb-5 alert-soft-blue mb-4 mb-lg-7" role="alert"
+                 v-if="notificationPermission == 'default' && !is_notification_skipped" v-cloak>
+                <div class="alert-box d-flex flex-wrap align-items-center">
+                    <div class="flex-shrink-0">
+                        <img class="avatar avatar-xl"
+                             src="https://waiz.bugfinder.app/assets/admin/img/oc-megaphone-light.svg"
+                             alt="Image Description" data-hs-theme-appearance="default">
+                        <img class="avatar avatar-xl"
+                             src="https://waiz.bugfinder.app/assets/admin/img/oc-megaphone-light.svg"
+                             alt="Image Description" data-hs-theme-appearance="dark">
+                    </div>
+
+                    <div class="flex-grow-1 ms-3">
+                        <h3 class="alert-heading mb-1">Attention!</h3>
+                        <div class="d-flex align-items-center">
+                            <p class="mb-0"> Please allow your browser to get instant push notification. Allow it from
+                                notification setting.</p>
+                            <button id="allow-notification" class="btn btn-sm btn-primary mx-2"><i
+                                    class="fa fa-check-circle"></i> Allow me</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close"
+                            @click.prevent="skipNotification" data-bs-dismiss="alert"
+                            aria-label="Close">
+                    </button>
+                </div>
+            </div>
+            <div class="alert alert-soft-blue mb-4 mb-lg-7" role="alert"
+                 v-if="notificationPermission == 'denied' && !is_notification_skipped" v-cloak>
+                <div class="d-flex align-items-center mt-4">
+                    <div class="flex-shrink-0">
+                        <img class="avatar avatar-xl"
+                             src="https://waiz.bugfinder.app/assets/admin/img/oc-megaphone-light.svg"
+                             alt="Image Description" data-hs-theme-appearance="default">
+                        <img class="avatar avatar-xl"
+                             src="https://waiz.bugfinder.app/assets/admin/img/oc-megaphone-light.svg"
+                             alt="Image Description" data-hs-theme-appearance="dark">
+                    </div>
+
+                    <div class="flex-grow-1 ms-3">
+                        <h3 class="alert-heading mb-1">Attention!</h3>
+                        <div class="d-flex align-items-center">
+                            <p class="mb-0"> Please allow your browser to get instant push notification. Allow it from
+                                notification setting.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" @click.prevent="skipNotification" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-7">
+    <div class="card transaction-card mb-3 mb-lg-5" id="RecentTransactionGraph">
+        <!-- Header -->
+        <div class="card-header card-header-content-sm-between">
+            <h4 class="card-header-title mb-2 mb-sm-0">Recent Transaction</h4>
+
+            <!-- Nav -->
+            <ul class="nav nav-segment nav-fill" id="projectsTab" role="tablist">
+                <li class="nav-item this-month" data-bs-toggle="chart" data-datasets="0"
+                    data-trigger="click"
+                    data-action="toggle">
+                    <a class="nav-link active" href="javascript:void(0);"
+                       data-bs-toggle="tab">This Month</a>
+                </li>
+                <li class="nav-item" data-bs-toggle="chart" data-datasets="1" data-trigger="click"
+                    data-action="toggle">
+                    <a class="nav-link" href="javascript:void(0);"
+                       data-bs-toggle="tab">Last Month</a>
+                </li>
+            </ul>
+            <!-- End Nav -->
+        </div>
+        <!-- End Header -->
+
+        <!-- Body -->
+        <div class="card-body">
+            <div class="row align-items-sm-center mb-4">
+                <div class="col-sm mb-3 mb-sm-0">
+                    <div class="d-flex align-items-center">
+                                    <span class="h5 mb-0"> DEPOSIT: <span
+                                            class="deposit_amount"></span> </span>
+                    </div>
+                </div>
+                <!-- End Col -->
+                <div class="col-sm-auto">
+                    <!-- Legend Indicators -->
+                    <div class="row fs-6">
+                        <div class="col-auto">
+                            <span class="legend-indicator bg-primary"></span> Deposit                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Row -->
+
+            <!-- Bar Chart -->
+            <div class="chartjs-custom chartjs-height">
+                <canvas id="updatingLineChart" data-hs-chartjs-options='{
+                      "type": "line",
+                      "data": {
+                         "labels": ["Day 01","Day 02","Day 03","Day 04","Day 05","Day 06","Day 07","Day 08","Day 09","Day 10","Day 11","Day 12","Day 13","Day 14","Day 15","Day 16","Day 17","Day 18","Day 19","Day 20","Day 21","Day 22","Day 23","Day 24","Day 25","Day 26","Day 27","Day 28","Day 29","Day 30"],
+                         "datasets": [{
+                          "backgroundColor": ["rgba(55,125,255, .5)", "rgba(255, 255, 255, .2)"],
+                          "borderColor": "#377dff",
+                          "borderWidth": 2,
+                          "pointRadius": 0,
+                          "hoverBorderColor": "#377dff",
+                          "pointBackgroundColor": "#377dff",
+                          "pointBorderColor": "#fff",
+                          "pointHoverRadius": 0,
+                          "tension": 0.4
+                        },
+                        {
+                          "backgroundColor": ["rgba(0, 201, 219, .5)", "rgba(255, 255, 255, .2)"],
+                          "borderColor": "#00c9db",
+                          "borderWidth": 2,
+                          "pointRadius": 0,
+                          "hoverBorderColor": "#00c9db",
+                          "pointBackgroundColor": "#00c9db",
+                          "pointBorderColor": "#fff",
+                          "pointHoverRadius": 0,
+                          "tension": 0.4
+                        }]
+                      },
+                      "options": {
+                        "gradientPosition": {"y1": 200},
+                         "scales": {
+                            "y": {
+                              "grid": {
+                                "color": "#e7eaf3",
+                                "drawBorder": false,
+                                "zeroLineColor": "#e7eaf3"
+                              },
+                              "ticks": {
+                                "min": 0,
+                                "max": 100,
+                                "stepSize": 100,
+                                "fontColor": "#97a4af",
+                                "fontFamily": "Open Sans, sans-serif",
+                                "padding": 10,
+                                "postfix": "k"
+                              }
+                            },
+                            "x": {
+                              "grid": {
+                                "display": false,
+                                "drawBorder": false
+                              },
+                              "ticks": {
+                                "fontSize": 12,
+                                "fontColor": "#97a4af",
+                                "fontFamily": "Open Sans, sans-serif",
+                                "padding": 5
+                              }
+                            }
+                        },
+                        "plugins": {
+                          "tooltip": {
+                            "prefix": "$",
+                            "hasIndicator": true,
+                            "mode": "index",
+                            "intersect": false,
+                            "lineMode": true,
+                            "lineWithLineColor": "rgba(19, 33, 68, 0.075)"
+                          }
+                        },
+                        "hover": {
+                          "mode": "nearest",
+                          "intersect": true
+                        }
+                      }
+                    }'>
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="col-xl-5">
+    <div class="row g-5">
+        <div class="col-xl-6 col-sm-6 col-lg-3">
+            <!-- Card -->
+            <a class="card user-card card-hover-shadow" href="#"
+              >
+                <div class="card-body">
+                    <div class="card-title-top">
+                        <i class="fa-light fa-user"></i>
+                        <h6 class="card-subtitle">Total Users</h6>
+                    </div>
+
+                    <div class="row align-items-center gx-2 mb-1">
+                        <div class="col-6">
+                            <h2 class="card-title text-inherit userRecord-totalUsers">60</h2>
+                        </div>
+                        <div class="col-6">
+                            <div class="chartjs-custom" style="height: 3rem;">
+                                <h6 class="mb-0 up"><i class="fa-solid fa-arrow-trend-up"></i></h6>
+                            </div>
+
+                        </div>
+                    </div>
+                    <span class="badge userRecord-followupGrapClass">
+                        <i class="bi-graph-up"></i> <span class="userRecord-followupGrap"></span>%
+                      </span>
+                    <span
+                        class="text-body fs-6 ms-1 userRecord-chartPercentageIncDec"></span>
+                </div>
+            </a>
+        </div>
+        <div class="col-xl-6 col-sm-6 col-lg-3">
+            <!-- Card -->
+            <a class="card user-card card-hover-shadow" href="https://waiz.bugfinder.app/admin/tickets/tickets"
+               id="ticketRecord">
+                <div class="card-body">
+                    <div class="card-title-top">
+                        <i class="fa-light fa-ticket-alt"></i>
+                        <h6 class="card-subtitle">Pending Tickets</h6>
+                    </div>
+
+                    <div class="row align-items-center gx-2 mb-1">
+                        <div class="col-6">
+                            <h2 class="card-title text-inherit ticketRecord-totalTickets"></h2>
+                        </div>
+                        <div class="col-6">
+                            <div class="chartjs-custom" style="height: 3rem;">
+                                <canvas class="" id="chartTicketRecordsGraph">
+                                </canvas>
+                            </div>
+
+                        </div>
+                    </div>
+                    <span class="badge ticketRecord-followupGrapClass">
+                        <i class="bi-graph-up"></i> <span class="ticketRecord-followupGrap"></span>%
+                      </span>
+                    <span
+                        class="text-body fs-6 ms-1 ticketRecord-chartPercentageIncDec"></span>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xl-6 col-sm-6 col-lg-3">
+            <!-- Card -->
+            <a class="card user-card card-hover-shadow h-100" href="https://waiz.bugfinder.app/admin/kyc" id="kycRecord">
+                <div class="card-body">
+                    <div class="card-title-top">
+                        <i class="fa-light fa-hourglass-end"></i>
+                        <h6 class="card-subtitle">Pending KYC</h6>
+                    </div>
+                    <div class="row align-items-center gx-2 mb-1">
+                        <div class="col-6">
+                            <h2 class="card-title text-inherit kycRecord-pendingKycs"></h2>
+                        </div>
+                        <div class="col-6">
+                            <div class="chartjs-custom" style="height: 3rem;">
+                                <canvas class="" id="chartKycRecordsGraph">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="badge kycRecord-followupGrapClass">
+                        <i class="bi-graph-up"></i> <span class="kycRecord-followupGrap"></span>%
+                      </span>
+                    <span
+                        class="text-body fs-6 ms-1 kycRecord-chartPercentageIncDec"></span>
+                </div>
+            </a>
+        </div>
+        <div class="col-xl-6 col-sm-6 col-lg-3">
+            <a class="card user-card card-hover-shadow h-100" href="https://waiz.bugfinder.app/admin/transaction"
+               id="transactionRecord">
+                <div class="card-body">
+                    <div class="card-title-top">
+                        <i class="fa-light fa-credit-card"></i>
+                        <h6 class="card-subtitle">This Month Transactions</h6>
+                    </div>
+                    <div class="row align-items-center gx-2 mb-1">
+                        <div class="col-6">
+                            <h2 class="card-title text-inherit transactionRecord-totalTransaction"></h2>
+                        </div>
+                        <div class="col-6">
+                            <div class="chartjs-custom" style="height: 3rem;">
+                                <canvas class="" id="chartTransactionRecordsGraph">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="badge transactionRecord-followupGrapClass">
+                        <i class="bi-graph-up"></i> <span class="transactionRecord-followupGrap"></span>%
+                      </span>
+                    <span
+                        class="text-body fs-6 ms-1 transactionRecord-chartPercentageIncDec"></span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+            <div class="card mb-3 mb-lg-5">
+    <div class="card-header card-header-content-sm-between">
+        <h4 class="card-header-title mb-2 mb-sm-0">Virtual Card Orders            <i class="bi-question-circle text-body ms-1"
+               data-bs-toggle="tooltip"
+               data-bs-placement="top"
+               aria-label="Total Card Order History."
+               data-bs-original-title="Total Card Order History."></i>
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="row col-lg-divider">
+            <div class="col-lg-9 mb-5 mb-lg-0">
+                <div class="chartjs-custom mb-4 bar-chart-height" id="cardOrder">
+                    <canvas id="cardOrdered" class="js-chart sales-chart-height"></canvas>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <span class="legend-indicator"></span> Card Ordered                    </div>
+                    <div class="col-auto">
+                        <span class="legend-indicator bg-primary"></span> Card Approved                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-12">
+                        <div class="d-flex justify-content-center flex-column aside-sales-chart-height">
+                            <h6 class="card-subtitle">Total Card Orders</h6>
+                            <span class="d-block display-4 text-dark mb-1 me-3">23</span>
+                        </div>
+                        <hr class="d-none d-lg-block my-0">
+                    </div>
+
+                    <div class="col-sm-6 col-lg-12">
+                        <div class="d-flex justify-content-center flex-column aside-sales-chart-height">
+                            <h6 class="card-subtitle">Total Card Approved</h6>
+                            <span class="d-block display-4 text-dark mb-1 me-3">2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <div class="card mb-3 mb-lg-5">
+            <div class="card-header card-header-content-between">
+                <h4 class="card-header-title">Wallet Currency</h4>
+
+                <a class="btn btn-ghost-secondary btn-sm" href="https://waiz.bugfinder.app/admin/transaction-summary">View All</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-borderless table-thead-bordered table-align-middle card-table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>SL</th>
+                        <th>Currency</th>
+                        <th>User Wallet Amount</th>
+                        <th>Currency Rate</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td><span> 1 </span></td>
+                            <td>
+                                <div class="d-flex align-items-center me-2">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-circle">
+                    <img class="avatar-img" src="https://waiz.bugfinder.app/assets/upload/country/gVwxJ2I9WQnNdaJFIwI4mVM92RCxOp.webp" alt="Bangladesh">
+                    <span class="avatar-status avatar-sm-status avatar-status-success"><i class="fa-solid fa-star"></i></span>
+                </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <span class="d-block h5 mb-0"> Bangladeshi Taka</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center fw-semibold">
+                                    20,872,389.98 BDT 
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    1 USD = 119.53 BDT                                </div>
+                            </td>
+                            <td><span class="badge bg-soft-success text-success"><span class="legend-indicator bg-success"></span>Active</span></td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm"
+                                       href="https://waiz.bugfinder.app/admin/transaction-summary/BDT">
+                                        <i class="bi-eye-fill me-1"></i> View Transaction                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td><span> 2 </span></td>
+                            <td>
+                                <div class="d-flex align-items-center me-2">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-circle">
+                    <img class="avatar-img" src="https://waiz.bugfinder.app/assets/upload/country/tWv0j9txFB6UyyRlGgKor3xN6ewBU6.webp" alt="China">
+                    
+                </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <span class="d-block h5 mb-0"> Chinese Yuan</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center fw-semibold">
+                                    674,665.22 CNY 
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    1 USD = 7.08 CNY                                </div>
+                            </td>
+                            <td><span class="badge bg-soft-success text-success"><span class="legend-indicator bg-success"></span>Active</span></td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm"
+                                       href="https://waiz.bugfinder.app/admin/transaction-summary/CNY">
+                                        <i class="bi-eye-fill me-1"></i> View Transaction                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td><span> 3 </span></td>
+                            <td>
+                                <div class="d-flex align-items-center me-2">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-circle">
+                    <img class="avatar-img" src="https://waiz.bugfinder.app/assets/upload/country/ESVoyREUF5RTvrSqSqMn8LgPwLQIyK.avif" alt="United States">
+                    <span class="avatar-status avatar-sm-status avatar-status-success"><i class="fa-solid fa-star"></i></span>
+                </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <span class="d-block h5 mb-0"> US Dollar</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center fw-semibold">
+                                    70,357.40 USD 
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    1 USD = 1 USD                                </div>
+                            </td>
+                            <td><span class="badge bg-soft-success text-success"><span class="legend-indicator bg-success"></span>Active</span></td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm"
+                                       href="https://waiz.bugfinder.app/admin/transaction-summary/USD">
+                                        <i class="bi-eye-fill me-1"></i> View Transaction                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td><span> 4 </span></td>
+                            <td>
+                                <div class="d-flex align-items-center me-2">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-circle">
+                    <img class="avatar-img" src="https://waiz.bugfinder.app/assets/upload/country/iXmfZagiCMu4eGWFOUmYwP0AR5G5rF.webp" alt="Germany">
+                    <span class="avatar-status avatar-sm-status avatar-status-success"><i class="fa-solid fa-star"></i></span>
+                </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <span class="d-block h5 mb-0"> Euro</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center fw-semibold">
+                                    30,086.11 EUR 
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    1 USD = 0.9 EUR                                </div>
+                            </td>
+                            <td><span class="badge bg-soft-success text-success"><span class="legend-indicator bg-success"></span>Active</span></td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm"
+                                       href="https://waiz.bugfinder.app/admin/transaction-summary/EUR">
+                                        <i class="bi-eye-fill me-1"></i> View Transaction                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td><span> 5 </span></td>
+                            <td>
+                                <div class="d-flex align-items-center me-2">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-circle">
+                    <img class="avatar-img" src="https://waiz.bugfinder.app/assets/upload/country/KhHiTspJItVtJJ1KiU3M7Gt53med8C.avif" alt="Kuwait">
+                    
+                </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <span class="d-block h5 mb-0"> Kuwaiti Dinar</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center fw-semibold">
+                                    2,509.83 KWD 
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    1 USD = 0.3 KWD                                </div>
+                            </td>
+                            <td><span class="badge bg-soft-success text-success"><span class="legend-indicator bg-success"></span>Active</span></td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm"
+                                       href="https://waiz.bugfinder.app/admin/transaction-summary/KWD">
+                                        <i class="bi-eye-fill me-1"></i> View Transaction                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card mb-3 mb-lg-5">
+            <div class="card-header card-header-content-between">
+                <h4 class="card-header-title">Latest Users</h4>
+
+                <a class="btn btn-ghost-secondary btn-sm" href="https://waiz.bugfinder.app/admin/users">View All</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-borderless table-thead-bordered table-align-middle card-table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email-Phone</th>
+                        <th>Country</th>
+                        <th>Status</th>
+                        <th>Last Login</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td>
+                                <a class="d-flex align-items-center me-2"
+                                   href="https://waiz.bugfinder.app/admin/user/view-profile/6966">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-circle">
+                        <img class="avatar-img" src="https://waiz.bugfinder.app/assets/upload/userProfile/bX6loW6zmaArg2hFsJijPuh3dZ00gl.webp" alt="Image Description">
+                        <span class="avatar-status avatar-sm-status avatar-status-warning"></span>
+                     </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="text-hover-primary mb-0">Laura apui Santos</h5>
+                                        <span class="fs-6 text-body">@santos</span>
+                                    </div>
+                                </a>
+                            </td>
+                            <td>
+                                <span class="d-block h5 mb-0"> lauraapui0@gmail.com</span>
+                                <span class="d-block fs-5">9010881150</span>
+                            </td>
+                            <td>
+                                Nigeria
+                            </td>
+                            <td>
+                                                                    <span class="badge bg-soft-success text-success">
+                                        <span class="legend-indicator bg-success"></span>Active                                    </span>
+                                                            </td>
+                            <td>
+                                1 second ago
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm" href="https://waiz.bugfinder.app/admin/user/edit/6966">
+                                        <i class="bi-pencil-fill me-1"></i> Edit                                    </a>
+                                    <div class="btn-group">
+                                        <button type="button"
+                                                class="btn btn-white btn-icon btn-sm dropdown-toggle dropdown-toggle-empty"
+                                                id="userEditDropdown" data-bs-toggle="dropdown"
+                                                aria-expanded="false"></button>
+                                        <div class="dropdown-menu dropdown-menu-end mt-1"
+                                             aria-labelledby="userEditDropdown">
+                                            <a class="dropdown-item"
+                                               href="https://waiz.bugfinder.app/admin/user/view-profile/6966">
+                                                <i class="bi-eye-fill dropdown-item-icon"></i> View Profile                                            </a>
+                                            <a class="dropdown-item" href="https://waiz.bugfinder.app/admin/user/send-email/6966">
+                                                <i
+                                                    class="bi-envelope dropdown-item-icon"></i> Send Mail </a>
+                                            <a class="dropdown-item loginAccount" href="javascript:void(0)"
+                                               data-route="https://waiz.bugfinder.app/admin/login/as/user/6966"
+                                               data-bs-toggle="modal" data-bs-target="#loginAsUserModal">
+                                                <i class="bi bi-box-arrow-in-right dropdown-item-icon"></i>
+                                                Login As User                                            </a>
+                                            <a class="dropdown-item addBalance" href="https://waiz.bugfinder.app/admin/user/wallets/6966">
+                                                <i class="bi bi-cash-coin dropdown-item-icon"></i>
+                                                Manage Wallet                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>
+                                <a class="d-flex align-items-center me-2"
+                                   href="https://waiz.bugfinder.app/admin/user/view-profile/6965">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-soft-primary avatar-circle">
+                        <span class="avatar-initials">S</span>
+                        <span class="avatar-status avatar-sm-status avatar-status-warning"></span>
+                     </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="text-hover-primary mb-0">Saif Ahmed</h5>
+                                        <span class="fs-6 text-body">@programmersaif</span>
+                                    </div>
+                                </a>
+                            </td>
+                            <td>
+                                <span class="d-block h5 mb-0"> programmersaifahmed22@gmail.com</span>
+                                <span class="d-block fs-5">1309826822</span>
+                            </td>
+                            <td>
+                                Bangladesh
+                            </td>
+                            <td>
+                                                                    <span class="badge bg-soft-success text-success">
+                                        <span class="legend-indicator bg-success"></span>Active                                    </span>
+                                                            </td>
+                            <td>
+                                1 second ago
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm" href="https://waiz.bugfinder.app/admin/user/edit/6965">
+                                        <i class="bi-pencil-fill me-1"></i> Edit                                    </a>
+                                    <div class="btn-group">
+                                        <button type="button"
+                                                class="btn btn-white btn-icon btn-sm dropdown-toggle dropdown-toggle-empty"
+                                                id="userEditDropdown" data-bs-toggle="dropdown"
+                                                aria-expanded="false"></button>
+                                        <div class="dropdown-menu dropdown-menu-end mt-1"
+                                             aria-labelledby="userEditDropdown">
+                                            <a class="dropdown-item"
+                                               href="https://waiz.bugfinder.app/admin/user/view-profile/6965">
+                                                <i class="bi-eye-fill dropdown-item-icon"></i> View Profile                                            </a>
+                                            <a class="dropdown-item" href="https://waiz.bugfinder.app/admin/user/send-email/6965">
+                                                <i
+                                                    class="bi-envelope dropdown-item-icon"></i> Send Mail </a>
+                                            <a class="dropdown-item loginAccount" href="javascript:void(0)"
+                                               data-route="https://waiz.bugfinder.app/admin/login/as/user/6965"
+                                               data-bs-toggle="modal" data-bs-target="#loginAsUserModal">
+                                                <i class="bi bi-box-arrow-in-right dropdown-item-icon"></i>
+                                                Login As User                                            </a>
+                                            <a class="dropdown-item addBalance" href="https://waiz.bugfinder.app/admin/user/wallets/6965">
+                                                <i class="bi bi-cash-coin dropdown-item-icon"></i>
+                                                Manage Wallet                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>
+                                <a class="d-flex align-items-center me-2"
+                                   href="https://waiz.bugfinder.app/admin/user/view-profile/6964">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-soft-primary avatar-circle">
+                        <span class="avatar-initials">T</span>
+                        <span class="avatar-status avatar-sm-status avatar-status-warning"></span>
+                     </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="text-hover-primary mb-0">Test user</h5>
+                                        <span class="fs-6 text-body">@testy1</span>
+                                    </div>
+                                </a>
+                            </td>
+                            <td>
+                                <span class="d-block h5 mb-0"> testy001@gmail.in</span>
+                                <span class="d-block fs-5">1775525555</span>
+                            </td>
+                            <td>
+                                Bangladesh
+                            </td>
+                            <td>
+                                                                    <span class="badge bg-soft-success text-success">
+                                        <span class="legend-indicator bg-success"></span>Active                                    </span>
+                                                            </td>
+                            <td>
+                                1 second ago
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm" href="https://waiz.bugfinder.app/admin/user/edit/6964">
+                                        <i class="bi-pencil-fill me-1"></i> Edit                                    </a>
+                                    <div class="btn-group">
+                                        <button type="button"
+                                                class="btn btn-white btn-icon btn-sm dropdown-toggle dropdown-toggle-empty"
+                                                id="userEditDropdown" data-bs-toggle="dropdown"
+                                                aria-expanded="false"></button>
+                                        <div class="dropdown-menu dropdown-menu-end mt-1"
+                                             aria-labelledby="userEditDropdown">
+                                            <a class="dropdown-item"
+                                               href="https://waiz.bugfinder.app/admin/user/view-profile/6964">
+                                                <i class="bi-eye-fill dropdown-item-icon"></i> View Profile                                            </a>
+                                            <a class="dropdown-item" href="https://waiz.bugfinder.app/admin/user/send-email/6964">
+                                                <i
+                                                    class="bi-envelope dropdown-item-icon"></i> Send Mail </a>
+                                            <a class="dropdown-item loginAccount" href="javascript:void(0)"
+                                               data-route="https://waiz.bugfinder.app/admin/login/as/user/6964"
+                                               data-bs-toggle="modal" data-bs-target="#loginAsUserModal">
+                                                <i class="bi bi-box-arrow-in-right dropdown-item-icon"></i>
+                                                Login As User                                            </a>
+                                            <a class="dropdown-item addBalance" href="https://waiz.bugfinder.app/admin/user/wallets/6964">
+                                                <i class="bi bi-cash-coin dropdown-item-icon"></i>
+                                                Manage Wallet                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>
+                                <a class="d-flex align-items-center me-2"
+                                   href="https://waiz.bugfinder.app/admin/user/view-profile/6963">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-soft-primary avatar-circle">
+                        <span class="avatar-initials">D</span>
+                        <span class="avatar-status avatar-sm-status avatar-status-warning"></span>
+                     </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="text-hover-primary mb-0">Dadieng Alfred</h5>
+                                        <span class="fs-6 text-body">@Xaiden</span>
+                                    </div>
+                                </a>
+                            </td>
+                            <td>
+                                <span class="d-block h5 mb-0"> dadiengalfred18@gmail.com</span>
+                                <span class="d-block fs-5">9161673357</span>
+                            </td>
+                            <td>
+                                Nigeria
+                            </td>
+                            <td>
+                                                                    <span class="badge bg-soft-success text-success">
+                                        <span class="legend-indicator bg-success"></span>Active                                    </span>
+                                                            </td>
+                            <td>
+                                1 second ago
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm" href="https://waiz.bugfinder.app/admin/user/edit/6963">
+                                        <i class="bi-pencil-fill me-1"></i> Edit                                    </a>
+                                    <div class="btn-group">
+                                        <button type="button"
+                                                class="btn btn-white btn-icon btn-sm dropdown-toggle dropdown-toggle-empty"
+                                                id="userEditDropdown" data-bs-toggle="dropdown"
+                                                aria-expanded="false"></button>
+                                        <div class="dropdown-menu dropdown-menu-end mt-1"
+                                             aria-labelledby="userEditDropdown">
+                                            <a class="dropdown-item"
+                                               href="https://waiz.bugfinder.app/admin/user/view-profile/6963">
+                                                <i class="bi-eye-fill dropdown-item-icon"></i> View Profile                                            </a>
+                                            <a class="dropdown-item" href="https://waiz.bugfinder.app/admin/user/send-email/6963">
+                                                <i
+                                                    class="bi-envelope dropdown-item-icon"></i> Send Mail </a>
+                                            <a class="dropdown-item loginAccount" href="javascript:void(0)"
+                                               data-route="https://waiz.bugfinder.app/admin/login/as/user/6963"
+                                               data-bs-toggle="modal" data-bs-target="#loginAsUserModal">
+                                                <i class="bi bi-box-arrow-in-right dropdown-item-icon"></i>
+                                                Login As User                                            </a>
+                                            <a class="dropdown-item addBalance" href="https://waiz.bugfinder.app/admin/user/wallets/6963">
+                                                <i class="bi bi-cash-coin dropdown-item-icon"></i>
+                                                Manage Wallet                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                                            <tr>
+                            <td>
+                                <a class="d-flex align-items-center me-2"
+                                   href="https://waiz.bugfinder.app/admin/user/view-profile/6962">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm avatar-soft-primary avatar-circle">
+                        <span class="avatar-initials">t</span>
+                        <span class="avatar-status avatar-sm-status avatar-status-warning"></span>
+                     </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="text-hover-primary mb-0">test test</h5>
+                                        <span class="fs-6 text-body">@test2024</span>
+                                    </div>
+                                </a>
+                            </td>
+                            <td>
+                                <span class="d-block h5 mb-0"> test@test.com</span>
+                                <span class="d-block fs-5">79512947</span>
+                            </td>
+                            <td>
+                                Côte d&#039;Ivoire
+                            </td>
+                            <td>
+                                                                    <span class="badge bg-soft-success text-success">
+                                        <span class="legend-indicator bg-success"></span>Active                                    </span>
+                                                            </td>
+                            <td>
+                                1 second ago
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-white btn-sm" href="https://waiz.bugfinder.app/admin/user/edit/6962">
+                                        <i class="bi-pencil-fill me-1"></i> Edit                                    </a>
+                                    <div class="btn-group">
+                                        <button type="button"
+                                                class="btn btn-white btn-icon btn-sm dropdown-toggle dropdown-toggle-empty"
+                                                id="userEditDropdown" data-bs-toggle="dropdown"
+                                                aria-expanded="false"></button>
+                                        <div class="dropdown-menu dropdown-menu-end mt-1"
+                                             aria-labelledby="userEditDropdown">
+                                            <a class="dropdown-item"
+                                               href="https://waiz.bugfinder.app/admin/user/view-profile/6962">
+                                                <i class="bi-eye-fill dropdown-item-icon"></i> View Profile                                            </a>
+                                            <a class="dropdown-item" href="https://waiz.bugfinder.app/admin/user/send-email/6962">
+                                                <i
+                                                    class="bi-envelope dropdown-item-icon"></i> Send Mail </a>
+                                            <a class="dropdown-item loginAccount" href="javascript:void(0)"
+                                               data-route="https://waiz.bugfinder.app/admin/login/as/user/6962"
+                                               data-bs-toggle="modal" data-bs-target="#loginAsUserModal">
+                                                <i class="bi bi-box-arrow-in-right dropdown-item-icon"></i>
+                                                Login As User                                            </a>
+                                            <a class="dropdown-item addBalance" href="https://waiz.bugfinder.app/admin/user/wallets/6962">
+                                                <i class="bi bi-cash-coin dropdown-item-icon"></i>
+                                                Manage Wallet                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+    <div class="col-lg-4 mb-3 mb-lg-5" id="loginHistory">
+        <!-- Card -->
+        <div class="card h-100">
+            <div class="card-header">
+                <h4 class="card-header-title">Browser History</h4>
+            </div>
+            <!-- Body -->
+            <div class="card-body text-center">
+                <div class="h3">
+                            <span class="badge bg-soft-info text-info rounded-pill">
+                              <i class="bi-check-circle-fill me-1"></i> On track                            </span>
+                </div>
+
+                <!-- Chart Half -->
+                <!-- Pie Chart -->
+                <div class="chartjs-custom mb-3 mb-sm-5" style="height: 14rem;">
+                    <canvas class="" id="chartBrowserHistoryGraph">
+                    </canvas>
+                </div>
+                <!-- End Pie Chart -->
+                <hr>
+                <div class="row col-divider">
+                    <div class="col text-center">
+                        <span class="d-block">Last 30 Days Browser History</span>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Body -->
+        </div>
+        <!-- End Card -->
+    </div>
+    <div class="col-lg-4 mb-3 mb-lg-5" id="loginHistory">
+        <!-- Card -->
+        <div class="card h-100">
+            <div class="card-header">
+                <h4 class="card-header-title">Operating System History</h4>
+            </div>
+            <!-- Body -->
+            <div class="card-body text-center">
+                <div class="h3">
+                            <span class="badge bg-soft-info text-info rounded-pill">
+                              <i class="bi-check-circle-fill me-1"></i> On track                            </span>
+                </div>
+
+                <!-- Chart Half -->
+                <!-- Pie Chart -->
+                <div class="chartjs-custom mb-3 mb-sm-5" style="height: 14rem;">
+                    <canvas class="" id="chartOSHistoryGraph">
+                    </canvas>
+                </div>
+                <!-- End Pie Chart -->
+
+                <hr>
+
+                <div class="row col-divider">
+                    <div class="col text-center">
+                        <span class="d-block">Last 30 Days OS History</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Card -->
+    </div>
+    <div class="col-lg-4 mb-3 mb-lg-5" id="loginHistory">
+        <div class="card h-100">
+            <div class="card-header">
+                <h4 class="card-header-title">Device History</h4>
+            </div>
+            <!-- Body -->
+            <div class="card-body text-center">
+                <div class="h3">
+                            <span class="badge bg-soft-info text-info rounded-pill">
+                              <i class="bi-check-circle-fill me-1"></i> On track                            </span>
+                </div>
+                <!-- Pie Chart -->
+                <div class="chartjs-custom mb-3 mb-sm-5" style="height: 14rem;">
+                    <canvas class="" id="chartDeviceHistoryGraph">
+                    </canvas>
+                </div>
+                <!-- End Pie Chart -->
+
+                <hr>
+
+                <div class="row col-divider">
+                    <div class="col text-center">
+                        <span class="d-block">Last 30 Days Device History</span>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Body -->
+        </div>
+        <!-- End Card -->
+    </div>
+</div>
+
+
+    </div>
+
+        <!-- Modal -->
+<div class="modal fade" id="loginAsUserModal" tabindex="-1" role="dialog" aria-labelledby="loginAsUserModalLabel" data-bs-backdrop="static"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="loginAsUserModalLabel"><i
+                        class="bi bi-box-arrow-in-right"></i> Login As User</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="get" action="" class="loginAccountAction" enctype="multipart/form-data">
+                <div class="modal-body">
+                    Do you want to really login as user?                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+    <!-- End Content -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+
+{% endblock %}
+
