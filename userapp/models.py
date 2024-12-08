@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 
 class CustomUser(AbstractUser):
@@ -72,13 +74,51 @@ class assetbuy(models.Model):
     date = models.DateTimeField(blank=True,null=True,default=timezone.now)
 
 
+class Stock(models.Model):
+    image = models.FileField(upload_to='stocks/')
+    name = models.CharField(max_length=100)
+    initial_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    current_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    percentage_increase = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    percentage_decrease = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    increase_interval = models.PositiveIntegerField(default=10)  # Interval in seconds
+    decrease_interval = models.PositiveIntegerField(default=5)   # Interval in seconds
+    running = models.BooleanField(default=False)  # To control start/stop of stock
+    ldate = models.DateTimeField(blank=True,null=True,default=timezone.now)
+
+    def __str__(self):
+        return self.name
+    
+# # Move the signal after the model definition
+# @receiver(post_save, sender=Stock)
+# def start_stock_after_creation(sender, instance, created, **kwargs):
+#     if created:
+#         instance.running = True
+#         instance.save()
+
+
+
+class Stock_user(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    Stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    initial_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    current_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    running = models.BooleanField(default=True)  # To control start/stop of stock
+    date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+
+    def __str__(self):
+        return self.Stock.name
+ 
+
+
+
 class House(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     price = models.IntegerField(default=1000)
     description = models.TextField(max_length=10000, default='mmml')
     features = models.TextField(max_length=10000)
-    location_link = models.URLField(max_length=200, default='https://googlemap.com')
+    location_link = models.URLField(max_length=5000, default='https://googlemap.com')
     main_picture = models.FileField(upload_to='house/main_pictures/')  # Main display picture
     other_pictures = models.ManyToManyField('HousePicture', related_name='houses')
 

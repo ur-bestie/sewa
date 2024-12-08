@@ -41,7 +41,7 @@
             color: #aaa;
         }
 </style>
-<body onload="preloader_function()" class="">
+<body>
 
 
 
@@ -553,8 +553,8 @@ data-bs-backdrop="static">
 <!-- GLOBAL link -->
 <script src="{% static 'assets/global/js/notiflix-aio-3.2.6.min.js' %}"></script>
 <script src="{% static 'assets/global/js/pusher.min.js' %}"></script>
-<script src="{% static 'assets/global/js/vue.min.js' %}"></script>
-<script src="{% static 'assets/global/js/axios.min.js' %}"></script>
+<!-- <script src="{% static 'assets/global/js/vue.min.js' %}"></script> -->
+<!-- <script src="{% static 'assets/global/js/axios.min.js' %}"></script> -->
 <script src="{% static 'assets/global/js/debounce_lodash@4.js' %}"></script>
 
 
@@ -603,161 +603,7 @@ data-bs-backdrop="static">
 
     </script>
    
-        <script type="module">
-            import {
-                initializeApp
-            } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js' %}";
-            import {
-                getMessaging,
-                getToken,
-                onMessage
-            } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-messaging.js' %}";
-
-            const firebaseConfig = {
-                apiKey: "AIzaSyCYv0NbhnqfBCbpJtzuaJtm3U7YSIg66rI",
-                authDomain: "bugfinderadmin.firebaseapp.com",
-                projectId: "bugfinderadmin",
-                storageBucket: "bugfinderadmin.appspot.com",
-                messagingSenderId: "1090565989163",
-                appId: "1:1090565989163:web:051e1d575de5ac83d6db6e",
-                measurementId: "G-K3DPMXF3MN"
-            };
-
-            const app = initializeApp(firebaseConfig);
-            const messaging = getMessaging(app);
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('' + `/firebase-messaging-sw.js`, {
-                    scope: './'
-                }).then(function (registration) {
-                    requestPermissionAndGenerateToken(registration);
-                }).catch(function (error) {
-                });
-            } else {
-            }
-
-            onMessage(messaging, (payload) => {
-                if (payload.data.foreground || parseInt(payload.data.foreground) == 1) {
-                    const title = payload.notification.title;
-                    const options = {
-                        body: payload.notification.body,
-                        icon: payload.notification.icon,
-                    };
-                    new Notification(title, options);
-                }
-            });
-
-            function requestPermissionAndGenerateToken(registration) {
-                document.addEventListener("click", function (event) {
-                    if (event.target.id == 'allow-notification') {
-                        Notification.requestPermission().then((permission) => {
-                            if (permission === 'granted') {
-                                getToken(messaging, {
-                                    serviceWorkerRegistration: registration,
-                                    vapidKey: "BHvxHfvJPNZrt_NEcu6_mEkZX1DNsGVbZh2cK4fWgHL20OomK_uPzf6z2EOZHkCatpUy7k5Met4iFSD78dLG1lk"
-                                })
-                                    .then((token) => {
-                                        $.ajax({
-                                            url: "https://waiz.bugfinder.net/user/save-token",
-                                            method: "post",
-                                            data: {
-                                                token: token,
-                                            },
-                                            success: function (res) {
-                                            }
-                                        });
-                                        window.newApp.notificationPermission = 'granted';
-                                    });
-                            } else {
-                                window.newApp.notificationPermission = 'denied';
-                            }
-                        });
-                    }
-                });
-            }
-        </script>
-        <script>
-            window.newApp = new Vue({
-                el: "#firebase-app",
-                data: {
-                    user_foreground: '',
-                    user_background: '',
-                    notificationPermission: Notification.permission,
-                    is_notification_skipped: sessionStorage.getItem('is_notification_skipped') == '1'
-                },
-                mounted() {
-                    sessionStorage.clear();
-                    this.user_foreground = "1";
-                    this.user_background = "1";
-                },
-                methods: {
-                    skipNotification() {
-                        sessionStorage.setItem('is_notification_skipped', '1')
-                        this.is_notification_skipped = true;
-                    }
-                }
-            });
-        </script>
-        <script>
-        let pushNotificationArea = new Vue({
-            el: "#pushNotificationArea",
-            data: {
-                items: [],
-            },
-            beforeMount() {
-                this.getNotifications();
-                this.pushNewItem();
-            },
-            methods: {
-                getNotifications() {
-                    let app = this;
-                    axios.get("https://waiz.bugfinder.net/user/push-notification-show")
-                        .then(function (res) {
-                            app.items = res.data;
-                        })
-                },
-                readAt(id, link) {
-                    let app = this;
-                    let url = "https://waiz.bugfinder.net/user/push-notification-readAt/0";
-                    url = url.replace(/.$/, id);
-                    axios.get(url)
-                        .then(function (res) {
-                            if (res.status) {
-                                app.getNotifications();
-                                if (link !== '#') {
-                                    window.location.href = link
-                                }
-                            }
-                        })
-                },
-                readAll() {
-                    let app = this;
-                    let url = "https://waiz.bugfinder.net/user/push.notification.readAll";
-                    axios.get(url)
-                        .then(function (res) {
-                            if (res.status) {
-                                app.items = [];
-                            }
-                        })
-                },
-                pushNewItem() {
-                    let app = this;
-                    Pusher.logToConsole = false;
-                    let pusher = new Pusher("6ae04039ec41c4852415", {
-                        encrypted: true,
-                        cluster: "ap2"
-                    });
-                    let channel = pusher.subscribe('user-notification.' + "6814");
-                    channel.bind('App\\Events\\UserNotification', function (data) {
-                        app.items.unshift(data.message);
-                    });
-                    channel.bind('App\\Events\\UpdateUserNotification', function (data) {
-                        app.getNotifications();
-                    });
-                }
-            }
-        });
-    </script>
-
+   
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="footer">
     © 2024 Fincapital Market. All rights reserved.

@@ -23,6 +23,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.templatetags.static import static
 from .forms import *
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.timezone import now
 
 # Create your views here.
 def index(request):
@@ -43,6 +46,62 @@ def login(request):
           return redirect('/login')
     return render(request,'auth/login.html')
 
+
+@login_required
+def stock_list(request):
+    try:
+       stocks = Stock_user.objects.filter(user=request.user)
+    except:
+       Stock_user.DoesNotExist
+       stocks = None
+    return render(request, 'user/stock_list.html', {'stocks': stocks})
+
+
+@csrf_exempt
+def update_stock(request, stock_id):
+    if request.method == 'POST':
+        try:
+            # Parse the JSON body of the request
+            data = json.loads(request.body)
+            new_balance = data.get('current_balance')  # Get the new balance sent from the frontend
+
+            # Fetch the stock by ID from the database
+            stock = Stock_user.objects.get(id=stock_id)
+
+            # Update stock's current balance and last update timestamp
+            stock.current_balance = new_balance
+            stock.last_updated = now()  # Assuming you have a `last_updated` field in your model
+            stock.save()
+
+            # Return success response with additional data
+            return JsonResponse({
+                'status': 'success',
+                'new_balance': stock.current_balance,
+                'stock_id': stock.id,
+                'last_updated': stock.last_updated.isoformat()
+            })
+
+        except Stock_user.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Stock not found'}, status=404)
+
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
+@csrf_exempt
+def start_stock(request, stock_id):
+    stock = Stock.objects.get(id=stock_id)
+    stock.running = True
+    stock.save()
+    return JsonResponse({'status': 'started'})
+
+@csrf_exempt
+def stop_stock(request, stock_id):
+    stock = Stock.objects.get(id=stock_id)
+    stock.running = False
+    stock.save()
+    return JsonResponse({'status': 'stopped'})
 
 def register(request):
      if request.method == 'POST':  
@@ -147,40 +206,40 @@ def deposithis(request):
 @login_required
 def assets(request):
    user = request.user
-   x = asset.objects.all()
+   
+   stocks = Stock.objects.all()
    if request.method == 'POST':
       amount = request.POST.get('amount')
       a_id = request.POST.get('a_id')
       
-      ax = asset.objects.get(pk=a_id)
+      ax = Stock.objects.get(id=a_id)
       ba = userwallet.objects.get(user=user)
       if float(amount) > ba.amount:
          messages.error(request,'insuficiant funds')
          return redirect('/assets')
       else:
-         ab = assetbuy.objects.create(user=user,asset=ax,amount=amount)
+         ab = Stock_user.objects.create(user=user,Stock=ax,initial_balance=amount,current_balance=amount)
          ab.save()
-         ba.amount -= float(amount)
-         ba.save()
-         messages.success(request, 'asset bought successfully')
-         return redirect('/user')
+         messages.success(request, 'Stcoks bought successfully')
+         return redirect('/stock_list')
    else:
-    return render(request,'user/assets.html', locals())
+    return render(request,'user/assets.html',{'stocks': stocks})
 
 
 @login_required
 def myassets(request):
    user = request.user
-   x = assetbuy.objects.filter(user=user)
    if request.method == 'POST':
     a_id = request.POST.get('a_id')
     amount = request.POST.get('amount')
 
-    edi = assetbuy.objects.get(id=a_id)
-    edi.status = 'pending'
-    edi.amount = amount
+    edi = Stock_user.objects.get(id=a_id)
+    edi.running = 'False'
     edi.save()
-    messages.success(request,'asset sold successfully waiting for buyer')
+    ba = userwallet.objects.get(user=request.user)
+    ba.amount += float(amount)
+    ba.save()
+    messages.success(request,'Withdrawal successful amount added to your balance')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
    else:
     return render(request,'user/myassets.html', locals())

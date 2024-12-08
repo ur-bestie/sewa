@@ -29,7 +29,12 @@ class HousePictureAdmin(admin.ModelAdmin):
 
 admin.site.register(housebuy)
 admin.site.register(HousePurchaseInfo)
+admin.site.register(Stock_user)
 
+
+@admin.register(Stock)
+class StockAdmin(admin.ModelAdmin):
+    list_display = ('name', 'current_balance', 'percentage_increase', 'percentage_decrease', 'increase_interval', 'decrease_interval')
 
 #house rent
 class HouseforrentPicturesInline(admin.TabularInline):  # You can also use StackedInline for a different layout

@@ -31,6 +31,10 @@ urlpatterns = [
     path('myshares',views.myshares, name='myshares'),
     path('markread/<str:id>',views.markread, name='markread'),
     path('markunread/<str:id>',views.markunread, name='markunread'),
+    path('stock_list', views.stock_list, name='stock_list'),
+    path('start/<int:stock_id>/', views.start_stock, name='start_stock'),
+    path('stop/<int:stock_id>/', views.stop_stock, name='stop_stock'),
+    path('update_stock/<int:stock_id>/', views.update_stock, name='update_stock'),
 
 
 
