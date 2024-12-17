@@ -10,6 +10,17 @@ admin.site.register(asset)
 admin.site.register(assetbuy)
 admin.site.register(withdraw_his)
 
+class stocks_planAdmin(admin.ModelAdmin):
+    list_display = ('name', 'symbol', 'current_price', 'profit_percentage', 'loss_percentage', 'profit_active', 'profit_start_seconds', 'loss_start_seconds')
+    list_editable = ('profit_percentage', 'loss_percentage', 'profit_active', 'profit_start_seconds', 'loss_start_seconds')
+
+class compStocksAdmin(admin.ModelAdmin):
+    list_display = ('current_price','transaction_type','date',)
+
+admin.site.register(stocks_plan, stocks_planAdmin)
+admin.site.register(compStocks, compStocksAdmin)
+
+
 class HousePictureInline(admin.TabularInline):  # You can also use StackedInline for a different layout
     model = House.other_pictures.through  # Use the through model for ManyToMany
     extra = 3  # How many empty file upload forms to show (you can adjust this)
@@ -30,6 +41,8 @@ class HousePictureAdmin(admin.ModelAdmin):
 admin.site.register(housebuy)
 admin.site.register(HousePurchaseInfo)
 admin.site.register(Stock_user)
+admin.site.register(tradeplan)
+admin.site.register(user_trades)
 
 
 @admin.register(Stock)

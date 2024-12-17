@@ -48,60 +48,78 @@ def login(request):
 
 
 @login_required
+def trade(request):
+  user = request.user
+  x = tradeplan.objects.all()
+  amount = request.POST.get('amount')
+  a_id = request.POST.get('a_id')
+  if request.method == 'POST':
+      ba = userwallet.objects.get(user=user)
+      if float(amount) > ba.amount:
+         messages.error(request,'insuficiant funds make a deposit')
+         return redirect('/deposit')
+      else:
+         ba = userwallet.objects.get(user=request.user)
+         ba.amount -= float(amount)
+         ba.save()
+         shares_id = tradeplan.objects.get(id=a_id)
+         u_s = user_trades.objects.create(
+            user=user,tradeplan=shares_id,name=shares_id.name,value=amount,percentage=shares_id.percentage,update_interval=shares_id.update_interval,end_time=shares_id.end_time
+         )
+         messages.success(request,'trdae has started successfully')
+         return redirect('/mytrade')
+  else:
+    return render(request, 'user/trade.html',locals())
+
+@login_required
+def mytrade(request):
+  user=request.user
+  try:
+   x = user_trades.objects.filter(user=user)
+  except:
+     user_trades.DoesNotExist
+     x = None
+  return render(request, 'user/mytrade.html',{'x':x})
+
+@login_required
+def comp_stocks(request):
+  user = request.user
+  x = stocks_plan.objects.all()
+  if request.method == 'POST':
+     amount = request.POST.get('amount')
+     a_id = request.POST.get('a_id')
+     sp = stocks_plan.objects.get(id=a_id)
+     cc = compStocks.objects.create(user=user,stocks_plan=sp,current_price=amount,transaction_type='buy')
+     cc.save()
+     messages.success(request,'stocks bought successfully')
+     return redirect('stock_list')
+     
+  else:
+   return render(request, 'user/comp_stocks.html',locals())    
+
+@login_required
 def stock_list(request):
+    user = request.user
     try:
-       stocks = Stock_user.objects.filter(user=request.user)
+        x = compStocks.objects.filter(user=user)
     except:
-       Stock_user.DoesNotExist
-       stocks = None
-    return render(request, 'user/stock_list.html', {'stocks': stocks})
-
-
-@csrf_exempt
-def update_stock(request, stock_id):
+       compStocks.DoesNotExist
+       x = None
     if request.method == 'POST':
-        try:
-            # Parse the JSON body of the request
-            data = json.loads(request.body)
-            new_balance = data.get('current_balance')  # Get the new balance sent from the frontend
+      amount = request.POST.get('amount')
+      a_id = request.POST.get('a_id')
+      sp = compStocks.objects.get(id=a_id)
+      ba = userwallet.objects.get(user=request.user)
+      ba.amount += float(amount)
+      ba.save()
+      sp.delete()
+      messages.success(request,'stockes is sold successfully and has been added to your wallet balance')
+      return redirect('/user')
+    else:
+        return render(request, 'user/stock_list.html', locals())
 
-            # Fetch the stock by ID from the database
-            stock = Stock_user.objects.get(id=stock_id)
 
-            # Update stock's current balance and last update timestamp
-            stock.current_balance = new_balance
-            stock.last_updated = now()  # Assuming you have a `last_updated` field in your model
-            stock.save()
 
-            # Return success response with additional data
-            return JsonResponse({
-                'status': 'success',
-                'new_balance': stock.current_balance,
-                'stock_id': stock.id,
-                'last_updated': stock.last_updated.isoformat()
-            })
-
-        except Stock_user.DoesNotExist:
-            return JsonResponse({'status': 'error', 'message': 'Stock not found'}, status=404)
-
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
-
-@csrf_exempt
-def start_stock(request, stock_id):
-    stock = Stock.objects.get(id=stock_id)
-    stock.running = True
-    stock.save()
-    return JsonResponse({'status': 'started'})
-
-@csrf_exempt
-def stop_stock(request, stock_id):
-    stock = Stock.objects.get(id=stock_id)
-    stock.running = False
-    stock.save()
-    return JsonResponse({'status': 'stopped'})
 
 def register(request):
      if request.method == 'POST':  
@@ -462,6 +480,10 @@ def shares_view(request):
          messages.error(request,'insuficiant funds')
          return redirect('/assets')
       else:
+         ba = userwallet.objects.get(user=request.user)
+         ba.amount -= float(amount)
+         print(ba.amount,'new balance')
+         ba.save()
          shares_id = Shares.objects.get(id=a_id)
          u_s = user_Shares.objects.create(
             user = user,shares=shares_id,name=shares_id.name,amount=amount,value=amount,interest_rate=shares_id.interest_rate,update_interval=shares_id.update_interval,end_interval=shares_id.end_interval

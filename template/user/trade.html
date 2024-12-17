@@ -1,0 +1,227 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+   <style>
+       
+
+        .header {  
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+
+        .header p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+        }
+
+        .main {
+            /* padding: 40px 20px; */
+            margin-top: 5rem;
+            padding-top: 5rem;
+        }
+
+        .main h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            margin-top: 3rem;
+            font-size: 1.5rem;
+            color: #004aad;
+        }
+
+        .plans {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .plan {
+            background: transparent;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .plan img {
+            width: 50%;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .plan:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .plan h3 {
+            margin: 15px 0;
+            font-size: 1.5em;
+            color: #004aad;
+        }
+
+        .plan p {
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        .plan .features {
+            margin: 20px 0;
+            list-style: none;
+            padding: 0;
+        }
+
+        .plan .features li {
+            margin: 8px 0;
+            font-size: 0.95em;
+        }
+
+        .cta {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .cta button {
+            background: #004aad;
+            color: #fff;
+            border: none;
+            padding: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .cta button:hover {
+            background: #002f70;
+        }
+
+    </style>
+
+
+
+
+    <div class="header">
+        <h1>Welcome to Our Premium Trade Platform</h1>
+        <p>Secure your future with our trusted and tailored Trading solutions</p>
+    </div>
+
+    <div class="main">
+        <div class="btn" style="display: flex;justify-content: center;">
+            <a class="btn btn-primary" style="text-align: center;" href="/mytrade">MY Trades</a>
+        </div>
+        <h2>Explore Our Plans</h2>
+        <div class="plans">
+            <!-- Plan 1 -->
+            {% for x in x %}
+            <div class="plan">
+                <img src="{{x.img.url}}" alt="Basic Plan">
+                <h3>{{x.name}}</h3>
+                <p><strong>Min Investment:</strong> ${{x.min}}</p>
+                <p><strong>Max Investment:</strong> ${{x.max}}</p>
+                <p><strong>Interest:</strong> <span style="color: green;">+{{x.percentage}}%</span> {{x.period}}</p>
+                <ul class="features">
+                    <li>No hidden fees</li>
+                    <li>24/7 customer support</li>
+                    <li>Easy withdrawal options</li>
+                </ul>
+                <div class="cta">
+                    <a href="#" class="item showInfo btn"
+        data-trx_type="+"
+                               data-remarks="Shares"
+                               data-note="Pending Deposit"
+                               data-amount="{{x.name}} "
+                               data-charge="$100 - $9999"
+                               data-trxid="{{x.id}}"
+                               data-trx_date="+{{x.interest_rate}}%"
+                               data-bs-toggle="modal"
+                               data-bs-target="#infoViewModal{{x.id}}"
+                            > 
+                    <button>Start Your Trade Now</button>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+            <form action="" method="POST"> 
+                {% csrf_token %}
+               <div class="modal fade" id="infoViewModal{{x.id}}" tabindex="-1" role="dialog" aria-hidden="true"
+               data-bs-backdrop="static">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="text-center mb-5">
+                              <h4 class="mt-3 mb-1">Confirm your Trade</h4>
+                          </div>
+            
+                          <div class="row mb-6">
+                              <div class="transaction-list mt-2" id="trxModal">
+                                  <div class="item">
+                                      <div class="left-side">
+                                          <div class="icon">
+                                              <i class="fa-regular"></i>
+                                          </div>
+                                          <span class="remarks"></span>
+                                      </div>
+                                      <div class="d-flex gap-2">
+                                          <strong class="trxId"></strong>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+            
+                          <div class="title mb-2 mt-4">Summary</div>
+                          <ul class="list-container mb-4 ">
+                              <li class="item py-2">
+                                  <span>Name</span>
+                                  <span class=" fw-bold amount"></span>
+                              </li>
+                              <li class="item py-2">
+                                  <span>Amount</span>
+                                  <span class="">${{x.min}} - ${{x.max}}</span>
+                              </li>
+                              <li class="item py-2">
+                                  <span>Interest</span>
+                                  <span class="" style="color: rgb(12, 199, 12);">+{{x.percentage}}</span>
+                              </li>
+                              <li class="item py-2">
+                                <span>How much shares you want to buy</span>
+                               <div class="input-control" style="display: flex;align-items: center;">$<input type="number" min="{{x.min}}" max="{{x.max}}" name="amount" style="border-radius: 5px;"></div>
+                            </li>
+                              <li class="item py-2">
+                              <!-- <input type="hidden" name="amount" value="{{x.amount}}"> -->
+                              <input type="hidden" name="a_id" value="{{x.id}}">
+                               <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                               <button type="submit" class="cmn-btn2">Trade Now</button>
+                              </li>
+                          </ul>
+                          <!-- <div class="modal-footer-text mt-3">
+                              <div class="d-flex justify-content-end gap-3 status-buttons">
+                                  <button type="button" class="cmn-btn2" data-bs-dismiss="modal">Close</button>
+                              </div>
+                          </div> -->
+                      </div>
+                  </div>
+              </div>
+            </div>
+            </form>
+
+
+
+
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

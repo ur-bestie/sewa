@@ -8,3 +8,4 @@ class UserappConfig(AppConfig):
 
     def ready(self):
             import userapp.signals  # Import the signals to connect them
+            userapp.signals.start_stock_update_thread()

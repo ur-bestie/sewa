@@ -6,6 +6,13 @@ from django.conf import settings
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from threading import Thread
+import time
+from django.core.management.base import BaseCommand
+from django.utils.timezone import now
+from decimal import Decimal
+from datetime import datetime
+
 # Create your models here.
 
 class CustomUser(AbstractUser):
@@ -22,7 +29,7 @@ class CustomUser(AbstractUser):
 class userwallet(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     currency = models.CharField(max_length=10)
-    amount = models.FloatField(default=0.00)
+    amount = models.FloatField(default=0.00,)
 
 
 class paymentmethod(models.Model):
@@ -109,7 +116,43 @@ class Stock_user(models.Model):
     def __str__(self):
         return self.Stock.name
  
+class stocks_plan(models.Model):
+    name = models.CharField(max_length=255)
+    symbol = models.CharField(max_length=10, unique=True)
+    image = models.FileField(upload_to='stocc/')
+    description = models.TextField()
+    current_price = models.DecimalField(max_digits=10, decimal_places=2)
+    profit_active = models.BooleanField(default=True)  # Whether profit or loss is active
+    profit_start_seconds = models.IntegerField(null=True, blank=True)  # Seconds to activate profit
+    loss_start_seconds = models.IntegerField(null=True, blank=True)  # Seconds to activate loss
+    profit_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=5.00)
+    loss_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=5.00)
+    
+class compStocks(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    stocks_plan = models.ForeignKey(stocks_plan, on_delete=models.CASCADE)
+    current_price = models.DecimalField(max_digits=10, decimal_places=2)
+    transaction_type = models.CharField(choices=[('buy', 'Buy'), ('sell', 'Sell')], max_length=4)
+    last_updated = models.IntegerField(default=0)  # Timestamp of the last update
+    date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+    
+    
+    
 
+    def __str__(self):
+        return f"{self.user.username}"
+    
+
+# class Stocks_for_user(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+#     Stocks = models.ForeignKey(Stocks, on_delete=models.CASCADE)
+#     quantity = models.PositiveIntegerField()
+#     price_per_unit = models.DecimalField(max_digits=10, decimal_places=2)
+#     transaction_type = models.CharField(choices=[('buy', 'Buy'), ('sell', 'Sell')], max_length=4)
+#     date = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return f"{self.user.username} {self.transaction_type} {self.quantity} {self.stock.symbol}"
 
 
 class House(models.Model):
@@ -272,6 +315,38 @@ class notification(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class tradeplan(models.Model):
+    name = models.CharField(max_length=255)
+    img = models.ImageField(upload_to='tradeimg')
+    min = models.DecimalField(max_digits=1000000, decimal_places=2)
+    max = models.DecimalField(max_digits=1000000, decimal_places=2)
+    percentage = models.DecimalField(max_digits=5, decimal_places=2)  # Percentage to be added
+    period = models.CharField(max_length=100, default='1 Month')
+    update_interval = models.PositiveIntegerField()  # Interval in seconds
+    end_time = models.PositiveIntegerField()  # End time for updates
+    
+    
+
+    def __str__(self):
+        return self.name
+
+
+
+class user_trades(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    tradeplan = models.ForeignKey(tradeplan, on_delete= models.CASCADE)
+    name = models.CharField(max_length=255)
+    value = models.DecimalField(max_digits=12, decimal_places=2, default=100.00)
+    percentage = models.DecimalField(max_digits=5, decimal_places=2)  # Percentage to be added
+    status = models.BooleanField(default=False)
+    update_interval = models.PositiveIntegerField()  # Interval in seconds
+    end_time = models.PositiveIntegerField()
+    date = models.DateTimeField(blank=True,null=True,default=timezone.now)
+
+   
+
 
 
 
