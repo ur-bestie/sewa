@@ -84,8 +84,8 @@ class assetbuy(models.Model):
 class Stock(models.Model):
     image = models.FileField(upload_to='stocks/')
     name = models.CharField(max_length=100)
-    initial_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    current_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    initial_balance = models.DecimalField(max_digits=50, decimal_places=2, default=0)
+    current_balance = models.DecimalField(max_digits=50, decimal_places=2, default=0)
     percentage_increase = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     percentage_decrease = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     increase_interval = models.PositiveIntegerField(default=10)  # Interval in seconds
@@ -108,8 +108,8 @@ class Stock(models.Model):
 class Stock_user(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     Stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
-    initial_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    current_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    initial_balance = models.DecimalField(max_digits=50, decimal_places=2, default=0)
+    current_balance = models.DecimalField(max_digits=50, decimal_places=2, default=0)
     running = models.BooleanField(default=True)  # To control start/stop of stock
     date = models.DateTimeField(blank=True,null=True,default=timezone.now)
 
@@ -121,7 +121,7 @@ class stocks_plan(models.Model):
     symbol = models.CharField(max_length=10, unique=True)
     image = models.FileField(upload_to='stocc/')
     description = models.TextField()
-    current_price = models.DecimalField(max_digits=10, decimal_places=2)
+    current_price = models.DecimalField(max_digits=50, decimal_places=2)
     profit_active = models.BooleanField(default=True)  # Whether profit or loss is active
     profit_start_seconds = models.IntegerField(null=True, blank=True)  # Seconds to activate profit
     loss_start_seconds = models.IntegerField(null=True, blank=True)  # Seconds to activate loss
@@ -131,7 +131,7 @@ class stocks_plan(models.Model):
 class compStocks(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     stocks_plan = models.ForeignKey(stocks_plan, on_delete=models.CASCADE)
-    current_price = models.DecimalField(max_digits=10, decimal_places=2)
+    current_price = models.DecimalField(max_digits=50, decimal_places=2)
     transaction_type = models.CharField(choices=[('buy', 'Buy'), ('sell', 'Sell')], max_length=4)
     last_updated = models.IntegerField(default=0)  # Timestamp of the last update
     date = models.DateTimeField(blank=True,null=True,default=timezone.now)
@@ -147,7 +147,7 @@ class compStocks(models.Model):
 #     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
 #     Stocks = models.ForeignKey(Stocks, on_delete=models.CASCADE)
 #     quantity = models.PositiveIntegerField()
-#     price_per_unit = models.DecimalField(max_digits=10, decimal_places=2)
+#     price_per_unit = models.DecimalField(max_digits=50, decimal_places=2)
 #     transaction_type = models.CharField(choices=[('buy', 'Buy'), ('sell', 'Sell')], max_length=4)
 #     date = models.DateTimeField(auto_now_add=True)
 
@@ -320,8 +320,8 @@ class notification(models.Model):
 class tradeplan(models.Model):
     name = models.CharField(max_length=255)
     img = models.ImageField(upload_to='tradeimg')
-    min = models.DecimalField(max_digits=1000000, decimal_places=2)
-    max = models.DecimalField(max_digits=1000000, decimal_places=2)
+    min = models.DecimalField(max_digits=50, decimal_places=2)
+    max = models.DecimalField(max_digits=50, decimal_places=2)
     percentage = models.DecimalField(max_digits=5, decimal_places=2)  # Percentage to be added
     period = models.CharField(max_length=100, default='1 Month')
     update_interval = models.PositiveIntegerField()  # Interval in seconds
